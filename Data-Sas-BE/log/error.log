@@ -1,0 +1,229 @@
+{"level":"error","message":"Error Occur in Business Watch Save Data : This email already exists Please use an alternate email ","service":"dataSaas-service","timestamp":"2021-11-11 02:31:13"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-16 20:52:47"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-16 21:48:24"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-16 21:49:05"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-16 21:52:12"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-16 21:52:13"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-16 21:52:29"}
+{"level":"error","message":"Error Occur in User Login : Login credentials are invalid ","service":"dataSaas-service","timestamp":"2021-11-17 19:25:19"}
+{"level":"error","message":"Error Occur in Get user info : TypeError: sequelize.query is not a function ","service":"dataSaas-service","timestamp":"2021-11-17 19:25:53"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3309 ","service":"dataSaas-service","timestamp":"2022-01-17 23:51:32"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3309 ","service":"dataSaas-service","timestamp":"2022-01-17 23:51:51"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'company_id' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-17 23:53:44"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'company_id' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-17 23:57:42"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'company_id' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-17 23:58:51"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: limit is not defined ","service":"dataSaas-service","timestamp":"2022-01-18 00:29:47"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: limit is not defined ","service":"dataSaas-service","timestamp":"2022-01-18 00:30:38"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Undeclared variable: NaN ","service":"dataSaas-service","timestamp":"2022-01-18 00:39:10"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeForeignKeyConstraintError: Cannot add or update a child row: a foreign key constraint fails (`datasaas`.`business_watches`, CONSTRAINT `business_watches_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)) ","service":"dataSaas-service","timestamp":"2022-01-18 02:20:39"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'create' of undefined ","service":"dataSaas-service","timestamp":"2022-01-19 01:03:55"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'create' of undefined ","service":"dataSaas-service","timestamp":"2022-01-19 01:06:19"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:47:14"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:47:54"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:48:55"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:50:07"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:50:37"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:50:48"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:52:14"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: page is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:54:25"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: page is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:54:27"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: page is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:54:34"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: page is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:54:36"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: per_page is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:56:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: per_page is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 01:57:16"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeEagerLoadingError: director_watch is not associated to officer! ","service":"dataSaas-service","timestamp":"2022-01-20 16:28:12"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeEagerLoadingError: director_watch is not associated to officer! ","service":"dataSaas-service","timestamp":"2022-01-20 16:30:08"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: helper.businessWatchSingleData is not a function ","service":"dataSaas-service","timestamp":"2022-01-20 16:38:12"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: helper.businessWatchSingleData is not a function ","service":"dataSaas-service","timestamp":"2022-01-20 16:38:23"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-20 20:18:00"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-20 20:19:56"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-20 20:38:41"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-20 23:55:33"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-20 23:58:57"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 02:57:31"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'count' of undefined ","service":"dataSaas-service","timestamp":"2022-01-24 02:58:10"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 02:59:47"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:00:11"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:02:48"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:02:59"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:03:21"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:05:10"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:05:59"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:07:00"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:07:37"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:08:12"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:09:07"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:09:49"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 03:10:17"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'findAll' of undefined ","service":"dataSaas-service","timestamp":"2022-01-24 03:42:28"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: helper.setDirectorMonitorData is not a function ","service":"dataSaas-service","timestamp":"2022-01-24 03:44:33"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'findAll' of undefined ","service":"dataSaas-service","timestamp":"2022-01-24 03:51:07"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'findAll' of undefined ","service":"dataSaas-service","timestamp":"2022-01-24 03:51:29"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'findAll' of undefined ","service":"dataSaas-service","timestamp":"2022-01-24 03:52:35"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeConnectionError: connect ETIMEDOUT ","service":"dataSaas-service","timestamp":"2022-01-24 04:03:35"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-24 04:03:58"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-24 04:04:09"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-24 04:04:14"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: officer_id is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 04:15:14"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeForeignKeyConstraintError: Cannot add or update a child row: a foreign key constraint fails (`datasaas`.`business_watches`, CONSTRAINT `business_watches_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`)) ","service":"dataSaas-service","timestamp":"2022-01-24 04:19:30"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:08:55"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:08:59"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:10:53"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:11:54"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:13:04"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:13:23"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:13:27"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:13:46"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:15:17"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:28:56"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:32:12"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:32:51"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 16:49:24"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'error' of undefined ","service":"dataSaas-service","timestamp":"2022-01-24 16:49:37"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: model.director_watch.delete is not a function ","service":"dataSaas-service","timestamp":"2022-01-24 17:02:55"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: model.director_watch.delete is not a function ","service":"dataSaas-service","timestamp":"2022-01-24 17:05:37"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-01-24 17:42:10"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeConnectionError: connect ETIMEDOUT ","service":"dataSaas-service","timestamp":"2022-01-24 20:18:14"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-26 01:20:28"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: undefined } ","service":"dataSaas-service","timestamp":"2022-01-26 01:21:08"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: undefined } ","service":"dataSaas-service","timestamp":"2022-01-26 01:21:53"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-26 01:22:19"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-26 01:22:55"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeEagerLoadingError: business_watch is not associated to company! ","service":"dataSaas-service","timestamp":"2022-01-26 01:40:17"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeEagerLoadingError: business_watch is not associated to company! ","service":"dataSaas-service","timestamp":"2022-01-26 01:40:37"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'business_watches.companyId' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-26 01:49:11"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'business_watches.companyId' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-26 01:52:43"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-26 01:58:35"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-26 01:58:58"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'companyId' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-26 01:59:16"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Include unexpected. Element has to be either a Model, an Association or an object. ","service":"dataSaas-service","timestamp":"2022-01-26 02:02:34"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: Invalid value { user_id: '7' } ","service":"dataSaas-service","timestamp":"2022-01-26 02:02:51"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'business_watches.companyId' in 'field list' ","service":"dataSaas-service","timestamp":"2022-01-26 02:11:43"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'director_watches.b_watch_status' in 'on clause' ","service":"dataSaas-service","timestamp":"2022-01-26 02:49:30"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'director_watches.b_watch_status' in 'on clause' ","service":"dataSaas-service","timestamp":"2022-01-26 02:52:36"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-26 03:39:02"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-26 03:39:47"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-26 03:40:24"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeHostNotFoundError: getaddrinfo ENOTFOUND datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com ","service":"dataSaas-service","timestamp":"2022-01-26 03:54:35"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Table 'datasaas.compines_officals' doesn't exist ","service":"dataSaas-service","timestamp":"2022-02-08 11:00:23"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Table 'datasaas.compines_officals' doesn't exist ","service":"dataSaas-service","timestamp":"2022-02-08 11:10:04"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Table 'datasaas.compines_officals' doesn't exist ","service":"dataSaas-service","timestamp":"2022-02-09 01:44:24"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Table 'datasaas.compines_officals' doesn't exist ","service":"dataSaas-service","timestamp":"2022-02-09 01:55:14"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Table 'datasaas.compines_officals' doesn't exist ","service":"dataSaas-service","timestamp":"2022-02-09 20:37:10"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:30:02"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:32:10"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:34:27"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:42:39"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:45:04"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:45:46"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:46:34"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:46:55"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:48:23"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: atob is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:48:43"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:58:14"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:58:17"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-10 23:59:25"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-11 00:10:29"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-11 00:11:25"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-11 00:14:48"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-11 01:17:50"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-11 02:12:47"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-11 02:13:32"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-11 02:13:47"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-11 02:14:10"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-11 02:14:34"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-11 02:15:04"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:32:09"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:32:09"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:33:22"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:33:22"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:34:37"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:34:38"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:35:21"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:35:22"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:37:04"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:37:05"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:38:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:38:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:38:55"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : Error: WHERE parameter \"user_id\" has invalid \"undefined\" value ","service":"dataSaas-service","timestamp":"2022-02-13 23:38:55"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:40:24"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-13 23:40:25"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:41:30"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeDatabaseError: Unknown column 'NaN' in 'on clause' ","service":"dataSaas-service","timestamp":"2022-02-13 23:41:31"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:45:37"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-13 23:45:38"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:46:15"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SyntaxError: Unexpected token o in JSON at position 1 ","service":"dataSaas-service","timestamp":"2022-02-13 23:46:16"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:46:58"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SyntaxError: Unexpected token o in JSON at position 1 ","service":"dataSaas-service","timestamp":"2022-02-13 23:46:58"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:47:21"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-13 23:47:22"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:48:04"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:49:09"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:53:30"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:54:42"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-13 23:55:11"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-13 23:57:46"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-13 23:57:58"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-13 23:58:12"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:08:54"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:09:16"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:11:11"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:11:33"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeConnectionError: connect ETIMEDOUT ","service":"dataSaas-service","timestamp":"2022-02-14 00:11:50"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:11:50"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:12:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:17:03"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:17:44"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 00:19:03"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 00:35:05"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 00:36:01"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 00:36:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'id' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 00:36:32"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'length' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 01:14:07"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:15:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'length' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 01:16:42"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'length' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 01:17:00"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'length' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 01:17:33"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : TypeError: Cannot read property 'length' of undefined ","service":"dataSaas-service","timestamp":"2022-02-14 01:17:43"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:25:38"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:27:33"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:27:59"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:33:56"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:34:32"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:34:37"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:39:42"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-02-14 01:40:47"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:39:54"}
+{"level":"error","message":"Error Occur in User Login : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:41:49"}
+{"level":"error","message":"Error Occur in User Login : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:41:51"}
+{"level":"error","message":"Error Occur in User Login : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:42:40"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:43:33"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:47:37"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:48:28"}
+{"level":"error","message":"Error Occur in User Login : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:53:10"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:54:01"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:54:14"}
+{"level":"error","message":"Error Occur in User Change Password : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-03-03 00:56:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : SequelizeConnectionError: connect ETIMEDOUT ","service":"dataSaas-service","timestamp":"2022-03-04 03:02:21"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: n_company_name is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 12:03:17"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: n_company_name is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 12:22:00"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: n_company_name is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 12:26:51"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: n_company_name is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 12:28:19"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: n_company_name is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 12:28:54"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 12:59:31"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:00:02"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: objData is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:00:23"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:01:58"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:03:21"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:03:43"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:04:11"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : ReferenceError: data is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 13:04:20"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 14:18:11"}
+{"level":"error","message":"Error Occur in Get Business Watch Data : ReferenceError: error is not defined ","service":"dataSaas-service","timestamp":"2022-03-04 14:19:06"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'user_id' of undefined ","service":"dataSaas-service","timestamp":"2022-03-09 01:05:49"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: Cannot read property 'user_id' of undefined ","service":"dataSaas-service","timestamp":"2022-03-10 01:05:39"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: dao.getComapnyNotes is not a function ","service":"dataSaas-service","timestamp":"2022-03-10 01:08:13"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: dao.getComapnyNotes is not a function ","service":"dataSaas-service","timestamp":"2022-03-10 01:08:35"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client ","service":"dataSaas-service","timestamp":"2022-03-16 13:32:08"}

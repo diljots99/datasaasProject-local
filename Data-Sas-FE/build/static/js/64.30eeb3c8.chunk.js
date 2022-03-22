@@ -1,0 +1,2 @@
+(this.webpackJsonpdatasaas=this.webpackJsonpdatasaas||[]).push([[64],{935:function(s,t,a){"use strict";a.r(t),a.d(t,"default",(function(){return e}));a(0);var n=a(2);function e(){return Object(n.jsx)("div",{children:Object(n.jsx)("h1",{children:"Yearly Insights"})})}}}]);
+//# sourceMappingURL=64.30eeb3c8.chunk.js.map

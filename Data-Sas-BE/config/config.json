@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "Mechlin_123",
+    "database": "datasaas",
+    "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "admin",
+    "password": "Mechlin_123",
+    "database": "datasaas",
+    "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "admin",
+    "password": "Mechlin_123",
+    "database": "datasaas",
+    "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  }
+}

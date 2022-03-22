@@ -1,0 +1,31 @@
+/* Dashboard Search Bars' CSS */
+.search {
+    border-radius: 10px;
+}
+.dataResult {
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 100%;
+    background-color: white;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.dataResult::-webkit-scrollbar {
+    display: none;
+}
+.dataItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+    font-weight: 300;
+    font-size: smaller;
+    padding: 10px 0px 10px 15px;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    background-color: lightgrey;
+    color: black;
+}
