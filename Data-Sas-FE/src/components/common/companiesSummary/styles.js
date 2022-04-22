@@ -32,5 +32,9 @@ export const useStyles = makeStyles({
         lineHeight:"39px",
         fontSize:"26px"
         
+      },
+      searchcontainer:{
+        display: "flex",
+    justifyContent: "flex-end"
       }
 })

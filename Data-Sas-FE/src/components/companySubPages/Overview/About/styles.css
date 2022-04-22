@@ -1,0 +1,37 @@
+.main{
+    width: 1200px;
+    font-size: medium;
+}
+.mains{
+    width: 1200px;
+    margin-top: 25px;
+}
+.city{
+    margin-left: 264px;
+}
+.accfield{
+    margin-left: 335px;
+}
+.mainCard{
+    margin: "0 0 20px";
+    
+  }
+.directorCard{
+    justify-content: space-between;
+    margin-top: 15px;
+    width: "1183px";
+  }
+  .mainCompany{
+    width: "50%";
+  }
+  .line{
+    border-top: 1px solid rgb(197 187 187 / 87%);
+    width: 535px;
+    position: absolute;
+    margin-top: 10px;
+  }
+
+ .recharts-surface{
+   height: 100%;
+   padding-right: 10px;
+ } 

@@ -1,5 +1,4 @@
-import React from 'react'
-import './styles.css'
+import React from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -24,279 +23,316 @@ import Box from "@material-ui/core/Box";
 // };
 
 export default function index() {
+  const CardOne = ({ title, value1, value2 }) => {
+    return (
+      <Paper
+        style={{
+          borderRadius: "10px",
+          width: "300px",
+          padding: "5px 10px",
+          margin: "5px",
+        }}
+      >
+        <Grid container style={{ justifyContent: "space-between" }}>
+          <Grid item style={{ width: "50%" }}>
+            <Typography display="inline" variant="h5">
+              {title}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography
+              display="inline"
+              variant="h6"
+              style={{ color: "darkturquoise" }}
+            >
+              See More
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          style={{ justifyContent: "space-between", marginTop: "5px" }}
+        >
+          <Grid item style={{ width: "50%" }}>
+            {value1 && (
+              <Typography
+                display="inline"
+                variant="h6"
+                style={{ color: "gray" }}
+              >
+                {value1}
+              </Typography>
+            )}
+          </Grid>
+          <Grid item style={{ width: "50%" }}>
+            {value2 && (
+              <Typography
+                display="inline"
+                variant="h6"
+                style={{ color: "gray" }}
+              >
+                {value2}
+              </Typography>
+            )}
+          </Grid>
+        </Grid>
+      </Paper>
+    );
+  };
+
+  const CardTwo = ({ color, title, value1, value2 }) => {
+    return (
+      <Paper
+        style={{
+          backgroundColor: `${color}`,
+          borderRadius: "10px",
+          width: "300px",
+        }}
+      >
+        <Box p={3}>
+          <Grid container style={{ justifyContent: "space-between" }}>
+            <Grid item>
+              <Typography
+                display="inline"
+                variant="h6"
+                style={{ color: "white" }}
+              >
+                {title}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography
+                display="inline"
+                variant="h5"
+                style={{ color: "white" }}
+              >
+                25
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container style={{ justifyContent: "space-between" }}>
+            <Grid item>
+              <Typography
+                display="inline"
+                variant="h5"
+                style={{ color: "white" }}
+              >
+                {value1}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography
+                display="inline"
+                variant="h6"
+                style={{ color: "white" }}
+              >
+                {value2}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
+      </Paper>
+    );
+  };
+
   return (
-    <Container>
-      <Typography variant='h5' style={{ color: "#8a8fa7" }}>Risk Summary</Typography>
+    <Container style={{ width: "1000px" }}>
+      <Typography variant="h5" style={{ color: "#8a8fa7" }}>
+        Risk Summary
+      </Typography>
       {/* first 13 boxes */}
+
       {/* 1/3 */}
-      <Grid container spacing={2} className="mains" >
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3}>
-              <Typography display="inline" variant="h5">Safe Alert</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "162px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No</Typography>
-
-            </Box>
-          </Paper>
-
+      <Grid container spacing={2}>
+        <Grid item lg={4}>
+          <CardOne title="Safe Alert" value1="No" />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }} >
-            <Box p={3} >
-              <Typography display="inline" variant="h5">CJJ'S</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "206px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No</Typography>
-
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardOne title="CJJ'S" value1="No" />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Overdue Account</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "90px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No Overdue</Typography>
-
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardOne title="Overdue Account" value1="No Overdue" />
         </Grid>
       </Grid>
+
       {/* 2/3 */}
-      <Grid container spacing={2} className="mains" >
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3}>
-              <Typography display="inline" variant="h5">Last Account Field</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "76px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>31/07/2020 (40 Days Before)</Typography>
-
-            </Box>
-          </Paper>
-
+      <Grid container spacing={2}>
+        <Grid item lg={4}>
+          <CardOne
+            title="Last Account Field"
+            value1="31/07/2020 (40 Days Before)"
+          />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }} >
-            <Box p={3} >
-              <Typography display="inline" variant="h6">Changed Director in 3 month</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "24px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No Changes</Typography>
-
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardOne title="Changed Director in 3 month" value1="No Changes" />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Disqualified Directors</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "44px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>0</Typography>
-
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardOne title="Disqualified Directors" value1="0" />
         </Grid>
       </Grid>
 
       {/* 3/3 */}
-      <Grid container spacing={2} className="mains" >
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Furlough</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "170px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>Not Avaliable</Typography>
-
-            </Box>
-          </Paper>
-
+      <Grid container spacing={2}>
+        <Grid item lg={4}>
+          <CardOne title="Furlough" value1="Not Avaliable" />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Corporate Land</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "107px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No</Typography>
-
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardOne title="Corporate Land" value1="No" />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Bad Debts</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "158px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No. of Bad Debts:00</Typography>
-              <Typography display="inline" variant="h6" style={{ color: "gray",marginLeft:"34px" }}>Total Amount:00 </Typography>
-
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardOne
+            title="Corporate Land"
+            value1="No. of Bad Debts:00"
+            value2="Total Amount:00"
+          />
         </Grid>
       </Grid>
 
       {/* 4/3 */}
-      <Grid container spacing={2} className="mains" >
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Creditors</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "169px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>No of Creditors:00</Typography>
-              <Typography display="inline" variant="h6" style={{ color: "gray",marginLeft:"49px" }}>Total Amount:00 </Typography>
-
-            </Box>
-          </Paper>
-
+      <Grid container spacing={2}>
+        <Grid item lg={4}>
+          <CardOne
+            title="Creditors"
+            value1="No of Creditors:00"
+            value2="Total Amount:00"
+          />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Risk Assessment</Typography>
+        <Grid item lg={4}>
+          <Paper
+            style={{
+              borderRadius: "10px",
+              width: "300px",
+              padding: "5px 10px",
+              margin: "5px",
+            }}
+          >
+            <Box p={3}>
+              <Typography display="inline" variant="h5">
+                Risk Assessment
+              </Typography>
               <br />
               {/* <ColorPalette palette={palette} /> */}
-              <input 
-              type="color" 
-              value="#e66465"
-              style={{ width:"340px", height:"10px" }}
-              >
-              </input><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>Very Low</Typography>
-              <Typography display="inline" variant="h6" style={{ color: "gray",marginLeft:"38px" }}>Low</Typography>
-              <Typography display="inline" variant="h6" style={{ color: "gray",marginLeft:"37px" }}>Modrate</Typography>
-              <Typography display="inline" variant="h6" style={{ color: "gray",marginLeft:"37px" }}>High</Typography>
-
-            </Box>
-          </Paper>
-
-        </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Ultimate Parent Company</Typography>
+              <input
+                type="color"
+                value="#e66465"
+                style={{ width: "250px", height: "10px" }}
+              ></input>
               <br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>The University of Hertfordshire</Typography>
 
+              <Grid container justify="space-between">
+                <Grid item >
+                  <Typography
+                    variant="text"
+                    style={{ color: "gray"  }}
+                  >
+                    Very Low
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <Typography                 
+                  variant="text"
+                    style={{ color: "gray" }}
+                  >
+                    Low
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <Typography
+                    variant="text"
+                    style={{ color: "gray" }}
+                  >
+                    Modrate
+                  </Typography>
+                </Grid>
+                <Grid item >
+                  <Typography
+                    variant="text"
+                    style={{ color: "gray" }}
+                  >
+                    High
+                  </Typography>
+                </Grid>
+              </Grid>
             </Box>
           </Paper>
-
+        </Grid>
+        <Grid item lg={4}>
+          <CardOne
+            title="Ultimate Parent Company"
+            value1="The University of Hertfordshire"
+          />
         </Grid>
       </Grid>
 
       {/* 13 */}
-      <Grid container spacing={2} className="mains" >
-      <Grid item lg={4} >
-
-        <Paper style={{ borderRadius: "10px" }}>
-          <Box p={3} >
-            <Typography display="inline" variant="h5">Changes Outstanding</Typography>
-              <Typography display="inline" variant="h6" style={{ marginLeft: "52px", color: "darkturquoise" }}>See More</Typography><br />
-              <Typography display="inline" variant="h6" style={{ color: "gray" }}>Abc Banks<br/>Last Update on 19/08/2020</Typography>
-              
-          </Box>
-        </Paper>
-      </Grid>
+      <Grid container spacing={2}>
+        <Grid item lg={4}>
+          <CardOne
+            title="Changes Outstanding"
+            value1=" Abc Banks"
+            value2="Last Update on 19/08/2020"
+          />
+        </Grid>
       </Grid>
 
       {/* second 3 boxess */}
-      <Grid container spacing={2} className="mains" >
-        <Grid item lg={4} >
-
-          <Paper style={{ backgroundColor: "cornflowerblue", borderRadius: "10px" }}>
-            <Box p={3}>
-              <Typography display="inline" variant="h5">Turnover</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "227px" }}>25</Typography><br />
-              <Typography display="inline" variant="h5">$3884949</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "150px" }}>$3384949</Typography>
-            </Box>
-          </Paper>
-
+      <Grid container spacing={2}>
+        <Grid item lg={4}>
+          <CardTwo
+            color="cornflowerblue"
+            title="Turnover"
+            value1="$3884949"
+            value2="$3384949"
+          />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ backgroundColor: "gold", borderRadius: "10px" }} >
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Total Assets</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "195px" }}>25</Typography><br />
-              <Typography display="inline" variant="h5">$3884949</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "150px" }}>$3384949</Typography>
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardTwo
+            color="gold"
+            title="Total Assets"
+            value1="$3884949"
+            value2="$3884949"
+          />
         </Grid>
-        <Grid item lg={4} >
-
-          <Paper style={{ backgroundColor: "darkturquoise", borderRadius: "10px" }}>
-            <Box p={3} >
-              <Typography display="inline" variant="h5">Total Liabilities</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "159px" }}>25</Typography><br />
-              <Typography display="inline" variant="h5">$3884949</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "122px" }}>$333884949</Typography>
-            </Box>
-          </Paper>
-
+        <Grid item lg={4}>
+          <CardTwo
+            color="darkturquoise"
+            title="Total Liabilities"
+            value1="$3884949"
+            value2="$3884949"
+          />
         </Grid>
       </Grid>
 
       {/*forth 3 boxes */}
-      <Grid container spacing={2} className="mains">
+      <Grid container spacing={2}>
         <Grid item lg={4}>
-
-          <Paper style={{ backgroundColor: "lightsalmon", borderRadius: "10px" }}>
-            <Box p={3}>
-              <Typography display="inline" variant="h5">Net Worth</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "212px" }}>25</Typography><br />
-              <Typography display="inline" variant="h5">$3884949</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "144px" }}>$3384949</Typography>
-            </Box>
-          </Paper>
-
+          <CardTwo
+            color="lightsalmon"
+            title="Net Worth"
+            value1="$3884949"
+            value2="$3884949"
+          />
         </Grid>
         <Grid item lg={4}>
-
-          <Paper style={{ backgroundColor: "crimson", borderRadius: "10px" }}>
-            <Box p={3}>
-              <Typography display="inline" variant="h5">Profit Before Tax</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "144px" }}>25</Typography><br />
-              <Typography display="inline" variant="h5">$3884949</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "144px" }}>$3384949</Typography>
-            </Box>
-          </Paper>
-
+          <CardTwo
+            color="crimson"
+            title="Profit Before Tax"
+            value1="$3884949"
+            value2="$3884949"
+          />
         </Grid>
         <Grid item lg={4}>
-
-          <Paper style={{ backgroundColor: "darkgreen", borderRadius: "10px" }}>
-            <Box p={3}>
-              <Typography display="inline" variant="h5">EBITDA</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "223px" }}>25</Typography><br />
-              <Typography display="inline" variant="h5">$3884949</Typography>
-              <Typography display="inline" variant="h5" style={{ marginLeft: "122px" }}>$333884949</Typography>
-            </Box>
-          </Paper>
-
+          <CardTwo
+            color="darkgreen"
+            title="EBITDA"
+            value1="$3884949"
+            value2="$3884949"
+          />
         </Grid>
       </Grid>
 
       {/* third 2 div */}
-
     </Container>
-  )
+  );
 }
-

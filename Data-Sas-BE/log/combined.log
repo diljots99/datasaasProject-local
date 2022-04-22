@@ -1348,3 +1348,8 @@
 {"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-03-16 13:54:05"}
 {"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-03-16 13:54:25"}
 {"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-03-16 13:54:32"}
+{"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-01 13:51:28"}
+{"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeDatabaseError: Unknown column 'uid' in 'field list' ","service":"dataSaas-service","timestamp":"2022-04-01 14:46:51"}
+{"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-01 14:47:51"}
+{"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-07 23:38:56"}
+{"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-07 23:43:23"}

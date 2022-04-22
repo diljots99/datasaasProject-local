@@ -72,7 +72,7 @@ console.log("TTTt",data);
 
   console.log("pageCount", pageCount, pageIndex);
   return (
-    <div className="main">
+    <div className="main" style={{display:"contents"}}>
       <table class="role-header" id="table-to-xls" {...getTableProps()}>
         {/* Table Head */}
         {headerGroups.map((headerGroup) => (

@@ -1,0 +1,69 @@
+.containerDelete {
+    flex-direction: column;
+    position: fixed;
+    background-color: #ffffff;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    border-radius: 1rem;
+    z-index: 100000000; /* Higher than the z-index of the background */
+}
+
+.containerHeader {
+    display: flex;
+    color: rgb(0, 0, 0);
+    margin: 0.5rem 0 0.5rem;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 2rem;
+    padding: 0.4rem 2rem;
+    margin-top: 20px;
+}
+
+hr.solid {
+    border-top: 0.5px solid #bbb;
+}
+
+.confirmation-text {
+    display: flex;
+    color: rgb(0, 0, 0);
+    margin: 0 30px;
+    text-align: left;
+    line-height: 2rem;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+}
+
+.button-container {
+    display: flex;
+    margin-top: auto;
+    justify-content: space-between;
+}
+
+.confirmation-button,
+.cancel-button {
+    display: inline-flex;
+    background-color: #ff0047;
+    color: white;
+    padding: 0.4rem 1.4rem;
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    margin: 20px 20px 35px 50px;
+}
+
+.cancel-button {
+    background-color: #999999;
+    margin: 20px 50px 35px 50px;
+}
+
+.confirmation-button:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #b2b2b2;
+    cursor: pointer;
+}

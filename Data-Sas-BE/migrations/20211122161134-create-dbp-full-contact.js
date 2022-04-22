@@ -8,11 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      uuid: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
-        unique:true
-      },
       dbpf_id: {
         type: Sequelize.INTEGER,
         unique:true
@@ -23,9 +18,7 @@ module.exports = {
       company_id: {
         type: Sequelize.INTEGER,
         foreignKey:true,
-        references: { model: 'compines_offical', key: 'id' },
-        onUpdate: 'NO ACTION',
-        onDelete: 'NO ACTION',
+        references: { model: 'compines_officals', key: 'id' },
       },
       chn: {
         type: Sequelize.STRING,
@@ -38,11 +31,7 @@ module.exports = {
         // references: { model: 'compines_offical', key: 'dbe_id' }
       },
       dbp_officers_id: {
-        type: Sequelize.INTEGER,
-        foreignKey:true,
-        references: { model: 'officers', key: 'id' },
-        onUpdate: 'NO ACTION',
-        onDelete: 'NO ACTION',
+        type: Sequelize.INTEGER
       },
       dbp_psc_id: {
         type: Sequelize.INTEGER,
@@ -66,7 +55,7 @@ module.exports = {
       first_name: {
         type: Sequelize.STRING
       },
-      midlle_name: {
+      middle_name: {
         type: Sequelize.STRING
       },
       last_name: {
@@ -120,7 +109,7 @@ module.exports = {
       officers_kind: {
         type: Sequelize.STRING
       },
-      psc_kin: {
+      psc_kind: {
         type: Sequelize.STRING
       },
       country: {
@@ -141,7 +130,7 @@ module.exports = {
       nationality: {
         type: Sequelize.STRING
       },
-      officers_noted_on: {
+      officers_notified_on: {
         type: Sequelize.STRING
       },
       psc_notified_on: {
@@ -174,13 +163,13 @@ module.exports = {
       no_recorded_mails: {
         type: Sequelize.STRING
       },
-      no_recoreded_phones: {
+      no_recorded_phones: {
         type: Sequelize.STRING
       },
       job_role_level: {
         type: Sequelize.STRING
       },
-      occupation_nature_of_job: {
+      occupation__nature_of_job: {
         type: Sequelize.STRING
       },
       website: {

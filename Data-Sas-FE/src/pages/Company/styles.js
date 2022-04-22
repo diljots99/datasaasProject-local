@@ -13,6 +13,7 @@ export const useStyles = makeStyles({
   mainContainer: {
     display: "block",
     padding: "10px 25px!important",
+    overflowX: "scroll"
   },
   companyInfo: {
     flexDirection: "column",

@@ -139,7 +139,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     
     active: {
-        color: "#fff",
+        backgroundColor: "rgb(0 0 0)",
     },
     icon: {
         color: "#8a8fa7",

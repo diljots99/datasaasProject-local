@@ -14,6 +14,7 @@ import { useStyles } from "./styles";
 import { useTable, usePagination } from "react-table";
 import { getdirectorMonitorList } from "../../redux/actions/watchAction";
 import { useDispatch, useSelector } from "react-redux";
+import moment from 'moment';
 
 const Table = ({
   columns,
@@ -38,18 +39,19 @@ const Table = ({
     pageCount,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize  },
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0 , pageSize: 5},
       manualPagination: true,
       pageCount: controlledPageCount,
     },
     usePagination
   );
 
+  console.log(" director page size", pageSize);
   useEffect(() => {
     fetchData({ pageIndex, pageSize });
   }, [fetchData, pageIndex, pageSize]);
@@ -154,7 +156,7 @@ const Table = ({
 
   //console.log("pageCount", pageCount, pageIndex)
   return (
-    <div className="main">
+    <div >
       <table class="role-header" id="table-to-xls" {...getTableProps()}>
         {/* Table Head */}
         {headerGroups.map((headerGroup) => (
@@ -306,6 +308,9 @@ const DirectorWatchMonitor = ({ data }) => {
         Header: "Updated On",
         accessor: "updatedAt",
         width: 200,
+        Cell:({value})=>{
+          return moment(value).format("YYYY/MM/DD")
+        }
       },
       {
         Header: "Notification",

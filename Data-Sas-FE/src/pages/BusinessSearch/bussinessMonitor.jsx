@@ -13,6 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./styles";
 import { useTable, usePagination } from "react-table";
 import { useSelector } from "react-redux";
+import moment from 'moment'
 
 const Table = ({
   columns,
@@ -40,7 +41,7 @@ const Table = ({
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0 , pageSize:5},
       manualPagination: true,
       pageCount: controlledPageCount,
     },
@@ -150,7 +151,7 @@ const Table = ({
   };
 
   return (
-    <div className="main">
+    <div >
       <table class="role-header" id="table-to-xls" {...getTableProps()}>
         {/* Table Head */}
         {headerGroups.map((headerGroup) => (
@@ -312,6 +313,9 @@ const BussinessWatchMonitor = ({ data }) => {
         Header: "Updated On",
         accessor: "updatedAt",
         width: 200,
+        Cell:({value})=>{
+          return moment(value).format("YYYY/MM/DD")
+        }
       },
       {
         Header: "Notification",
@@ -358,7 +362,7 @@ const BussinessWatchMonitor = ({ data }) => {
             style={{ fontWeight: 600 }}
             className={classess.watchHeading}
           >
-            Business Watch
+            Business Watch 
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} className={classess.searchcontainer}>

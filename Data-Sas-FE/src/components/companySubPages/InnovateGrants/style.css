@@ -4,7 +4,7 @@
 }
 .tableWrap {
   display: block;
-  max-width: 915px;
+  /* max-width: 915px; */
   overflow-x: auto;
   margin-bottom: 30px;
 }

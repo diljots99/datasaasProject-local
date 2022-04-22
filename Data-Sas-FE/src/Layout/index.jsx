@@ -44,7 +44,8 @@ import NavBar from "./NavBar";
 import Navigations from "../Routes/Navigations";
 import Footer from "./Footer";
 import ChangePassword from "../components/common/changePassword";
-import { getDirectorList,getCompanyList} from "../redux/actions/watchAction";
+import { getDirectorList,getCompanyList, getDirectorMonitorList, getCompanyMonitorList} from "../redux/actions/watchAction";
+
 
 export default function MiniDrawer() {
   const classes = useStyles();
@@ -63,6 +64,8 @@ export default function MiniDrawer() {
   useEffect(() => {
     dispatch(getDirectorList());
     dispatch(getCompanyList());
+    dispatch(getDirectorMonitorList(userData.id));
+    dispatch(getCompanyMonitorList(userData.id));
     // dispatch(getDirectorMonitorList());
     // dispatch(getCompanyMonitorList());
   }, [])
@@ -269,7 +272,7 @@ export default function MiniDrawer() {
           </h2>
           {/* <Divider /> */}
           <p id="simple-modal-description" className={classes.modelPara}>
-            Hi username. are you sure you want to logout
+            Hi {userData.u_first_name}. are you sure you want to logout
           </p>
           <Grid container className={classes.buttonMain}> 
             <Grid item>

@@ -44,7 +44,7 @@ export const useStyles = makeStyles({
         fontFamily: "Poppins",
         fontStyle: "normal",
         fontWeight: "normal",
-        fontSize: "22px",
+        fontSize: "20px",
         lineHeight: "44px",
         color: "#23273A",
     },

@@ -14,6 +14,7 @@ import { useStyles } from "./styles";
 import { useTable, usePagination } from "react-table";
 import { getDirectorList } from "../../redux/actions/watchAction";
 import { useDispatch, useSelector } from "react-redux";
+import moment from 'moment'
 
 const Table = ({
   columns,
@@ -43,7 +44,7 @@ const Table = ({
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0 , pageSize: 5},
       manualPagination: true,
       pageCount: controlledPageCount,
     },
@@ -154,7 +155,7 @@ const Table = ({
 
   // console.log("pageCount", pageCount, pageIndex)
   return (
-    <div className="main">
+    <div className="main" style={{display:"contents"}}>
       <table class="role-header" id="table-to-xls" {...getTableProps()}>
         {/* Table Head */}
         {headerGroups.map((headerGroup) => (
@@ -303,6 +304,9 @@ const DirectorWatch = () => {
         Header: "Updated On",
         accessor: "updatedAt",
         width: 200,
+        Cell:({value})=>{
+          return moment(value).format("YYYY/MM/DD")
+        }
       },
       {
         Header: "Notification",

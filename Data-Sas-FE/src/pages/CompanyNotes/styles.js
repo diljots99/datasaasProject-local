@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core'
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme)=>({
   main: {
     margin: "40px"
   },
@@ -102,4 +102,53 @@ export const useStyles = makeStyles({
       },
     },
   },
-});
+  
+  model: {
+    top: `50%`,
+    left: `50%`,
+    transform: `translate(-${50}%, -${50}%)`,
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: "30px",
+    boxShadow: theme.shadows[5],
+    padding: "16px 0 24px",
+},
+modelHead: {
+    padding: "0 32px 20px",
+    borderBottom: "2px solid #F1F2F4",
+    fontWeight: "bold",
+    fontFamily: "Poppins",
+    fontSize: "36px",
+    lineHeight: "54px",
+    color: "#000000",
+},
+modelPara: {
+    margin: "20px 0px",
+    fontSize: "25px",
+    color: "#717171",
+    padding: "0 32px",
+    fontWeight: "400",
+    fontFamily: "Poppins",
+    lineHeight: "40px",
+},
+buttonyes:{
+  background: "#ff0047",
+  fontFamily: "Poppins",
+  fontSize: "22px",
+  lineHeight: "44px",
+  fontWeight: "500",
+},
+buttonNo:{
+    background: "#6C757D",
+    fontFamily: "Poppins",
+    fontSize: "22px",
+    lineHeight: "44px",
+    fontWeight: "500",
+  },
+  buttonMain:{
+    padding: "10px 32px",
+    display:"flex",
+    justifyContent:"space-between"
+  },
+}))

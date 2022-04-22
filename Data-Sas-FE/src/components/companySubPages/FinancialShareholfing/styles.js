@@ -25,6 +25,7 @@ export const useStyles = makeStyles({
       },
       filterDropdown:{
        position: "relative",
+       zIndex:"999"
       },
       filterinner:{
         background: "white",

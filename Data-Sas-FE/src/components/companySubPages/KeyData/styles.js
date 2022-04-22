@@ -17,7 +17,7 @@ export const useStyles = makeStyles({
         fontSize:"19px",
       },
       main:{ border: "1px solid #DCD9D9", borderRadius: "10px", marginTop: "10px", marginBottom: "10px" , background: "#fff"},
-      gridItemMain:{ border: "1px solid #DCD9D9", borderRadius: "10px", marginBottom: "10px", background: "#fff" , marginBottom: "10px"},
+      gridItemMain:{ border: "1px solid #DCD9D9", borderRadius: "10px", marginBottom: "10px", background: "#fff" , marginBottom: "10px", width:"100%"},
       cardHeader: {
         padding: "0 20px",
         backgroundColor: " #EDEBEB",

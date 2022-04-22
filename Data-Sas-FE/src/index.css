@@ -8,7 +8,7 @@ body > #root > div {
 }
 .tableWrap {
   display: block;
-  max-width: 915px;
+  /* max-width: 915px; */
   overflow-x: auto;
 }
 .main > h5 {
@@ -221,6 +221,36 @@ table.MuiTable-root tbody tr:first-child {
     margin-left: 5px!important;
     left: -5px!important;
   }
+
+/* for text editor  */
+  .editor{
+    height: 250px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.public-DraftEditor-content{
+    border: 1px solid;
+    height: 150px;
+    padding: 5px;
+    width: 100%;
+    overflow: auto;
+    border-radius: 5px;
+}
+.editor a{
+    color: black;
+    text-decoration: none;
+}
+
+.rdw-remove-wrapper{
+    display: none;
+}
+
+.rdw-image-wrapper{
+    display: none;
+}
+
 @media screen and (max-width: 1023px) {
   .main .row {
     display: block;

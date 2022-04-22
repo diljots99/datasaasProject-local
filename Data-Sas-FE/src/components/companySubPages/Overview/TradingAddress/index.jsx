@@ -1,179 +1,231 @@
-import React from 'react'
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+import React, { useEffect, useState } from "react";
+import { useStyles } from "./styles";
+import {
+    Grid,
+    Typography,
+    Button,
+    InputAdornment,
+    TextField,
+    IconButton,
+} from "@material-ui/core";
+import Table from "./Table";
 import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
+import Checkbox from "@mui/material/Checkbox";
+import DirectorCard from "../../../common/DirectorCard";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationsOffIcon from "@mui/icons-material/NotificationsOff";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    getCompanySpecificDirectorList,
+    getTradingDetail,
+} from "../../../../redux/actions/watchAction";
+import { useParams } from "react-router-dom";
 
-import Pagination from '@mui/material/Pagination';
+const Directors = () => {
+    const classess = useStyles();
+    const [monitor, setMonitor] = useState(false);
 
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+    const dispatch = useDispatch();
+    const { directorList, tradingDetail, companyDetail } = useSelector(
+        (state) => state.watch
+    );
 
+    console.log("companyDetail.id", companyDetail.id);
+    console.log("tradingDetails here 1", tradingDetail);
 
+    useEffect(() => {
+        dispatch(getTradingDetail(companyDetail.id));
+    }, [companyDetail.id]);
 
+    const [tabledata, settableData] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
+    const [pageCount, setPageCount] = React.useState(0);
+    const compSumfetchIdRef = React.useRef(0);
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: "Address",
+                accessor: "address_line",
+            },
+            {
+                Header: "Town/City",
+                accessor: "address_town",
+            },
+            {
+                Header: "Country",
+                accessor: "company_address_country",
+            },
+            {
+                Header: "Region",
+                accessor: "address_region",
+            },
+            // {
+            //     Header: "Secondary Name",
+            //     accessor: "secondary_name",
+            //     Cell: () => {
+            //         return (
+            //             <Grid container alignItems="center">
+            //                 <Grid item> - </Grid>
+            //             </Grid>
+            //         );
+            //     },
+            // },
+            {
+                Header: "Post Code",
+                accessor: "address_post_code",
+            },
+            {
+                Header: "Phone Number",
+                accessor: "phone_number",
+                Cell: () => {
+                    return (
+                        <Grid container alignItems="center">
+                            <Grid item> N/A </Grid>
+                        </Grid>
+                    );
+                },
+            },
+        ],
+        []
+    );
 
+    const fetchData = React.useCallback(
+        ({ pageSize, pageIndex }) => {
+            const fetchId = ++compSumfetchIdRef.current;
+            setLoading(true);
 
-export default function index() {
+            setTimeout(() => {
+                if (fetchId === compSumfetchIdRef.current) {
+                    const startRow = pageSize * pageIndex;
+                    const endRow = startRow + pageSize;
+                    settableData(tradingDetail.slice(startRow, endRow));
+                    setPageCount(Math.ceil(tradingDetail.length / pageSize));
+                    setLoading(false);
+                }
+            }, 1000);
+        },
+        [tradingDetail]
+    );
+
+    const [searchKey, setSearchKey] = useState("");
+    useEffect(() => {
+        if (searchKey) {
+            let re = new RegExp(`${searchKey}`, "gi");
+            let results = tradingDetail.filter((detail) => {
+                return (
+                    (detail.address_line !== null
+                        ? detail.address_line.match(re)
+                        : false) ||
+                    (detail.address_town !== null
+                        ? detail.address_town.match(re)
+                        : false) ||
+                    (detail.company_address_country !== null
+                        ? detail.company_address_country.match(re)
+                        : false) ||
+                    (detail.address_region !== null
+                        ? detail.address_region.match(re)
+                        : false)
+                );
+            });
+
+            settableData(results);
+        } else {
+            settableData(tradingDetail);
+        }
+    }, [searchKey]);
+
     return (
-        <Container>
-            <Grid container spacing={2}  >
-                <Grid item lg={12} style={{ borderRadius: "10px" }} >
+        <>
+            <div>
+                <Typography
+                    variant="h5"
+                    style={{ fontWeight: 600 }}
+                    className={classess.directorsHeading}
+                >
+                    Trading Address
+                </Typography>
 
-                    <Box>
-                        <Grid>
-                            <Typography display="inline" variant="h5" style={{ color: "#8a8fa7", float: "left" }} >
-                                Trading Address
-                            </Typography>
-                        </Grid>
-                        <Grid>
-                            <Typography display="inline" variant="h5" style={{ color: "#8a8fa7", float: "left", marginLeft: "50px" }}>
-                                <Button
-                                    style={{ background: "#FFFFFF", color: "#000000",marginLeft:"130px", fontFamily: "Poppins", padding: "0px 10px", fontWeight: "600", fontSize: "26px", lineHeight: "39px", color: "#000000" }}
-                                    variant="contained"
-                                    size="small"
-                                    startIcon={<img src={"/images/Filter.png"} alt="company-note-list" />}
-                                >
-                                    Filter
-                                </Button>
-                            </Typography>
-                        </Grid>
-                        <Grid>
-                            <Typography display="inline" variant="h5" style={{ marginLeft: "20px" }}>
-                                <TextField
-                                    style={{
-                                        background: "#FFFFFF",
-                                        border: "1px solid #DCD9D9",
-                                        textTransform: "capitalize",
-                                        borderRadius: "6px",
-                                    }}
-                                    variant="outlined"
-                                    size="small"
-                                    placeholder="Search"
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment>
-                                                <IconButton>
-                                                    <SearchIcon />
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
+                <Grid container className={classess.actionHeader}>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classess.actioncontainer}
+                    >
+                        <Typography
+                            variant="h5"
+                            style={{ fontWeight: 600 }}
+                            className={classess.directorsHeading}
+                        ></Typography>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        className={classess.searchcontainer}
+                    >
+                        <Button
+                            className={classess.Button}
+                            style={{
+                                background: "#FFFFFF",
+                                color: "#000000",
+                                marginRight: "10px",
+                                fontFamily: "Poppins",
+                                padding: "0px 10px",
+                                fontWeight: "600",
+                                fontSize: "26px",
+                                lineHeight: "39px",
+                                color: "#000000",
+                            }}
+                            variant="contained"
+                            size="small"
+                            startIcon={
+                                <img
+                                    src={"/images/Filter.png"}
+                                    alt="company-note-list"
                                 />
-                            </Typography><br/><br/>
-                        </Grid>
-                    </Box>
+                            }
+                        >
+                            Filter
+                        </Button>
+                        <TextField
+                            style={{
+                                background: "#FFFFFF",
+                                border: "1px solid #DCD9D9",
+                                textTransform: "capitalize",
+                                borderRadius: "6px",
+                            }}
+                            variant="outlined"
+                            size="small"
+                            placeholder="search"
+                            value={searchKey}
+                            onChange={(e) => setSearchKey(e.target.value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment>
+                                        <IconButton>
+                                            <SearchIcon />
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Grid>
                 </Grid>
-            </Grid>
-            {/* second div */}
-            <Grid container spacing={2}  >
-                <Grid item lg={12}  >
-                    <Paper style={{ borderRadius: "10px", backgroundColor: "gray" }}>
-                        <Box p={3}>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{ float: "left" }} >
-                                    Address
-                                </Typography>
-                            </Grid>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{ float: "left", marginLeft: "135px" }}>
-                                    Time/City
-                                </Typography>
-                            </Grid>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{ marginLeft: "135px", float: "left", }}>
-                                    Counrtry
-                                </Typography>
-                            </Grid>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{marginLeft: "135px"}}>
-                                    Region
-                                </Typography>
-                            </Grid>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
 
-            {/* export button */}
-            <Grid container spacing={2}  >
-                <Grid item lg={12} style={{ borderRadius: "10px" }}>
-                    <Box p={3}>
-                        <Grid>
-                            <Typography display="inline" >
-                                <Button color='primary' variant='contained' style={{marginLeft:"635px", width:"135px", height:"60px" }}>Export</Button>
-                            </Typography>
-                        </Grid>
-                    </Box>
-                </Grid>
-            </Grid>
-            {/* forth div */}
-            <Grid container spacing={2}  >
-                <Grid item lg={12}  >
-                    <Paper style={{ borderRadius: "10px", backgroundColor: "white" }}>
-                        <Box p={3}>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{ float: "left" }} >
-                                    Titan Court bishops square
-                                </Typography>
-                            </Grid>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{ float: "left", marginLeft: "40px" }}>
-                                    Hatfield
-                                </Typography>
-                            </Grid>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{ marginLeft: "40px", float: "left", }}>
-                                    Hertfordshire
-                                </Typography>
-                            </Grid>
-                            <Grid>
-                                <Typography display="inline" variant="h5" style={{marginLeft: "40px",}}>
-                                    East of England
-                                </Typography>
-                            </Grid>
-                        </Box>
-                    </Paper>
-                </Grid>
-            </Grid>
-            {/* Pagination */}
-            <Grid container spacing={2}  >
-                <Grid item lg={12}  >
-
-                    <Box p={3}>
-                        <Grid>
-
-                            <Typography display="inline" style={{ float:"left",marginLeft:"470px"}}>
-                                <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
-                                    <InputLabel >10</InputLabel>
-                                    <Select style={{ marginTop:"-10px" ,borderRadius: "10px"}}>
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
-                                        <MenuItem value={10}>10</MenuItem>
-                                        <MenuItem value={20}>20</MenuItem>
-                                        <MenuItem value={30}>30</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Typography>
-
-                            <Typography display="inline"  style={{}}>
-                                <Pagination color='primary' shape='rounded' size='large' />
-
-                            </Typography>
-                        </Grid>
-                    </Box>
-                </Grid>
-            </Grid>
-
-        </Container>
-
-    )
-}
+                {tabledata.length > 0 || searchKey === "" ? (
+                    <Table
+                        columns={columns}
+                        data={tabledata}
+                        fetchData={fetchData}
+                        loading={loading}
+                        pageCount={pageCount}
+                    />
+                ) : (
+                    <Typography variant="h6">No results found</Typography>
+                )}
+            </div>
+        </>
+    );
+};
+export default Directors;

@@ -47,12 +47,12 @@ export default function MonitorComponent({ data }) {
       <Grid item className={classes.details}>
         <Grid item>
           <Typography variant="h8" className={classes.nameHeader}>
-            {data.company_name}
+            {data.company_name ? data.company_name : data.fullname}
           </Typography>
         </Grid>
         <Grid item>
           <div>
-            <p className={classes.para}>{data.company_category}</p>
+            <p className={classes.para}>{data.company_category ? data.company_category  : data.officer_role}</p>
 
           </div>
           <br/>

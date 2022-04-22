@@ -7,6 +7,93 @@ const messages = require("../../utils/messages");
 
 //----------------------------Company ------------------------------------------
 
+async function getCompanyContact(req, res) {
+  try {
+    let company_id = req.params.id;
+    if (!company_id) {
+      res.json({
+        status: false,
+        msg: "company_id is required",
+      });
+    } else {
+      savedUser = await dao.getCompanyContactById({ company_id: company_id });
+      if (savedUser) {
+        successlog.info(messages.toastr.GET_USER_RECORDS);
+        res.json({
+          msg: messages.toastr.GET_USER_RECORDS,
+          status: true,
+          data: savedUser,
+        });
+      }
+    }
+  } catch (error) {
+    errorlog.error(`Error Occur in Business Watch Save Data : ${error} `);
+    res.json({
+      msg: messages.toastr.SERVER_ERROR,
+      error: error,
+      status: false,
+    });
+  }
+}
+
+async function getAboutKeyNotes(req, res) {
+  try {
+    let company_id = req.params.id;
+    if (!company_id) {
+      res.json({
+        status: false,
+        msg: "company_id is required",
+      });
+    } else {
+      savedUser = await dao.getAboutKeyNotesById({ company_id: company_id });
+      if (savedUser) {
+        successlog.info(messages.toastr.GET_USER_RECORDS);
+        res.json({
+          msg: messages.toastr.GET_USER_RECORDS,
+          status: true,
+          data: savedUser,
+        });
+      }
+    }
+  } catch (error) {
+    errorlog.error(`Error Occur in Business Watch Save Data : ${error} `);
+    res.json({
+      msg: messages.toastr.SERVER_ERROR,
+      error: error,
+      status: false,
+    });
+  }
+}
+
+async function getCompanyAddress(req, res) {
+  try {
+    let company_id = req.params.id;
+    if (!company_id) {
+      res.json({
+        status: false,
+        msg: "company_id is required",
+      });
+    } else {
+      savedUser = await dao.getCompanyAddressById({ company_id: company_id });
+      if (savedUser) {
+        successlog.info(messages.toastr.GET_USER_RECORDS);
+        res.json({
+          msg: messages.toastr.GET_USER_RECORDS,
+          status: true,
+          data: savedUser,
+        });
+      }
+    }
+  } catch (error) {
+    errorlog.error(`Error Occur in Business Watch Save Data : ${error} `);
+    res.json({
+      msg: messages.toastr.SERVER_ERROR,
+      error: error,
+      status: false,
+    });
+  }
+}
+
 async function getRecordCompany(req, res) {
   try {
     let userObj, per_page, page, limits, offsetObj, user_id;
@@ -153,22 +240,18 @@ async function businessRecordsMonitor(req, res) {
 async function companyNotes(req, res) {
   try {
     let savedUser, response, objData;
-   
-    const { 
-      n_company_name,
-      n_text,
-      user_id,
-      company_id } = req.body;
-     
-      objData = {
+
+    const { n_company_name, n_text, user_id, company_id } = req.body;
+
+    objData = {
       uuid: uuidv4(),
       n_company_name,
       n_text,
       user_id,
-      company_id
+      company_id,
     };
 
-    console.log("Yess............",objData); 
+    console.log("Yess............", objData);
     response = helper.validateCompanyNotesData(objData);
 
     if (response.error) {
@@ -176,11 +259,9 @@ async function companyNotes(req, res) {
         status: false,
         msg: response.error.details,
       });
-    } 
-    else
-    { 
-      console.log("Yess............"); 
-      savedUser = await dao.saveComapnyNotes(objData); 
+    } else {
+      console.log("Yess............");
+      savedUser = await dao.saveComapnyNotes(objData);
       if (savedUser) {
         successlog.info(messages.toastr.RECORD_SAVED);
         res.json({
@@ -199,22 +280,21 @@ async function companyNotes(req, res) {
     });
   }
 }
+
 async function getCompanyNotes(req, res) {
   try {
     //let savedUser, response, objData;
-    console.log("Yess............",req.params.id); 
+    console.log("Yess............", req.params.id);
     //response = helper.validateCompanyNotesData(objData);
-    let user_id=req.params.id;
+    let user_id = req.params.id;
     if (!user_id) {
       res.json({
         status: false,
         msg: "user_id is required",
       });
-    } 
-    else
-    { 
-      console.log("Yess............"); 
-      savedUser = await dao.getCompanyNotes({"user_id":user_id}); 
+    } else {
+      console.log("Yess............");
+      savedUser = await dao.getCompanyNotes({ user_id: user_id });
       if (savedUser) {
         successlog.info(messages.toastr.GET_USER_RECORDS);
         res.json({
@@ -233,12 +313,13 @@ async function getCompanyNotes(req, res) {
     });
   }
 }
+
 async function deleteCompanyNotes(req, res) {
   try {
     let savedUser;
-    console.log("Yess............",req.params.id); 
+    console.log("Yess............", req.params.id);
     //response = helper.validateCompanyNotesData(objData);
-    let {user_id,notes_id}=req.body;
+    let { user_id, notes_id } = req.body;
     if (!notes_id) {
       res.json({
         status: false,
@@ -250,11 +331,12 @@ async function deleteCompanyNotes(req, res) {
         status: false,
         msg: "user_id is required",
       });
-    } 
-    else
-    { 
-      savedUser = await dao.deleteCompanyNotes({"user_id":user_id,"id":notes_id}); 
-      console.log("####",savedUser);
+    } else {
+      savedUser = await dao.deleteCompanyNotes({
+        user_id: user_id,
+        id: notes_id,
+      });
+      console.log("####", savedUser);
       if (savedUser) {
         successlog.info(messages.toastr.RECORD_SAVED);
         res.json({
@@ -262,7 +344,7 @@ async function deleteCompanyNotes(req, res) {
           status: true,
           data: savedUser,
         });
-      }else{
+      } else {
         res.json({
           msg: "No result found",
           status: false,
@@ -486,6 +568,9 @@ module.exports = {
   setCompanyMonitorData,
   directorRecordsMonitor,
   getCompanyNotes,
+  getCompanyAddress,
   deleteMonitorData,
-  deleteCompanyNotes
+  getCompanyContact,
+  getAboutKeyNotes,
+  deleteCompanyNotes,
 };

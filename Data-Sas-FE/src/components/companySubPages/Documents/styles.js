@@ -67,7 +67,7 @@ export const useStyles = makeStyles({
       },
       tableWrap:{
         display: "block",
-        width: "915px",
+        // width: "915px",
         overflowX: "auto",
         '&::-webkit-scrollbar-track' : {
           width: "40px",

@@ -14,6 +14,7 @@ import { useStyles } from "./styles";
 import AddNotes from "../../../../components/common/AddNotes";
 import { useTable, usePagination } from "react-table";
 import { useSelector } from "react-redux";
+import moment from 'moment';
 
 const Table = ({
   columns,
@@ -151,7 +152,7 @@ const Table = ({
   };
 
   return (
-    <div className="main">
+    <div >
       <table class="role-header" id="table-to-xls" {...getTableProps()}>
         {/* Table Head */}
         {headerGroups.map((headerGroup) => (
@@ -160,9 +161,9 @@ const Table = ({
               return (
                 <th
                   className={
-                    column.Header === "Company Name"
+                    column.Header === "Note"
                       ? "borderStart"
-                      : column.Header === "Notification"
+                      : column.Header === "Updated On"
                       ? "borderEnd"
                       : "borderCenter"
                   }
@@ -186,9 +187,9 @@ const Table = ({
                   return (
                     <td
                       className={
-                        cell.column.Header === "Company Name"
+                        cell.column.Header === "Note"
                           ? "borderStart"
-                          : cell.column.Header === "Notification"
+                          : cell.column.Header === "Updated On"
                           ? "borderEnd"
                           : "borderCenter"
                       }
@@ -300,11 +301,17 @@ const BussinessWatch = ({ data }) => {
         Header: "Created At",
         accessor: "createdAt",
         width: 200,
+        Cell:({value})=>{
+          return moment(value).format("YYYY/MM/DD hh:mm a")
+        }
       },
       {
         Header: "Updated On",
         accessor: "updatedAt",
         width: 200,
+        Cell:({value})=>{
+          return moment(value).format("YYYY/MM/DD hh:mm a")
+        }
       },
 
     ],
@@ -331,7 +338,7 @@ const BussinessWatch = ({ data }) => {
 
   return (
     <div>
-      <Grid container style={{ marginBottom: "10px" }}>
+      <Grid container style={{ marginBottom: "10px" , justifyContent:"space-between" }}>
         <Grid item xs={12} sm={6}>
           <Typography
             variant="h5"

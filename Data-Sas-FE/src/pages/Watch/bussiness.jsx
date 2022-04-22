@@ -13,7 +13,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./styles";
 import { useTable, usePagination } from "react-table";
 import { useSelector } from "react-redux";
-import { FilterBox } from "./filterOptions/filterBox";
+import { FilterBox } from "../../components/common/filterOptions/filterBox";
+import moment from 'moment'
 
 const Table = ({
   columns,
@@ -41,7 +42,7 @@ const Table = ({
     {
       columns,
       data,
-      initialState: { pageIndex: 0 },
+      initialState: { pageIndex: 0, pageSize:5 },
       manualPagination: true,
       pageCount: controlledPageCount,
     },
@@ -151,7 +152,7 @@ const Table = ({
   };
 
   return (
-    <div className="main">
+    <div className="main" style={{display:"contents"}}>
       <table class="role-header" id="table-to-xls" {...getTableProps()}>
         {/* Table Head */}
         {headerGroups.map((headerGroup) => (
@@ -312,6 +313,9 @@ const BussinessWatch = ({ data }) => {
         Header: "Updated On",
         accessor: "updatedAt",
         width: 200,
+        Cell:({value})=>{
+          return moment(value).format("YYYY/MM/DD")
+        }
       },
       {
         Header: "Notification",

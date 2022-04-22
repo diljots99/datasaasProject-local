@@ -41,7 +41,7 @@ export default function InfoCard({ title, data }) {
                 {value.heading}{" "}
               </Typography>
             </Grid>
-            <Grid item item xs={1} sm={1}>
+            <Grid item  xs={1} sm={1}>
               :
             </Grid>
             <Grid item xs={6} sm={6}>

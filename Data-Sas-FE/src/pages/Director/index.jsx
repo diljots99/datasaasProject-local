@@ -6,6 +6,7 @@ import DirectorDetails from "../../components/common/directorDetails/";
 import CompaniesSummary from "../../components/common/companiesSummary/";
 import Finalcial from "../../components/common/Finalcial";
 import { getDirectorDetail } from "../../redux/actions/watchAction";
+import DetailCard from './DetailCard'
 import { useDispatch } from "react-redux";
 
 export default function Director() {
@@ -28,6 +29,8 @@ export default function Director() {
 
       {/* for Companies Summary  component  */}
       <CompaniesSummary />
+
+      <DetailCard />
       
        {/* for Financial Summary  component  */}
       <Finalcial/>

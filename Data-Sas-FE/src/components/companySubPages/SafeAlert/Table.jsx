@@ -64,7 +64,7 @@ export default function Table({
 
   return (
     <div className="main">
-      <div className="tableWrap" className={classess.tableWrap}>
+      <div className={classess.tableWrap}>
         <table class="role-header" id="table-to-xls" {...getTableProps()} className={classess.safeTable}> 
           {/* Table Head */}
           {headerGroups.map((headerGroup) => (

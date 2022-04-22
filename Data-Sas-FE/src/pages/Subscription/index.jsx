@@ -8,44 +8,82 @@ export default function Subscription() {
   return (
     <div>
       <div className={classes.infoBar}>
-        <p className={classes.infoBarPara}>Your Current Active Plane is : <spam className={classes.infoBarSpam}>Start</spam></p>
+        <p className={classes.infoBarPara}>
+          Your Current Active Plane is :{" "}
+          <spam className={classes.infoBarSpam}>Start</spam>
+        </p>
       </div>
       <Card className={classes.root} variant="outlined">
         <Grid container className={classes.grid}>
           <Grid item xs={6} sm={2}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               Sr.No.
             </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>Fhzhdeye2232131313</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              Fhzhdeye2232131313
+            </Typography>
           </Grid>
           <Grid item xs={6} sm={2}>
-            <Typography variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>Plan Name </Typography>
+            <Typography
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
+              Plan Name{" "}
+            </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>Start</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              Start
+            </Typography>
           </Grid>
         </Grid>
 
         <Grid container className={classes.grid}>
           <Grid item xs={6} sm={2}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               Limited Details
             </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
@@ -58,12 +96,22 @@ export default function Subscription() {
 
         <Grid container className={classes.grid}>
           <Grid item xs={6} sm={2}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
-              Subiscription Details
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
+              Subscription Details
             </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
@@ -76,83 +124,159 @@ export default function Subscription() {
 
         <Grid container className={classes.grid}>
           <Grid item xs={6} sm={2}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
-              Feature.
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
+              Feature
             </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>Feature details gose hear</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              Feature details gose hear
+            </Typography>
           </Grid>
           <Grid item xs={6} sm={2}>
-            <Typography variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>Plan Ammount</Typography>
+            <Typography
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
+              Plan Amount
+            </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>$ 8.44</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              $ 8.44
+            </Typography>
           </Grid>
         </Grid>
 
         <Grid container className={classes.grid}>
           <Grid item xs={6} sm={2}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               Total Limit
             </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>3352550</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              3352550
+            </Typography>
           </Grid>
           <Grid item xs={6} sm={2}>
-            <Typography variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>Start date </Typography>
+            <Typography
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
+              Start date{" "}
+            </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
 
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}> 3/5/2021</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              {" "}
+              3/5/2021
+            </Typography>
           </Grid>
         </Grid>
 
         <Grid container className={classes.grid}>
           <Grid item xs={6} sm={2}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               Limit Available
             </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>105000</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              105000
+            </Typography>
           </Grid>
           <Grid item xs={6} sm={2}>
-            <Typography variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>End Date </Typography>
+            <Typography
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
+              End Date{" "}
+            </Typography>
           </Grid>
           <Grid item xs={1} sm={1}>
-            <Typography display="inline" variant="h8" style={{ color: "#8a8fa7" }} className={classes.leftConetent}>
+            <Typography
+              display="inline"
+              variant="h8"
+              style={{ color: "#8a8fa7" }}
+              className={classes.leftConetent}
+            >
               :
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Typography variant="h8" className={classes.rightConetent}>10/6/2022</Typography>
+            <Typography variant="h8" className={classes.rightConetent}>
+              10/6/2022
+            </Typography>
           </Grid>
         </Grid>
       </Card>

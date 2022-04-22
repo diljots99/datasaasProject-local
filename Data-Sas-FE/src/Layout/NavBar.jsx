@@ -51,6 +51,7 @@ export default function NavBar() {
   const Location = useLocation();
   const classess = useStyles();
   const [activePath, setActivePath] = useState("/");
+  console.log("Location", Location , activePath);
 
   return (
     <List className={classess.navMaintop}>
@@ -58,7 +59,7 @@ export default function NavBar() {
         return (
           <ListItem
             button
-            className={Location.pathname === path.path ? classess.active : null}
+            style={{  backgroundColor:  Location.pathname === path.path ? 'rgb(0 0 0)' : null  }}
             key={index}
             onClick={() => {
               setActivePath(path.path);
@@ -68,7 +69,7 @@ export default function NavBar() {
               className={classess.icon}>
               {path.icon}
             </ListItemIcon>   
-            <ListItemText primary={path.title} className={classess.navTitle} />
+            <ListItemText primary={path.title} className={classess.navTitle} style={{color:  Location.pathname === path.path ? '#fff' : null  }} />
           </ListItem>
         );
       })}

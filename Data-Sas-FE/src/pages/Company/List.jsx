@@ -72,7 +72,7 @@ export default function NestedList() {
             sx={{ pl: 4 }}
             onClick={() => history.push(`${url}/Financial`)}
             style={{
-              fontStyle: isActive("/Financial") ? "bold" : "",
+              fontWeight: isActive("/Financial") ? "bold" : "",
               padding: "10px 35px",
             }}
           >
@@ -82,7 +82,7 @@ export default function NestedList() {
             sx={{ pl: 4 }}
             onClick={() => history.push(`${url}/Ratio`)}
             style={{
-              fontStyle: isActive("/Ratio") ? "bold" : "",
+              fontWeight: isActive("/Ratio") ? "bold" : "",
               padding: "10px 35px",
             }}
           >
@@ -92,7 +92,7 @@ export default function NestedList() {
             sx={{ pl: 4 }}
             onClick={() => history.push(`${url}/Shareholding`)}
             style={{
-              fontStyle: isActive("/Shareholding") ? "bold" : "",
+              fontWeight: isActive("/Shareholding") ? "bold" : "",
               padding: "10px 35px",
             }}
           >
@@ -242,9 +242,14 @@ export default function NestedList() {
         style={{ backgroundColor: "#F1F1F1" }}
       >
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }} 
-           onClick={() => history.push(`${url}/Risk-Summary`)}
-          style={{ padding: "10px 35px" }}>
+          <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => history.push(`${url}/Risk-Summary`)}
+            style={{
+              fontWeight: isActive("/Risk-Summary") ? "bold" : "",
+              padding: "10px 35px",
+            }}
+          >
             <Typography variant="p">Risk Summary</Typography>
           </ListItemButton>
           <ListItemButton

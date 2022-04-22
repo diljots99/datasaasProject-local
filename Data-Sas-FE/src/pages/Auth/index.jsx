@@ -81,7 +81,7 @@ export default function Auth() {
               Dont have an account? SignUP
             </Typography>{" "}
 
-          </Grid>
+          </Grid>  
           {/* <Grid item>
             {" "} 
             <Typography paragraph className={classes.para}>

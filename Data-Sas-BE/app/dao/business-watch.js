@@ -1,6 +1,18 @@
 const model = require("../../models");
 
 //<------------------------==================(compines_offical)Business Watch====================----------------------->
+function getCompanyAddressById(data){
+  return model.company_location_gen.findAll({where:data});
+}
+
+function getCompanyContactById(data){
+  return model.dbp_full_contact.findAll({where:data});
+}
+
+function getAboutKeyNotesById(data){
+  return model.dba_hmrc_import_gen.findAll({where:data});
+}
+
 function saveBusinessWatchData(data) {
   return model.business_watch.create(data);
 }
@@ -137,6 +149,7 @@ async function findAllDirectorRecord(limits, offset, per_page) {
     },
   ]});
 }
+
 function findOneDirectorRecordById(data) {
   return model.officer.findOne({ where: data, 
     include: [
@@ -177,6 +190,7 @@ function deleteCompanyNotes(params){
 }
 
 module.exports = {
+  
   saveBusinessWatchData,
   findOneCompanyRecord,
   findAllCompanyRecords,
@@ -191,6 +205,9 @@ module.exports = {
   deleteBusinessWatchData,
   getDirectorMonitorRecords,
   deleteDirectorWatchData,
+  getCompanyAddressById,
+  getCompanyContactById,
   getCompanyNotes,
+  getAboutKeyNotesById,
   deleteCompanyNotes
 };

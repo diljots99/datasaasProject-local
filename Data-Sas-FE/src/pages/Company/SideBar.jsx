@@ -30,6 +30,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius:"10px"
 };
 
 export default function SideBar() {
@@ -74,6 +75,7 @@ console.log("checkStorageValue",checkStorageValue)
 
   const clickToUnMonitor = () => {
     let checkStorageValue = JSON.parse(sessionStorage.getItem("userData"));
+    console.log("companyDetail",companyDetail)
     dispatch(
       unSetMonitorCompany(
         checkStorageValue.id,
@@ -196,7 +198,7 @@ console.log("checkStorageValue",checkStorageValue)
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Do you want to stop monitoring this company?
+            Do you want to stop monitoring {companyDetail.company_name} company?
           </Typography>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
@@ -204,7 +206,7 @@ console.log("checkStorageValue",checkStorageValue)
           <Grid
             item
             className={classess.actionContainer}
-            style={{ margin: "5px 0 10px 0" }}
+            style={{ margin: "5px 0 10px 0" , display: "flex", justifyContent: "center" }}
           >
             <Button
               className={classess.Button}

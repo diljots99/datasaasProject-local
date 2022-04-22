@@ -11,6 +11,9 @@ export const GET_MONITOR_DIRECTOR_DETAILS = "GET_MONITOR_DIRECTOR_DETAILS";
 export const SET_MONITOR_COMPANY = "SET_MONITOR_COMPANY";
 export const SET_MONITOR_BUSSINESS = "SET_MONITOR_BUSSINESS";
 export const GET_COMPANY_NOTES = "GET_COMPANY_NOTES";
+export const GET_TRADING_DETAILS = "GET_TRADING_DETAILS";
+export const GET_KEYNOTE_DETAILS = "GET_KEYNOTE_DETAILS";
+export const GET_COMPANY_CONTACT_DETAIL = "GET_COMPANY_CONTACT_DETAIL";
 //export const GET_COMPANY_NOTES = "ADD_COMPANY_NOTES";
 
 //---------------Director-----------------------
@@ -402,3 +405,69 @@ export const getCompanySpecificDirectorList = (companyID) => {
           });
   };
 };
+
+// Get Trading Details
+export const getTradingDetail = (ID) => {
+  console.log("ID", ID);
+  return async (dispatch) => {
+      await axios
+          .get(`${BASE_URL}/api/business-watch/company-address/${ID}`)
+          .then((res) => {
+              const response = res.data;
+              if (response.status === true) {
+                  dispatch({
+                      type: GET_TRADING_DETAILS,
+                      payload: response.data,
+                  });
+              }
+          })
+          .catch((err) => {
+              console.log(err);
+              // logout()
+          });
+  };
+};
+
+// Get Personal Contact Information
+export const getContactInfo = (ID) => {
+  return async (dispatch) => {
+      await axios
+          .get(`${BASE_URL}/api/business-watch/company-contact/${ID}`)
+          .then((res) => {
+              const response = res.data;
+              if (response.status === true) {
+                  dispatch({
+                      type: GET_COMPANY_CONTACT_DETAIL,
+                      payload: response.data,
+                  });
+              }
+          })
+          .catch((err) => {
+              console.log(err);
+              // logout()
+          });
+  };
+};
+// Get Trading Details
+export const keynotedetails = (ID) => {
+  console.log("yes ----------ID-----------",ID);
+  
+  return async (dispatch) => {
+      await axios
+          .get(`${BASE_URL}/api/business-watch/company-hmrc-import/${ID}`)
+          .then((res) => {
+              const response = res.data;
+              console.log("@@@@@@@@@@@@@@",response);
+              if (response.status === true) {
+                  dispatch({
+                      type: GET_KEYNOTE_DETAILS,
+                      payload: response.data,
+                  });
+              }
+          })
+          .catch((err) => {
+              console.log(err);
+          });
+  };
+};
+

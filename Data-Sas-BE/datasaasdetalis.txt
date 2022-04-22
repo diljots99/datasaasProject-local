@@ -1,0 +1,15 @@
+
+URL : https://tradingtrends.net:2083/
+username : tradingtrends
+pass : v&MxKhqpyA*6@^2U!dovo
+==========================
+FTP logins :
+Host : tradingtrends.net
+username : trad@tradingtrends.net
+pass : qu4Mc@ee%P)c
+==========================
+SSH Logins :
+IP : 160.153.246.163
+username : tradingtrends
+pass : v&MxKhqpyA*6@^2U!dovo
+port : 22

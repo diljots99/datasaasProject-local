@@ -74,7 +74,7 @@ export default function Table({
 
 
   return (
-    <div className="main">
+    <div >
        <div className="tableWrap">
       <table class="role-header" id="table-to-xls" {...getTableProps()} className={classess.writeTable}>
         {/* Table Head */}
