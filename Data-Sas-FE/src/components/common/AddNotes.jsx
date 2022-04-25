@@ -16,12 +16,12 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { addCompanyNotes } from "../../redux/actions/watchAction";
 import { useHistory } from "react-router-dom";
 
-
 // import 'draft-js/dist/Draft.css';
 // import EditorContainer from './TextEditor/TextEditor'
 
-import {EditorState,  convertToRaw } from "draft-js";
-import {Editor} from "react-draft-wysiwyg"
+import { stateToHTML } from "draft-js-export-html";
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
 
 export const useStyles = makeStyles((theme) => ({
   model: {
@@ -109,8 +109,8 @@ export default function AddNotes({ open, setAddNotes }) {
   const [showPassword, setshowPassword] = useState(false);
   const history = useHistory();
 
-  const [editorState, setEditorState] = React.useState(
-    () => EditorState.createEmpty(),
+  const [editorState, setEditorState] = React.useState(() =>
+    EditorState.createEmpty()
   );
 
   // if(editorState){
@@ -119,44 +119,42 @@ export default function AddNotes({ open, setAddNotes }) {
 
   const handleAddNotes = () => {
     setError({});
-
-    let value =  convertToRaw(editorState.getCurrentContent())
-    console.log("dadad aadasd a", value)
-
     let errors = {};
     let dataToken = JSON.parse(sessionStorage.getItem("userData"));
-   // console.log(companyDetail.company_name,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", companyDetail);
+
+    // console.log(companyDetail.company_name,"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", companyDetail);
     // if (!data.addNotes) {
     //   errors.addNotes = "Notes can not be blank";
     // }
 
+    let value =  convertToRaw(editorState.getCurrentContent())
      if (!value.blocks[0].text) {
       errors.addNotes = "Notes can not be blank";
     }
 
+    let htmlvalue = stateToHTML(editorState.getCurrentContent());
+    console.log("dadad aadasd a", {value , htmlvalue });
+  
     if (errors.addNotes) {
       setError(errors);
     } else {
       setError({});
       let datas = {
         n_company_name: companyDetail.company_name,
-        n_text: value.blocks[0].text ,
+        // n_text: value.blocks[0].text ,
+        n_text: htmlvalue,
         user_id: dataToken.id,
         company_id: companyDetail.id,
-        comapany_uuid: companyDetail.uuid
-      }
+        comapany_uuid: companyDetail.uuid,
+      };
 
-      console.log("=@=@=@=@=@=@=@=@=@=@=@=", datas );
-      dispatch(
-        addCompanyNotes(
-          datas
-        )
-      );
+      console.log("=@=@=@=@=@=@=@=@=@=@=@=", datas);
+      dispatch(addCompanyNotes(datas));
       setAddNotes(false);
       setData({
         addNotes: "",
       });
-      setEditorState(EditorState.createEmpty())
+      setEditorState(EditorState.createEmpty());
     }
   };
 
@@ -194,25 +192,30 @@ export default function AddNotes({ open, setAddNotes }) {
               maxRows={12}
             /> */}
 
-{/* <Editor editorState={editorState} onChange={setEditorState} /> */}
+            {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
 
-{/* <EditorContainer  style={{border: '1px solid', borderRadius: '10px'}}  /> */}
+            {/* <EditorContainer  style={{border: '1px solid', borderRadius: '10px'}}  /> */}
 
-<div className='editor'>
-      <Editor
-        editorState={editorState}
-        onEditorStateChange={setEditorState}    
-        toolbar={{
-          inline: { inDropdown: true },
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: true },
-        }}
-      />
-    </div>
+            <div className="editor">
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={setEditorState}
+                toolbar={{
+                  inline: { inDropdown: true },
+                  list: { inDropdown: true },
+                  textAlign: { inDropdown: true },
+                  link: { inDropdown: true },
+                  history: { inDropdown: true },
+                }}
+              />
+            </div>
 
-    {error.addNotes && <Typography variant='h6' color='error'> {error.addNotes}</Typography> }
+            {error.addNotes && (
+              <Typography variant="h6" color="error">
+                {" "}
+                {error.addNotes}
+              </Typography>
+            )}
           </Grid>
         </Grid>
 
@@ -225,7 +228,7 @@ export default function AddNotes({ open, setAddNotes }) {
               style={{ marginTop: "10px" }}
               color="primary"
               onClick={() => {
-                 handleAddNotes();
+                handleAddNotes();
               }}
             >
               Save

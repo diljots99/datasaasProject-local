@@ -122,8 +122,8 @@ export default function Table({
                     ))}
                     <tr>
                        <td style={{display:"flex", alignItems: "center"}}>
-                       <Checkbox size="small" />
-                        <Typography variant="h6">Select all </Typography>
+                       {/* <Checkbox size="small" />
+                        <Typography variant="h6">Select all </Typography> */}
                        </td>
                        <td>
                            

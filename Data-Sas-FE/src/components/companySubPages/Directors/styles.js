@@ -122,7 +122,7 @@ export const useStyles = makeStyles((theme) => ({
         },
         exportMain:{
           position: "absolute",
-          width: "70%",
+          width: "100%",
           top: "80px;"
         },
         exportInner:{

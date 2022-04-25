@@ -150,7 +150,7 @@ export default function Table({
       <div className={classess.exportMain}>
       <div className={classess.exportInner}>
          <div className={classess.checkBox} >
-                                <Checkbox size="small" /><Typography variant="h6">Select all </Typography>
+                                {/* <Checkbox size="small" /><Typography variant="h6">Select all </Typography> */}
                             </div>
          
               <Button

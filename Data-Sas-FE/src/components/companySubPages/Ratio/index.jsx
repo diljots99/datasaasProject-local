@@ -3,8 +3,12 @@ import AreaChart from './AreaChart';
 import { useStyles } from "./styles";
 import { Grid, Typography, Button, InputAdornment, TextField, IconButton } from "@material-ui/core";
 import Table from "./Table";
+import { useSelector } from 'react-redux'
 
 const Ratio = () => {
+    const {  companyDetail } = useSelector(
+        (state) => state.watch
+    );
     const classess = useStyles();
     const data = React.useMemo(
         () => [
@@ -122,6 +126,7 @@ const Ratio = () => {
                         fetchData={fetchData}
                         loading={loading}
                         pageCount={pageCount}
+                        filename={`${companyDetail.company_name} Ratio Export`}
                     />
                 </Grid>
             </div>

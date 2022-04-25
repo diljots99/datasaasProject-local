@@ -6,8 +6,10 @@ import {
 } from "@material-ui/core";
 import { useStyles } from "./styles";
 import { useTable, usePagination, useSortBy } from "react-table";
+import { CSVLink } from "react-csv";
 
 export default function Table({
+  filename,
   columns,
   data,
   fetchData,
@@ -63,7 +65,7 @@ export default function Table({
   };
 
   return (
-    <div className="main">
+    <div >
       <div  className={classess.tableWrap}>
         <table class="role-header" id="table-to-xls" {...getTableProps()} className={classess.safeTable}> 
           {/* Table Head */}
@@ -97,13 +99,19 @@ export default function Table({
                   justifyContent: "flex-end",
                   background: "transparent",
             }}>
-              <Button
+               <CSVLink
+                data={data}
+                filename={filename}
+              >
+                 <Button
                 className={classess.exportButton}
                 color="primary"
                 variant="contained"
               >
                 Export Ratio
               </Button>
+              </CSVLink>
+             
             </td>
           </tr>
 

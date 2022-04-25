@@ -85,6 +85,14 @@ const Directors = () => {
                     );
                 },
             },
+            // {
+            //     Header: "CTPS",
+            //     accessor: "ctps",
+            // },
+            // {
+            //     Header: "Additional Info",
+            //     accessor: "additional_info",
+            // },
         ],
         []
     );
@@ -136,7 +144,7 @@ const Directors = () => {
 
     return (
         <>
-            <div>
+            <div >
                 <Typography
                     variant="h5"
                     style={{ fontWeight: 600 }}

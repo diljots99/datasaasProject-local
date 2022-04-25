@@ -295,6 +295,9 @@ const BussinessWatch = ({ data }) => {
         //   );
         // },
         width: 200,
+        Cell:({value})=>{
+          return  <div dangerouslySetInnerHTML={{ __html: value }} />
+        }
       },
 
       {

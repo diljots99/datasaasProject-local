@@ -133,7 +133,10 @@ const CompanyNoteList = () => {
         Cell: ({ value, row }) => {
           return (
             <Grid container>
-              <Grid item><Typography variant="h6">{value}</Typography></Grid>
+              <Grid item>
+             <div dangerouslySetInnerHTML={{ __html: value }} />
+    {/* <Typography variant="h6">{value}</Typography> */}
+    </Grid>
               {/* {console.log("lmoa", row)} */}
             </Grid>
           );

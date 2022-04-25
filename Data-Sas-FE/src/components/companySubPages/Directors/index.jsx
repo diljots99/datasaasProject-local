@@ -33,8 +33,27 @@ const Directors = () => {
     const { directorList, companyDetail } = useSelector((state) => state.watch);
     const [showmodel, setshowmodel] = useState(false);
     const [filterValue, setFilterValue] = useState('all');
+    const [allSelected, setAllSelected] = useState(false);
+    const [checked, setChecked] = useState([]);
+
+    const [tabledata, settableData] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
+    const [pageCount, setPageCount] = React.useState(0);
+    const compSumfetchIdRef = React.useRef(0);
 
     const [data, setData] = useState([]);
+
+    useEffect(() => {
+        if (!allSelected) {
+          setChecked([]);
+        } else {
+          const temp = data.map((item, index) => {
+            return item.id;
+          });
+          setChecked(temp);
+        }
+      }, [allSelected]);
+
     useEffect(() => {
         // dispatch(getCompanySpecificDirectorList(companyDetail.id)); // Get current company ID here
         // if (directorList.length > 0) setData(directorList);
@@ -46,6 +65,19 @@ const Directors = () => {
         console.log("temp array", temp);
         setData(temp);
     }, [directorList]);
+
+    const genrateData = () => {
+
+        let downloadable = tabledata.filter(data =>checked.includes(data.id))
+
+        console.log("downloadable ." , downloadable)
+        if(checked.length > 0) {
+            return downloadable
+        }else{
+            return data
+        }
+        
+    }
 
     const applyFilter = ()=>{
         switch(filterValue){
@@ -99,20 +131,30 @@ const Directors = () => {
 
     let counterSecretory = 0;
 
-    const [tabledata, settableData] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
-    const [pageCount, setPageCount] = React.useState(0);
-    const compSumfetchIdRef = React.useRef(0);
+ 
     const columns = React.useMemo(
         () => [
             {
                 Header: "Name",
                 accessor: "name",
-                Cell: ({ value }) => {
+                Cell: ({ value, row }) => {
                     return (
                         <Grid container alignItems="center">
                             <Grid item>
-                                <Checkbox size="small" />
+                                <Checkbox size="small"
+                                   checked={checked.includes(row.original.id)}
+                                   onChange={() => {
+                                     if (checked.includes(row.original.id)) {
+                                       const temp = checked.filter(
+                                         (item) => item !== row.original.id
+                                       );
+                                       setChecked(temp);
+                                     } else {
+                                       const temp = [...checked, row.original.id];
+                                       setChecked(temp);
+                                     }
+                                   }}
+                                />
                             </Grid>
 
                             <Grid item>{value}</Grid>
@@ -230,7 +272,7 @@ const Directors = () => {
                 accessor: "resigned_on",
             },
         ],
-        []
+        [checked]
     );
 
     const fetchData = React.useCallback(
@@ -432,6 +474,10 @@ const Directors = () => {
                         fetchData={fetchData}
                         loading={loading}
                         pageCount={pageCount}
+                        allSelected={allSelected}                       
+                        setAllSelected={setAllSelected}
+                        genrateData={genrateData}
+                        fileName={`director list for  ${companyDetail.company_name}`}
                     />
                 ) : (
                     <Typography variant="h6">No results found</Typography>

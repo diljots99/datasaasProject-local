@@ -247,6 +247,14 @@ table.MuiTable-root tbody tr:first-child {
     display: none;
 }
 
+.rdw-link-wrapper{
+  display: none;
+}
+
+.rdw-colorpicker-wrapper{
+  display: none;
+}
+
 .rdw-image-wrapper{
     display: none;
 }

@@ -52,6 +52,11 @@ export const useStyles = makeStyles({
     color: "#727272",
     fontSize: "15px",
   },
+  tableMain:{
+    display:'flex',
+    flexDirection: 'column',
+    width: "100%",
+  },
   directortorsTable: {
     borderCollapse: "separate",
     borderSpacing: "0 15px",

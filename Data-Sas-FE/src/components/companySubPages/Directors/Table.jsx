@@ -14,8 +14,10 @@ import Checkbox from "@mui/material/Checkbox";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./styles";
 import { useTable, usePagination, useSortBy } from "react-table";
+import { CSVLink } from "react-csv";
 
 export default function Table({
+    allSelected, setAllSelected,genrateData,fileName,
     columns,
     data,
     fetchData,
@@ -54,6 +56,8 @@ export default function Table({
     useEffect(() => {
         fetchData({ pageIndex, pageSize });
     }, [fetchData, pageIndex, pageSize]);
+
+
 
     const renderPageButton = () => {
         let buttons = [];
@@ -182,17 +186,27 @@ export default function Table({
             <div className={classess.exportMain}>
                 <div className={classess.exportInner}>
                     <div className={classess.checkBox}>
-                        <Checkbox size="small" />
+                        <Checkbox size="small"
+                         checked={allSelected}
+                         onChange={() => {
+                           setAllSelected(!allSelected);
+                         }} />
                         <Typography variant="h6">Select all </Typography>
                     </div>
 
-                    <Button
+                    <CSVLink
+                data={genrateData()}
+                filename={fileName}
+              >
+                   <Button
                         className={classess.exportButton}
                         color="primary"
                         variant="contained"
                     >
                         Export
                     </Button>
+              </CSVLink>
+                
                 </div>
             </div>
             {/* for Pagination */}
