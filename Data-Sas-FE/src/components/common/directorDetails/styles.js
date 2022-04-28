@@ -35,4 +35,27 @@ export const useStyles = makeStyles({
     },
     directorInfo: { alignItems: "center", display: " flex" },
     directorInfoSpan: { color: "#727272" },
+    modelPara: {
+      margin: "20px 0px",
+      fontSize: "25px",
+      color: "#717171",
+      padding: "0 32px",
+      fontWeight: "400",
+      fontFamily: "Poppins",
+      lineHeight: "40px",
+  },
+  buttonyes:{
+    background: "#ff0047",
+    fontFamily: "Poppins",
+    fontSize: "22px",
+    lineHeight: "44px",
+    fontWeight: "500",
+  },
+  buttonNo:{
+      background: "#6C757D",
+      fontFamily: "Poppins",
+      fontSize: "22px",
+      lineHeight: "44px",
+      fontWeight: "500",
+    },
 })

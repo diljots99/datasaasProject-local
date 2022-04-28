@@ -184,7 +184,7 @@ export default function DirectorDetails() {
         onBackdropClick="false"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" className={classess.modelPara}>
             Do you want to stop monitoring {directorDetail.name} ?
           </Typography>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -196,7 +196,7 @@ export default function DirectorDetails() {
             style={{ margin: "5px 0 10px 0" , display:'flex' , justifyContent: 'space-around' }}
           >
             <Button
-              className={classess.Button}
+              className={classess.buttonyes}
               onClick={clickToUnMonitor}
               style={{
                 background: "#f1f1f1",
@@ -210,7 +210,7 @@ export default function DirectorDetails() {
               yes
             </Button>
             <Button
-              className={classess.Button}
+              className={classess.buttonNo}
               onClick={() => setOpen(false)}
               style={{
                 background: "#e74e4e",

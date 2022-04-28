@@ -29,7 +29,6 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
   borderRadius:"10px"
 };
 
@@ -197,7 +196,7 @@ console.log("checkStorageValue",checkStorageValue)
         onBackdropClick="false"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" className={classess.modelPara} >
             Do you want to stop monitoring {companyDetail.company_name} company?
           </Typography>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -206,10 +205,10 @@ console.log("checkStorageValue",checkStorageValue)
           <Grid
             item
             className={classess.actionContainer}
-            style={{ margin: "5px 0 10px 0" , display: "flex", justifyContent: "center" }}
+            style={{ margin: "5px 0 10px 0" , display: "flex", justifyContent: "space-around" }}
           >
             <Button
-              className={classess.Button}
+              className={classess.buttonyes}
               onClick={clickToUnMonitor}
               style={{
                 background: "#f1f1f1",
@@ -223,7 +222,7 @@ console.log("checkStorageValue",checkStorageValue)
               yes
             </Button>
             <Button
-              className={classess.Button}
+              className={classess.buttonNo}
               onClick={() => setOpen(false)}
               style={{
                 background: "#e74e4e",
