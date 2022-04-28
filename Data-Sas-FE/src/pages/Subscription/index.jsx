@@ -145,7 +145,7 @@ export default function Subscription() {
           </Grid>
           <Grid item xs={6} sm={3}>
             <Typography variant="h8" className={classes.rightConetent}>
-              Feature details gose hear
+              Feature details goes hear
             </Typography>
           </Grid>
           <Grid item xs={6} sm={2}>

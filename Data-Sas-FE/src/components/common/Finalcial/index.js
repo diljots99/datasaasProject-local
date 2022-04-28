@@ -2,11 +2,12 @@ import React from 'react'
 import Graph from './Graph';
 import FinalcialLeft from './FinalcialLeft';
 import { Typography } from "@material-ui/core";
+
 const Finalcial = () => {
     return (
         <div style={{margin:"5%"}}>
             <Typography variant="h6">
-                Financial Perferminance
+                Financial Performance
             </Typography>
 
             <div style={{ display: "flex", width: "100%" }}>

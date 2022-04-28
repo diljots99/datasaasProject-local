@@ -429,19 +429,22 @@ export default function Profile() {
               )}
             </Grid>
 
-            <Grid item>
-              <Button
-                variant="contained"
-                className={classes.filterButton}
-                style={{ backgroundColor: "#91979d", marginLeft: "10px" }}
-                color="primary"
-                onClick={() => {
-                  cancelBtn();
-                }}
-              >
-                Cancel
-              </Button>
-            </Grid>
+            {!editable && (
+              <Grid item>
+                <Button
+                  variant="contained"
+                  className={classes.filterButton}
+                  style={{ backgroundColor: "#91979d", marginLeft: "10px" }}
+                  color="primary"
+                  onClick={() => {
+                    cancelBtn();
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            )}
+
             <Grid item>
               <Button
                 className={classes.filterButton}

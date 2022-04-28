@@ -20,6 +20,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  borderRadius:'10px',
 };
 
 export default function DirectorDetails() {
@@ -76,7 +77,7 @@ export default function DirectorDetails() {
 
 
   const toggleTrueFalse = () => {  
-  setMonitor(!monitor);
+  
     if (monitor == false) {
       console.log("yes");
       dispatch(setMonitorDirector(checkStorageValue.id, directorDetail.id,setMonitor ));
@@ -184,7 +185,7 @@ export default function DirectorDetails() {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Do you want to stop monitoring this director?
+            Do you want to stop monitoring {directorDetail.name} ?
           </Typography>
           {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
       Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
@@ -192,7 +193,7 @@ export default function DirectorDetails() {
           <Grid
             item
             className={classess.actionContainer}
-            style={{ margin: "5px 0 10px 0" }}
+            style={{ margin: "5px 0 10px 0" , display:'flex' , justifyContent: 'space-around' }}
           >
             <Button
               className={classess.Button}

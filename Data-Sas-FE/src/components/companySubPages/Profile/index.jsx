@@ -50,7 +50,7 @@ const Profile = () => {
                   variant="h7"
                   style={{ color: "#727272" }}
                 >
-                  PosTal Code
+                  Postal Code
                 </Typography>
               </Grid>
               <Grid item xs={1} sm={1} className={classess.gridItem}>

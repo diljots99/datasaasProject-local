@@ -28,9 +28,11 @@ export const useStyles = makeStyles(theme => ({
         display: "flex",
         alignItems: "center",
         cursor:"pointer",
+        margin:"20px"
     },
     extText:{
        textDecoration: "underline",
+       margin:'0'
     },
     paper: {
         height: 300,
