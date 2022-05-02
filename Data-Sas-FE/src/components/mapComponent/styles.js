@@ -4,10 +4,11 @@ import { makeStyles } from '@material-ui/core'
 
 export const useStyles = makeStyles(() => ({ 
 main:{
+    width:'100%',
     border: "1px solid #DCD9D9",
     borderRadius: "5px",
     padding: "10px",
-    marginLeft: "10px",
+    // marginLeft: "10px",
 },
     popupContainer:{
         alignItems: "center",
