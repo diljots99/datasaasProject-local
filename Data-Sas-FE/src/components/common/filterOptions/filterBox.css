@@ -43,7 +43,14 @@
     font-weight: 600;
     display: flex;
     flex-direction: column;
+    /* justify-content: space-between; */
+}
+
+.subFiltersContainerPage{
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    width:100%
 }
 
 .subFilterApply {
@@ -65,7 +72,8 @@
 .subFilterOptionsContainer {
     margin-top: 20px;
     display: flex;
-    justify-content: space-around;
+    height: 100%;
+    /* justify-content: space-around; */
 }
 
 .clearFiltersContainer {

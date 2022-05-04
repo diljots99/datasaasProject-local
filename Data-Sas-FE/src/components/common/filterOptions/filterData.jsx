@@ -6,6 +6,47 @@ import MinMax from "./subFilterOptions/minMax";
 import DropdownSearch from "./subFilterOptions/dropdownSearch";
 import DatePicker from "./subFilterOptions/datePicker";
 
+//FilterOptions
+import CompanyName from './filterOptionsPage/CompanyName'
+import CompanyNumber from './filterOptionsPage/CompanyNumber'
+import ReferenceNumber from './filterOptionsPage/ReferenceNumber'
+import Address from './filterOptionsPage/Address'
+import Website from './filterOptionsPage/Website'
+import Mail from './filterOptionsPage/Mail'
+import Telephone from './filterOptionsPage/Telephone'
+import NoOfEmployees from "./filterOptionsPage/NoOfEmployees";
+import PostalCode from "./filterOptionsPage/PostalCode";
+import City from "./filterOptionsPage/City";
+import County from "./filterOptionsPage/County";
+import Region from "./filterOptionsPage/Region";
+import Country from "./filterOptionsPage/Country";
+import Constituency from "./filterOptionsPage/Constituency";
+import LocalAuthority from "./filterOptionsPage/LocalAuthority";
+import LeagalForm from "./filterOptionsPage/LegalForm";
+import Status from "./filterOptionsPage/Status";
+import IncorporationDate from "./filterOptionsPage/IncorporationDate";
+import LiquidationDate from "./filterOptionsPage/LiquidationDate";
+import DissolutionDate from './filterOptionsPage/DissolutionDate'
+import CompanyCategory from './filterOptionsPage/CompanyCategory'
+import LastAccountsDate from './filterOptionsPage/LastAccountsDate'
+import UKSICSection from './filterOptionsPage/UKSICSection'
+import UKSIC from './filterOptionsPage/UKSIC'
+import NACE from './filterOptionsPage/NACE'
+import USSIC from './filterOptionsPage/USSIC'
+import NAICS from './filterOptionsPage/NAICS'
+import Sector from "./filterOptionsPage/Sector"
+import SubSector from "./filterOptionsPage/SubSector";
+import Financials from "./filterOptionsPage/Financials";
+import Ratios from "./filterOptionsPage/Ratios"
+import DirectorsName from "./filterOptionsPage/DirectorsName";
+import DirectorRole from "./filterOptionsPage/DirectorRole";
+import DirectorOccupation from "./filterOptionsPage/DirectorOccupation";
+import DirectorNationality from "./filterOptionsPage/DirectorNationality"
+import DirectorCountryofResidence from "./filterOptionsPage/DirectorCountryofResidence";
+import DirectorStatus from './filterOptionsPage/DirectorStatus'
+import DirectorAppointmentDate from "./filterOptionsPage/DirectorAppointmentDate";
+import DirectorResignDate from "./filterOptionsPage/DirectorResignDate";
+
 const optionSearchBar = () => {
     return <SearchBar placeholder={"Search"} data={SearchBarData} />;
 };
@@ -32,14 +73,14 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Company Name", option: optionSearchBar },
-            { filter: "Company Number", option: optionSearchBar },
-            { filter: "Reference Number", option: optionSearchBar },
-            { filter: "Address", option: optionSearchBar },
-            { filter: "Website", option: optionSearchBar },
-            { filter: "Mail", option: optionSearchBar },
-            { filter: "Telephone", option: optionSearchBar },
-            { filter: "No. of Employees", option: optionMinMax },
+            { filter: "Company Name", option: <CompanyName /> },
+            { filter: "Company Number", option: <CompanyNumber />},
+            { filter: "Reference Number", option: <ReferenceNumber /> },
+            { filter: "Address", option: <Address />},
+            { filter: "Website", option: <Website /> },
+            { filter: "Mail", option: <Mail />},
+            { filter: "Telephone", option: <Telephone /> },
+            { filter: "No. of Employees", option: <NoOfEmployees /> },
             { filter: "Account Category", option: optionDropDownAndSearch },
         ],
     },
@@ -48,13 +89,13 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Post Code", option: optionSearchBar },
-            { filter: "City", option: optionSearchBar },
-            { filter: "County", option: optionSearchBar },
-            { filter: "Region", option: optionSearchBar },
-            { filter: "Country", option: optionSearchBar },
-            { filter: "Constituency", option: optionSearchBar },
-            { filter: "Local Authority", option: optionSearchBar },
+            { filter: "Post Code", option: <PostalCode  /> },
+            { filter: "City", option: <City /> },
+            { filter: "County", option: <County /> },
+            { filter: "Region", option: <Region />},
+            { filter: "Country", option: <Country /> },
+            { filter: "Constituency", option: <Constituency /> },
+            { filter: "Local Authority", option: <LocalAuthority /> },
         ],
     },
     {
@@ -62,13 +103,13 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Legal Form", option: optionDropdown },
-            { filter: "Status", option: optionDropdown },
-            { filter: "Incorporation Date", option: optionFromToDate },
-            { filter: "Liquidation Date", option: optionFromToDate },
-            { filter: "Dissolution Date", option: optionFromToDate },
-            { filter: "Company Category", option: optionDropdown },
-            { filter: "Last Accounts Date", option: optionFromToDate },
+            { filter: "Legal Form", option: <LeagalForm/> },
+            { filter: "Status", option: <Status /> },
+            { filter: "Incorporation Date", option: <IncorporationDate /> },
+            { filter: "Liquidation Date", option: <LiquidationDate /> },
+            { filter: "Dissolution Date", option: <DissolutionDate /> },
+            { filter: "Company Category", option: <CompanyCategory /> },
+            { filter: "Last Accounts Date", option: <LastAccountsDate /> },
         ],
     },
     {
@@ -76,13 +117,13 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "UK SIC Section", option: optionDropdown },
-            { filter: "UK SIC", option: optionDropdown },
-            { filter: "NACE", option: optionDropdown },
-            { filter: "US SIC", option: optionDropdown },
-            { filter: "NAICS", option: optionDropdown },
-            { filter: "Sector", option: optionDropdown },
-            { filter: "SubSector", option: optionDropdown },
+            { filter: "UK SIC Section", option: <UKSICSection /> },
+            { filter: "UK SIC", option: <UKSIC /> },
+            { filter: "NACE", option: <NACE /> },
+            { filter: "US SIC", option: <USSIC /> },
+            { filter: "NAICS", option: <NAICS /> },
+            { filter: "Sector", option: <Sector /> },
+            { filter: "SubSector", option: <SubSector /> },
         ],
     },
     {
@@ -90,8 +131,8 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Financials", option: optionMinMax },
-            { filter: "Ratios", option: optionMinMax },
+            { filter: "Financials", option: <Financials /> },
+            { filter: "Ratios", option: <Ratios /> },
         ],
     },
     {
@@ -99,14 +140,14 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Name", option: optionSearchBar },
-            { filter: "Role", option: optionSearchBar },
-            { filter: "Occupation", option: optionDropdown },
-            { filter: "Nationality", option: optionDropdown },
-            { filter: "Country of Residence", option: optionDropdown },
-            { filter: "Status", option: optionDropdown },
-            { filter: "Appointment Date", option: optionFromToDate },
-            { filter: "Resign Date", option: optionFromToDate },
+            { filter: "Name", option: <DirectorsName />},
+            { filter: "Role", option: <DirectorRole />},
+            { filter: "Occupation", option: <DirectorOccupation /> },
+            { filter: "Nationality", option: <DirectorNationality />},
+            { filter: "Country of Residence", option: <DirectorCountryofResidence /> },
+            { filter: "Status", option: <DirectorStatus /> },
+            { filter: "Appointment Date", option: <DirectorAppointmentDate /> },
+            { filter: "Resign Date", option: <DirectorResignDate /> },
         ],
     },
     {

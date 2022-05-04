@@ -173,20 +173,19 @@ export const FilterBox = () => {
                                     );
                                 })}
                             </FiltersWrap>
-                        </div>``
+                        </div>
                         <div className="subFiltersContainer">
                             <div className="subFiltersContainerHeading">
-                                {subFilterOptionsHeading}
-                                <div className="subFilterOptionsContainer">
-                                    {SubFilterOptions}
-                                </div>
+                                {subFilterOptionsHeading}                             
                             </div>
-
-                            <div className="subFiltersContainerButton">
+                            <div className="subFilterOptionsContainer">
+                                    {SubFilterOptions}
+                            </div>
+                            {/* <div className="subFiltersContainerButton">
                                 <button className="subFilterApply">
                                     Apply
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="clearFiltersContainer">
                             <div className="clearFiltersContainerText">
