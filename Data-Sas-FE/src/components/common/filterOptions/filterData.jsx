@@ -46,6 +46,15 @@ import DirectorCountryofResidence from "./filterOptionsPage/DirectorCountryofRes
 import DirectorStatus from './filterOptionsPage/DirectorStatus'
 import DirectorAppointmentDate from "./filterOptionsPage/DirectorAppointmentDate";
 import DirectorResignDate from "./filterOptionsPage/DirectorResignDate";
+import OwnershipName from "./filterOptionsPage/OwnershipName";
+import OwnershipKind from "./filterOptionsPage/OwnershipKind";
+import OwnershipNationality from "./filterOptionsPage/OwnershipNationality";
+import OwnershipCountryofResidence from "./filterOptionsPage/OwnershipCountryofResidence";
+import OwnershipStatus from "./filterOptionsPage/OwnershipStatus";
+import OwnershipAppointmentDate from "./filterOptionsPage/OwnershipAppointmentDate";
+import OwnershipResignDate from "./filterOptionsPage/OwnershipResignDate";
+import ImporterStatus from "./filterOptionsPage/ImporterStatus";
+import ExporterStatus from "./filterOptionsPage/ExporterStatus";
 
 const optionSearchBar = () => {
     return <SearchBar placeholder={"Search"} data={SearchBarData} />;
@@ -155,13 +164,13 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Name", option: optionSearchBar },
-            { filter: "Kind", option: optionDropdown },
-            { filter: "Nationality", option: optionDropdown },
-            { filter: "Country of Residence", option: optionDropdown },
-            { filter: "Status", option: optionDropdown },
-            { filter: "Appointment Date", option: optionFromToDate },
-            { filter: "Resign Date", option: optionFromToDate },
+            { filter: "Name", option: <OwnershipName /> },
+            { filter: "Kind", option: <OwnershipKind />},
+            { filter: "Nationality", option: <OwnershipNationality /> },
+            { filter: "Country of Residence", option: <OwnershipCountryofResidence /> },
+            { filter: "Status", option: <OwnershipStatus /> },
+            { filter: "Appointment Date", option: <OwnershipAppointmentDate />},
+            { filter: "Resign Date", option: <OwnershipResignDate /> },
         ],
     },
     {
@@ -169,8 +178,8 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Importer Status", option: optionDropdown },
-            { filter: "Exporter Status", option: optionDropdown },
+            { filter: "Importer Status", option: <ImporterStatus /> },
+            { filter: "Exporter Status", option: <ExporterStatus /> },
         ],
     },
 ];

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Typography } from "@material-ui/core";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const FilterMainItem = styled.div`
     width: 100%;
@@ -40,13 +47,14 @@ export const SubFilter = ({
     item,
     setSubFilterOptionsHeading,
     setSubFilterOptions,
+    subFilterOptionsHeading
 }) => {
     const [subFilters, setSubFilters] = useState(false);
     const showSubFilters = () => setSubFilters(!subFilters);
 
     return (
         <>
-            <FilterMainItem onClick={item.Sub && showSubFilters}>
+            {/* <FilterMainItem onClick={item.Sub && showSubFilters}>
                 <div>
                     <FilterMainItemLabel>{item.Main}</FilterMainItemLabel>
                 </div>
@@ -73,7 +81,47 @@ export const SubFilter = ({
                             </FilterSubItemLabel>
                         </FilterSubItem>
                     );
-                })}
+                })} */}
+
+<ListItemButton
+        onClick={item.Sub && showSubFilters}
+        style={{ backgroundColor: subFilters ? "#EBE9E9" : "", padding: "10px 35px" }}
+        key={item.Main}
+      >
+        <ListItemText primary={item.Main} />
+        {subFilters ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse
+        in={subFilters}
+        timeout="auto"
+        unmountOnExit
+        style={{ backgroundColor: "#F1F1F1" }}
+      >
+        <List component="div" disablePadding>
+            { 
+            subFilters &&
+            item.Sub.map((item, index) => {
+                return (
+                    <ListItemButton
+            sx={{ pl: 4 }}
+            onClick={() => {
+                setSubFilterOptionsHeading(item.filter);
+                setSubFilterOptions(item.option);
+            }}
+            style={{
+              fontWeight: subFilterOptionsHeading === item.filter ? "bold" : "",
+              padding: "10px 35px",
+            }}
+            key={index}
+          >
+            <Typography variant="p">{item.filter}</Typography>
+          </ListItemButton>
+                )
+             })
+            }
+         
+        </List>
+      </Collapse>
         </>
     );
 };

@@ -1,36 +1,47 @@
 import React, { useState } from "react";
-import "./searchBar.css";
-import { TextField } from "@material-ui/core";
+import DatePicker from "react-datepicker";
+import "./datePicker.css";
+import "react-datepicker/dist/react-datepicker.css";
 
-const textFieldStyle = {
-    width: "45%",
-    color: "#000",
-    background: "#FFFFFF",
-    border: "1px solid #DCD9D9",
-    borderRadius: "6px",
-};
 
 export default function DirectorAppointmentDate() {
   
-    return (
-        <div className="subFiltersContainerPage">
-          <div className="searchContainer">
-          <TextField
-                    style={textFieldStyle}
-                    variant="outlined"
-                    placeholder="Min"
-                    size="small"
-                />
-                <TextField
-                    style={textFieldStyle}
-                    variant="outlined"
-                    placeholder="Max"
-                    size="small"
-                />
-          </div>
-          <div className="subFiltersContainerButton">
-            <button className="subFilterApply">Apply</button>
-          </div>
-        </div>
-      )
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+
+  const customStyle = {
+      display: "flex",
+      justifyContent: "space-evenly",
+  };
+
+return (
+  <div className="subFiltersContainerPage">
+    <div className="searchContainer">
+    <div style={customStyle}>
+          <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="From"
+          />
+          <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="To"
+          />
+      </div>
+    </div>
+    <div className="subFiltersContainerButton">
+      <button className="subFilterApply">Apply</button>
+    </div>
+  </div>
+);
 }

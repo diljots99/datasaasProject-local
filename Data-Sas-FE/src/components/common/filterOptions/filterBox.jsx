@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button ,Grid ,  TextField ,  Divider, Typography} from "@mui/material/";
 import Modal from "@mui/material/Modal";
@@ -12,6 +12,7 @@ import { setFilter } from '../../../redux/actions/filterAction'
 import { makeStyles } from "@material-ui/core";
 
 import CloseIcon from '@mui/icons-material/Close';
+import AppliedFilters from './AppliedFilters'
 
 const useStyles = makeStyles((theme) => ({
     model: {
@@ -102,7 +103,6 @@ const style = {
 
 const FiltersWrap = styled.div`
     margin: 0px;
-    padding: 15px 20px;
     background-color: #f8f8f8;
     width: 200px;
     padding-bottom: 0px;
@@ -111,7 +111,7 @@ const FiltersWrap = styled.div`
 export const FilterBox = () => {
     const dispatch = useDispatch();
     const classes = useStyles();    
-    const { isopen } = useSelector(state => state.filter)
+    const { isopen , FilterValues } = useSelector(state => state.filter)
     // Open / Close filters
 
     const [ showSave , setShowSave] = useState()
@@ -125,7 +125,11 @@ export const FilterBox = () => {
         useState("Options");
     const [SubFilterOptions, setSubFilterOptions] = useState();
 
-    const [AppliedFilters, setAppliedFilters] = useState([]);
+    // const [AppliedFilters, setAppliedFilters] = useState();
+
+    // useState(()=>{
+    //   console.log("FilterValues",FilterValues)
+    //   setAppliedFilters( JSON.stringify(FilterValues))},[FilterValues])
 
     return (
         <div>
@@ -169,6 +173,7 @@ export const FilterBox = () => {
                                                 setSubFilterOptions
                                             }
                                             key={index}
+                                            subFilterOptionsHeading={subFilterOptionsHeading}
                                         />
                                     );
                                 })}
@@ -192,7 +197,7 @@ export const FilterBox = () => {
                                 Clear Filters
                             </div>
                             <div className="appliedFilters">
-                                {AppliedFilters}
+                                <AppliedFilters  values={FilterValues} />
                             </div>
                             <div className="clearFiltersContainerButtons">
                                 <button className="clearFilterSave" onClick={()=>setShowSave(true)}>
