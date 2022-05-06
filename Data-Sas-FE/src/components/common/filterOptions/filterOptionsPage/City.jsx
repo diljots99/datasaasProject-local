@@ -37,8 +37,10 @@ export default function City() {
   useEffect(() => {
       if(FilterValues.City){
         setChecked(FilterValues.City)
+      }else{
+        setChecked([])
       }
-  },[])
+  },[FilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;

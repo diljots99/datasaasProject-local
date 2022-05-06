@@ -21,8 +21,10 @@ export default function CompanyNumber() {
   useEffect(() => {
     if(FilterValues.CompanyNumber){
       setChecked(FilterValues.CompanyNumber)
+    }else{
+      setChecked([])
     }
-},[])
+},[FilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;

@@ -1,4 +1,4 @@
-import { SET_FILTER, SET_FILTER_VALUES } from '../actions/filterAction'
+import { SET_FILTER, SET_FILTER_VALUES,CLEAR_ALL_FILTER } from '../actions/filterAction'
 
 const initialState = {
     isopen: false,
@@ -18,6 +18,10 @@ const filterReduser = (state = initialState, action) => {
             console.log({state , val})
             return {
                 ...state, FilterValues: {...state.FilterValues , [val.filterName]: val.values }
+            }
+        }  case CLEAR_ALL_FILTER : {
+            return {
+                ...state, FilterValues: action.payload
             }
         }
 

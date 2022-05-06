@@ -76,6 +76,12 @@
     /* justify-content: space-around; */
 }
 
+.appliedFilters{
+    height: 350px;
+    width: 250px;
+    overflow: auto;
+}
+
 .clearFiltersContainer {
     padding: 10px;
     background-color: #f8f8f8;
@@ -89,6 +95,8 @@
 .clearFiltersContainerText {
     font-size: 18px;
     font-weight: 600;
+    cursor: pointer;
+    color:#40acfb;
 }
 
 .clearFiltersContainerButtons {

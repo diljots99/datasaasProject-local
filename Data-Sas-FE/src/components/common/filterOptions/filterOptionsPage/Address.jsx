@@ -22,8 +22,10 @@ export default function Address() {
   useEffect(() => {
       if(FilterValues.Address){
         setChecked(FilterValues.Address)
+      }else{
+        setChecked([])
       }
-  },[])
+  },[FilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;

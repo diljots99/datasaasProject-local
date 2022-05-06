@@ -13,7 +13,7 @@ export default function AppliedFilters({values}) {
       return (
       <div>
         <Typography variant="subtitle1" className="title">{key}</Typography>
-      {values[`${key}`].map(val=> <Chip label={val} color="success" />)}
+      {values[`${key}`].map(val=> <Chip style={{margin:"2px"}} label={val} color="success" />)}
       </div>
       )
     }) }

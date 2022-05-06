@@ -21,8 +21,10 @@ export default function Website() {
   useEffect(() => {
       if(FilterValues.Website){
         setChecked(FilterValues.Website)
+      }{
+        setChecked([])
       }
-  },[])
+  },[FilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;

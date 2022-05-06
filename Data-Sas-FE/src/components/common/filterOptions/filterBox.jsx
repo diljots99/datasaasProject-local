@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { SubFilter } from "./subFilter";
 import { useDispatch, useSelector} from 'react-redux'
 import * as BiIcons from "react-icons/bi";
-import { setFilter } from '../../../redux/actions/filterAction'
+import { setFilter , clearAllFilter} from '../../../redux/actions/filterAction'
 import { makeStyles } from "@material-ui/core";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -193,7 +193,7 @@ export const FilterBox = () => {
                             </div> */}
                         </div>
                         <div className="clearFiltersContainer">
-                            <div className="clearFiltersContainerText">
+                            <div className="clearFiltersContainerText" onClick={()=> dispatch(clearAllFilter())}>
                                 Clear Filters
                             </div>
                             <div className="appliedFilters">

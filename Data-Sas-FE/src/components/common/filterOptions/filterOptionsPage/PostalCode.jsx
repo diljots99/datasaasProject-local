@@ -37,8 +37,10 @@ export default function PostalCode() {
   useEffect(() => {
       if(FilterValues.PostalCode){
         setChecked(FilterValues.PostalCode)
+      }else{
+        setChecked([])
       }
-  },[])
+  },[FilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;
