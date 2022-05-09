@@ -32,3 +32,4 @@ router.get("/test", (req,res)=>{
     console.log(model.available_business_filters)
 
 });
+module.exports = router;

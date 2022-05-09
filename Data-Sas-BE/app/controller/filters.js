@@ -8,10 +8,18 @@ const dao = require("../dao/filters");
 const errorlog = require("../../utils/logger").errorlog;
 const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
+const e = require("express");
 
 async function listAllFilters(req, res) {
     const list = await dao.getAllBusinessSearchFilters()
-    res.send({"status":"true","result":list})
+    const listFinal = []
+    list.forEach(element => {
+        listFinal.push({
+            featureEnabled :true,
+            ...element.dataValues
+        })
+    });
+    res.send({"status":"true","result":listFinal})
 };
 
 async function filterSuggestions(req,res){

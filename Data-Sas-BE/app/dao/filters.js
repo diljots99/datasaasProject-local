@@ -1,9 +1,10 @@
 const model = require("../../models");
 
 
-async function getAllBusinessSearchFilters(){
+async function getAllBusinessSearchFilters(data){
     return await model.available_business_filters.findAll({
-        attributes: ['uuid', 'name','category','type']
+        attributes: ['uuid', 'name','category','type'],
+        ...data
     });
 }
 
