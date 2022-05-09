@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const nocache = require("nocache");
+const AdminJS = require('adminjs')
+const AdminJSExpress = require('@adminjs/express')
+const AdminJSSequelize = require('@adminjs/sequelize')
+const db = require('./models');
 
 const app = express();
 app.use(cors());
@@ -28,6 +32,8 @@ const options = {
     },
     servers:[
       {
+        url:"/"
+      },{
         url:"http://65.1.17.209:8080/"
       }
     ],
@@ -69,6 +75,21 @@ app.use("/api", require("./app/routes")).use((request, response, next) => {
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
+
+
+AdminJS.registerAdapter(AdminJSSequelize)
+
+const adminJs = new AdminJS({
+  databases: [db],
+  rootPath: '/admin',
+  branding: {
+    companyName: 'Data SAas',
+  },
+})
+
+const router = AdminJSExpress.buildRouter(adminJs)
+
+app.use(adminJs.options.rootPath, router)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
