@@ -1,0 +1,37 @@
+"use strict";
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable("available_business_filters", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      uuid: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        unique: true,
+      },
+      name: {
+        type: Sequelize.STRING,
+      },
+      category: {
+        type: Sequelize.STRING,
+      },
+      type: {
+        type: Sequelize
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+  },
+};
