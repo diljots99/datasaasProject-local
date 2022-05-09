@@ -20,7 +20,12 @@ module.exports = {
         type: Sequelize.STRING,
       },
       type: {
-        type: Sequelize
+        type: Sequelize.ENUM([
+          "Free Text Search",
+          "Dropdown Multi Choice",
+          "Dropdown Single Choice",
+          "MinMax value",
+        ]),
       },
       createdAt: {
         allowNull: false,
