@@ -21,7 +21,7 @@ export default function Website() {
   useEffect(() => {
       if(FilterValues.Website){
         setChecked(FilterValues.Website)
-      }{
+      }else{
         setChecked([])
       }
   },[FilterValues])

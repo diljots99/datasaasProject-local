@@ -9,6 +9,7 @@ import {
     GET_TRADING_DETAILS,
     GET_KEYNOTE_DETAILS,
     GET_COMPANY_CONTACT_DETAIL,
+    SET_COMPANY_WATCH_DETAILS
 } from "../actions/watchAction";
 
 const initialState = {
@@ -55,6 +56,12 @@ const watchReducer = (state = initialState, action) => {
                 ...state,
                 companyDetail: action.payload,
             };
+        }
+        case SET_COMPANY_WATCH_DETAILS:{
+            return {
+                ...state,
+                companyDetail:  {...state.companyDetail ,business_watches : action.payload },
+            }
         }
         case GET_MONITOR_COMPANY_DETAILS: {
             return {

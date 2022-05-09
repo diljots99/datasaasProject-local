@@ -47,20 +47,23 @@ export default function SideBar() {
   const history = useHistory();
 
 let checkStorageValue = JSON.parse(sessionStorage.getItem("userData"));
-console.log("checkStorageValue",checkStorageValue)
+// console.log("checkStorageValue",checkStorageValue)
   useEffect(() => {
-    console.log("companyDetail",companyDetail)
+    console.log("companyDetail UEff",companyDetail)
     if (
-      companyDetail.business_watches &&
+       companyDetail.business_watches &&
       companyDetail.business_watches.length > 0
     ) {
-      //console.log("@=@=@=@=@", companyDetail.business_watches.filter(det => det.user_id === checkStorageValue.id ));
-      setMonitor(companyDetail.business_watches.filter(det => det.user_id === checkStorageValue.id )[0].b_watch_status);
+    //  console.log("@=@=@=@=@",companyDetail.business_watches,checkStorageValue.id ,companyDetail.business_watches.filter(det => parseInt(det.user_id ) === checkStorageValue.id ));
+      if(companyDetail.business_watches.filter(det => parseInt(det.user_id ) === checkStorageValue.id )[0] !== undefined){
+        setMonitor(companyDetail.business_watches[0].b_watch_status);
+      }
+     
     } else {
       console.log("falseeeeee");
       setMonitor(false);
     }
-  }, [companyDetail]);
+  }, [companyDetail , companyDetail.business_watches]);
 
   const toggleTrueFalse = () => {
     if (monitor == false) {
@@ -74,7 +77,7 @@ console.log("checkStorageValue",checkStorageValue)
 
   const clickToUnMonitor = () => {
     let checkStorageValue = JSON.parse(sessionStorage.getItem("userData"));
-    console.log("companyDetail",companyDetail)
+    console.log("companyDetail clickToUnMonitor ",companyDetail)
     dispatch(
       unSetMonitorCompany(
         checkStorageValue.id,

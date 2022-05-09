@@ -14,6 +14,7 @@ export const GET_COMPANY_NOTES = "GET_COMPANY_NOTES";
 export const GET_TRADING_DETAILS = "GET_TRADING_DETAILS";
 export const GET_KEYNOTE_DETAILS = "GET_KEYNOTE_DETAILS";
 export const GET_COMPANY_CONTACT_DETAIL = "GET_COMPANY_CONTACT_DETAIL";
+export const SET_COMPANY_WATCH_DETAILS = "SET_COMPANY_WATCH_DETAILS"
 //export const GET_COMPANY_NOTES = "ADD_COMPANY_NOTES";
 
 //---------------Director-----------------------
@@ -315,9 +316,9 @@ export const setMonitorCompany = (user_id, company_id, setMonitor) => {
         console.log("getCompanyDetail", response);
         if (response.status === true) {
           console.log("response", response);
-          dispatch(getCompanyList());
+          // dispatch(getCompanyList());
           setMonitor(true);
-          // dispatch({ type: GET_COMPANY_DETAILS, payload: response.data });
+           dispatch({ type: SET_COMPANY_WATCH_DETAILS, payload: [response.data] });
         }
       })
       .catch((err) => {
@@ -344,7 +345,7 @@ export const unSetMonitorCompany = (user_id, uuid, setMonitor) => {
         const response = res.data;
         if (response.status === true) {
           setMonitor(false);
-          // dispatch({ type: GET_COMPANY_DETAILS, payload: response.data });
+          dispatch({ type: SET_COMPANY_WATCH_DETAILS, payload: [] });
         }
       })
       .catch((err) => {
