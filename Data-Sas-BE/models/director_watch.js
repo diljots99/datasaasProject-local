@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
         unique: true,
       },
       user_id: DataTypes.INTEGER,

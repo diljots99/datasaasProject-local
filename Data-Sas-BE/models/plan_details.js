@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Plan_Details.init({
     uuid:  {
       type: DataTypes.UUID,
-      defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+      defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
       unique: true,
     },
     p_name: DataTypes.STRING,

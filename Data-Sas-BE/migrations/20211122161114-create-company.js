@@ -10,7 +10,7 @@ module.exports = {
       },
       uuid: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
         unique:true
       },
       dbe_id: {

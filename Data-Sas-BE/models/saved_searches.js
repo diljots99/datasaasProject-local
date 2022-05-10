@@ -9,17 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Saved_searches.belongsTo(models.User, {
+        foreignKey: "user_id",
+      });
     }
   }
   Saved_searches.init(
     {
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
         unique: true,
       },
-      s_fliter_name: DataTypes.STRING,
-      s_search_type: DataTypes.STRING,
+      fliter_name: { field: "s_fliter_name", type: DataTypes.STRING },
+      search_type: {field:"s_search_type", type:DataTypes.STRING},
       user_id: DataTypes.INTEGER,
     },
     {
