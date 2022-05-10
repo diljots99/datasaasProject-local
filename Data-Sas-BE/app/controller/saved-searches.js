@@ -15,27 +15,29 @@ async function createSavedSearch(req, res) {
 
   const data = {
     user_id: user.dataValues.id,
-    
-    ...req.body
+
+    ...req.body,
   };
 
   const created = await dao.createSavedSearch(data);
-//   const result = await dao.findAllSavedSearches();
+  //   const result = await dao.findAllSavedSearches();
   res.send({ status: true, result: created });
 }
 
-
-async function listUserSavedSearches(req,res){
+async function listUserSavedSearches(req, res) {
   const user = await dao.findUserByEmail({
     where: {
       u_email: req.decoded.u_email,
     },
   });
-  const result = await dao.findAllSavedSearches({where:{
-    user_id:user.dataValues.id
-  }});
+  const result = await dao.findAllSavedSearches({
+    where: {
+      user_id: user.dataValues.id,
+    },
+  });
   res.send({ status: true, result: result });
 }
 module.exports = {
-  createSavedSearch,listUserSavedSearches
+  createSavedSearch,
+  listUserSavedSearches,
 };
