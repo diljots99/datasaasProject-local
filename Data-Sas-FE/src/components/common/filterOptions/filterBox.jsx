@@ -7,8 +7,9 @@ import { filtersData } from "./filterData";
 import styled from "styled-components";
 import { SubFilter } from "./subFilter";
 import { useDispatch, useSelector} from 'react-redux'
+import { useHistory } from "react-router-dom";
 import * as BiIcons from "react-icons/bi";
-import { setFilter , clearAllFilter} from '../../../redux/actions/filterAction'
+import { setFilter , clearAllFilter , saveFilterList} from '../../../redux/actions/filterAction'
 import { makeStyles } from "@material-ui/core";
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -110,10 +111,11 @@ const FiltersWrap = styled.div`
 
 export const FilterBox = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const classes = useStyles();    
-    const { isopen , FilterValues } = useSelector(state => state.filter)
+    const { isopen , selectedFilterValues ,  filterTypeDetail} = useSelector(state => state.filter)
     // Open / Close filters
-
+console.log("filterTypeDetail}", filterTypeDetail)
     const [ showSave , setShowSave] = useState()
     const [listName , setListName] = useState("")
 
@@ -128,8 +130,44 @@ export const FilterBox = () => {
     // const [AppliedFilters, setAppliedFilters] = useState();
 
     // useState(()=>{
-    //   console.log("FilterValues",FilterValues)
-    //   setAppliedFilters( JSON.stringify(FilterValues))},[FilterValues])
+    //   console.log("selectedFilterValues",selectedFilterValues)
+    //   setAppliedFilters( JSON.stringify(selectedFilterValues))},[selectedFilterValues])
+
+    const handleSaveFilter = () =>{
+
+if(!listName){
+  return 
+}
+
+      let chip_data = []
+
+      Object.keys(selectedFilterValues).map(key=>{
+        let group_values = []
+       
+        selectedFilterValues[`${key}`].map(val=>  {
+          group_values.push({"chip_value": val}) 
+        })
+
+        chip_data.push( {
+          "chip_group": key,
+          "chip_values": group_values
+        })  
+      })
+
+      let req = {
+        "fliter_name": listName.trim(),
+        "search_type": "Business Search",
+        "chip_data": chip_data
+      }
+if(chip_data.length == 0){
+  return
+}
+
+      console.log(" req for save list ", req)
+
+      dispatch(saveFilterList(req, handleClose, history))
+      // setShowSave(false)
+    }
 
     return (
         <div>
@@ -197,7 +235,7 @@ export const FilterBox = () => {
                                 Clear Filters
                             </div>
                             <div className="appliedFilters">
-                                <AppliedFilters  values={FilterValues} />
+                                <AppliedFilters  values={selectedFilterValues} />
                             </div>
                             <div className="clearFiltersContainerButtons">
                                 <button className="clearFilterSave" onClick={()=>setShowSave(true)}>
@@ -209,9 +247,7 @@ export const FilterBox = () => {
                             </div>
                         </div>
                     </div>
-                </Box>
-              
-             
+                </Box>             
             </Modal>
 
             <Modal
@@ -249,7 +285,7 @@ export const FilterBox = () => {
               size="large"
               style={{ marginTop: "10px" }}
               onClick={() => {
-                setShowSave(false)
+                handleSaveFilter()
               }}
             >
               Save

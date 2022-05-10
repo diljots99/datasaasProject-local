@@ -1,9 +1,10 @@
-import { SET_FILTER, SET_FILTER_VALUES,CLEAR_ALL_FILTER } from '../actions/filterAction'
+import { SET_FILTER, SET_FILTER_VALUES,CLEAR_ALL_FILTER, SET_ALL_FILTERS_TYPE, SET_SAVED_FILTERS_LIST } from '../actions/filterAction'
 
 const initialState = {
     isopen: false,
-    FilterValues:{}
-    
+    selectedFilterValues:{}, // for the values user choose 
+    filterTypeDetail : [],
+    savedFilterList:[] , // for All saved search   
 }
 
 const filterReduser = (state = initialState, action) => {
@@ -17,11 +18,22 @@ const filterReduser = (state = initialState, action) => {
             const val = action.payload
             console.log({state , val})
             return {
-                ...state, FilterValues: {...state.FilterValues , [val.filterName]: val.values }
+                ...state, selectedFilterValues: {...state.selectedFilterValues , [val.filterName]: val.values }
             }
-        }  case CLEAR_ALL_FILTER : {
+        }
+          case CLEAR_ALL_FILTER : {
             return {
-                ...state, FilterValues: action.payload
+                ...state, selectedFilterValues: action.payload
+            }
+        }
+        case SET_ALL_FILTERS_TYPE:{
+            return {
+                ...state, filterTypeDetail: action.payload
+            }
+        }
+        case SET_SAVED_FILTERS_LIST:{
+            return {
+                ...state, savedFilterList: action.payload
             }
         }
 

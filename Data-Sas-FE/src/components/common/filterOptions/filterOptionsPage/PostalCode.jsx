@@ -4,12 +4,12 @@ import MuiSearchBar from "material-ui-search-bar";
 import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
-import { SetFilterValues } from "../../../../redux/actions/filterAction";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 
 export default function PostalCode() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { FilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -35,12 +35,12 @@ export default function PostalCode() {
   const [checked, setChecked] = useState([]);
 
   useEffect(() => {
-      if(FilterValues.PostalCode){
-        setChecked(FilterValues.PostalCode)
+      if(selectedFilterValues["Postal Code"]){
+        setChecked(selectedFilterValues["Postal Code"])
       }else{
         setChecked([])
       }
-  },[FilterValues])
+  },[selectedFilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;
@@ -57,7 +57,7 @@ export default function PostalCode() {
 
   const applyFilter = () => {
     if (checked.length > 0) {
-      dispatch(SetFilterValues("PostalCode", checked));
+      dispatch(SetselectedFilterValues("Postal Code", checked));
     }
   };
   

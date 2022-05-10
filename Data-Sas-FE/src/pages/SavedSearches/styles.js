@@ -29,7 +29,11 @@ export const useStyles = makeStyles((theme)=> ({
     display: "flex",
     marginTop:"4px",
     justifyContent:"space-around",
-    textAlign:"left"
+    textAlign:"left",
+  },
+  filterHeading:{
+    display: "flex",
+    alignItems: "center"
   },
   checkBox: {
     display: "flex",
@@ -58,13 +62,14 @@ export const useStyles = makeStyles((theme)=> ({
     '& th' :{
       borderBottom: "1px solid #DCD9D9",
       borderTop: "1px solid #DCD9D9",
+      alignItems:'center',
       background: "#f1f1f1",
     },
     '& th:first-child' :{
       borderTopLeftRadius: "4px",
       borderBottomLeftRadius: "4px",
       borderLeft: "1px solid #DCD9D9",
-      textAlign: "center",
+      textAlign: "left",
     },
     '& th:last-child' :{
       borderTopRightRadius: "4px",

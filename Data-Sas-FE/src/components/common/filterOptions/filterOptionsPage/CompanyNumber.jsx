@@ -4,12 +4,12 @@ import MuiSearchBar from "material-ui-search-bar";
 import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
-import { SetFilterValues } from "../../../../redux/actions/filterAction";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 
 export default function CompanyNumber() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { FilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -19,12 +19,12 @@ export default function CompanyNumber() {
   const [checked, setChecked] = useState([]);
 
   useEffect(() => {
-    if(FilterValues.CompanyNumber){
-      setChecked(FilterValues.CompanyNumber)
+    if(selectedFilterValues["Company Number"]){
+      setChecked(selectedFilterValues["Company Number"])
     }else{
       setChecked([])
     }
-},[FilterValues])
+},[selectedFilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;
@@ -41,7 +41,7 @@ export default function CompanyNumber() {
 
   const applyFilter = () => {
     if (checked.length > 0) {
-      dispatch(SetFilterValues("CompanyNumber", checked));
+      dispatch(SetselectedFilterValues("Company Number", checked));
     }
   };
 

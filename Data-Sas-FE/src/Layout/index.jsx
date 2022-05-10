@@ -45,7 +45,7 @@ import Navigations from "../Routes/Navigations";
 import Footer from "./Footer";
 import ChangePassword from "../components/common/changePassword";
 import { getDirectorList,getCompanyList, getDirectorMonitorList, getCompanyMonitorList} from "../redux/actions/watchAction";
-
+import  { getAllFilterTypes , getSavedFilterList  } from "../redux/actions/filterAction"
 
 export default function MiniDrawer() {
   const classes = useStyles();
@@ -64,6 +64,8 @@ export default function MiniDrawer() {
   useEffect(() => {
     dispatch(getDirectorList());
     dispatch(getCompanyList());
+    dispatch(getAllFilterTypes())
+    dispatch(getSavedFilterList())
     dispatch(getDirectorMonitorList(userData.id));
     dispatch(getCompanyMonitorList(userData.id));
     // dispatch(getDirectorMonitorList());

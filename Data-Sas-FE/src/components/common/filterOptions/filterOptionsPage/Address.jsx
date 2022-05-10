@@ -4,12 +4,12 @@ import MuiSearchBar from "material-ui-search-bar";
 import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
-import { SetFilterValues } from "../../../../redux/actions/filterAction";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 
 export default function Address() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { FilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -20,12 +20,12 @@ export default function Address() {
   console.log("Address", companyList);
 
   useEffect(() => {
-      if(FilterValues.Address){
-        setChecked(FilterValues.Address)
+      if(selectedFilterValues.Address){
+        setChecked(selectedFilterValues.Address)
       }else{
         setChecked([])
       }
-  },[FilterValues])
+  },[selectedFilterValues])
 
   const handleFilter = (value) => {
     const searchWord = value;
@@ -42,7 +42,7 @@ export default function Address() {
 
   const applyFilter = () => {
     if (checked.length > 0) {
-      dispatch(SetFilterValues("Address", checked));
+      dispatch(SetselectedFilterValues("Address", checked));
     }
   };
 

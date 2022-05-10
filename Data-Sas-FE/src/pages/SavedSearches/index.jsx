@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
   Grid,
   Typography,
@@ -10,7 +10,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { useStyles } from "./styles";
-
+import {  Chip } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import MaUTable from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -20,7 +20,7 @@ import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useTable } from "react-table";
 import { Pagination } from "@mui/material";
-import { useState } from "react";
+import { useDispatch, useSelector} from 'react-redux'
 
 const SavedSearches = () => {
   const classess = useStyles();
@@ -32,6 +32,8 @@ const SavedSearches = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [multiDelete, setMultiDelete] = useState(false);
 
+  const { savedFilterList} = useSelector(state => state.filter)
+console.log(" saved search list ", savedFilterList)
   const handleChange = (e) => {
     console.log("fcghbjnm");
     setPages(() => e.target.value);
@@ -42,8 +44,8 @@ const SavedSearches = () => {
     if (!allSelected) {
       setChecked([]);
     } else {
-      const temp = data.map((item, index) => {
-        return item.id;
+      const temp = savedFilterList.map((item, index) => {
+        return item.uuid;
       });
       setChecked(temp);
     }
@@ -59,23 +61,23 @@ const SavedSearches = () => {
     () => [
       {
         Header: "Filter Name",
-        accessor: "Name",
+        accessor: "fliter_name",
         Cell: ({ value, row }) => {
-            console.log("ch ", row ,checked.includes(row.original.id))
+            // console.log("ch ", row ,checked.includes(row.original.uuid))
           return (
             <Grid container alignItems="center">
               <Grid item>
                 <Checkbox
                   size="small"
-                  checked={checked.includes(row.original.id)}
+                  checked={checked.includes(row.original.uuid)}
                   onChange={() => {
-                    if (checked.includes(row.original.id)) {
+                    if (checked.includes(row.original.uuid)) {
                       const temp = checked.filter(
-                        (item) => item !== row.original.id
+                        (item) => item !== row.original.uuid
                       );
                       setChecked(temp);
                     } else {
-                      const temp = [...checked, row.original.id];
+                      const temp = [...checked, row.original.uuid];
                       setChecked(temp);
                       // console.log(temp);
                     }
@@ -91,57 +93,39 @@ const SavedSearches = () => {
       },
       {
         Header: "Filter applied",
-        accessor: "filter",
+        accessor: "chip_data",
         Cell: ({ value }) => {
           return (
             <>
-              <Grid item>
+              <Grid container direction="column" >
                 {value.map((ele) => {
-                  if (ele.locationPostalCode !== undefined)
+                 
                     return (
                       <div className={classess.filter}>
-                        <Typography> Location Postal Code </Typography>
-                        <Button
-                          color="primary"
-                          size="small"
-                          variant="contained"
-                        >
-                          {ele.locationPostalCode}
-                        </Button>
+                        <Grid item className={classess.filterHeading} >
+                        <Typography> {ele.chip_group }</Typography>
+                        </Grid>
+                        <Grid item >
+                        { ele.chip_values.map(val=>{
+                          return (  <Chip style={{margin:"2px"}} label={val.chip_value} color="success" /> )
+                        })}
+                        </Grid>
                       </div>
                     );
-                  else return null;
-                })}
-              </Grid>
-              <Grid item>
-                {value.map((ele) => {
-                  if (ele.CompanyName !== undefined)
-                    return (
-                      <div className={classess.filter}>
-                        <Typography> Company Name </Typography>
-                        <Button
-                          color="primary"
-                          size="small"
-                          variant="contained"
-                        >
-                          {ele.CompanyName}
-                        </Button>
-                      </div>
-                    );
-                  else return null;
+
                 })}
               </Grid>
             </>
           );
         },
       },
-      {
-        Header: "created on",
-        accessor: "createdOn",
-      },
+      // {
+      //   Header: "created on",
+      //   accessor: "createdOn",
+      // },
       {
         Header: "Actions",
-        accessor: "id",
+        accessor: "uuid",
         Cell: (value) => {
           return (
             <Grid container>
@@ -164,38 +148,38 @@ const SavedSearches = () => {
     [checked]
   );
 
-  const data = [
-    {
-      id: 1,
-      Name: "Mark Wood",
-      filter: [{ locationPostalCode: "213434" }],
-      createdOn: "24/02/2022",
-    },
-    {
-      id: 2,
-      Name: "Gorge d'souza",
-      filter: [
-        { locationPostalCode: "21343454" },
-        { CompanyName: "ashs pvt ltd." },
-      ],
-      createdOn: "24/02/2022",
-    },
-    {
-      id: 3,
-      Name: "adam",
-      filter: [
-        { locationPostalCode: "21343454" },
-        { CompanyName: "Mechlin Tech" },
-      ],
-      createdOn: "24/02/2022",
-    },
-    {
-      id: 4,
-      Name: "Shane",
-      filter: [{ CompanyName: "abc infotech" }],
-      createdOn: "24/02/2022",
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     Name: "Mark Wood",
+  //     filter: [{ locationPostalCode: "213434" }],
+  //     createdOn: "24/02/2022",
+  //   },
+  //   {
+  //     id: 2,
+  //     Name: "Gorge d'souza",
+  //     filter: [
+  //       { locationPostalCode: "21343454" },
+  //       { CompanyName: "ashs pvt ltd." },
+  //     ],
+  //     createdOn: "24/02/2022",
+  //   },
+  //   {
+  //     id: 3,
+  //     Name: "adam",
+  //     filter: [
+  //       { locationPostalCode: "21343454" },
+  //       { CompanyName: "Mechlin Tech" },
+  //     ],
+  //     createdOn: "24/02/2022",
+  //   },
+  //   {
+  //     id: 4,
+  //     Name: "Shane",
+  //     filter: [{ CompanyName: "abc infotech" }],
+  //     createdOn: "24/02/2022",
+  //   },
+  // ];
 
   function Table({ columns, data }) {
     // Use the state and functions returned from useTable to build your UI
@@ -240,7 +224,7 @@ const SavedSearches = () => {
                 <Typography variant="h6">Select all </Typography>
               </div>
             </TableCell>
-            <TableCell></TableCell>
+            {/* <TableCell></TableCell> */}
             <TableCell></TableCell>
             <TableCell style={{ textAlign: "right" }}>
               <div>
@@ -304,7 +288,7 @@ const SavedSearches = () => {
       </Grid>
 
       {/* Table component */}
-      <Table columns={columns} data={data} />
+      <Table columns={columns} data={savedFilterList} />
       <div className={classess.pagination}>
         <FormControl>
           <Select
