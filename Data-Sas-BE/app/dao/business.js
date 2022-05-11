@@ -14,7 +14,9 @@ async function getCompanyOfficalByUuid(data){
     return model.compines_offical.findOne(data)
 }
 
-async function getCompanyByUuid(){
+async function getCompany(data){
+    return model.companies.findOne(data)
+
 }
 
 
@@ -29,10 +31,16 @@ async function getOfficersForCompany(data){
       
 }
 
+async function getAllCompanyPostCodes(data){
+    return await model.company_postcodes.paginate(data)
+}
+
 module.exports ={
     getCompanyOfficalByUuid,
     getCompanies,
     getNumberOfDirectorsCompanies,
     getNumberOfEmployeesCompanies,
-    getOfficersForCompany
+    getOfficersForCompany,
+    getAllCompanyPostCodes,
+    getCompany
 }

@@ -154,6 +154,36 @@ const JWT = require("../utils/auth");
  router.get("/:uuid/trade",JWT.authenticate,businessController.businessTrade)
 
 
+ /**
+ * @swagger
+ *
+ * /api/business/{uuid}/tradingAddress:
+ *   get:
+ *     summary: tradingAddress
+ *     tags: [Business]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     parameters:
+ *      - in: path
+ *        name: uuid
+ *        schema:
+ *            type: string
+ *        required: true
+ *        description: Company uuid
+ *      - in: query
+ *        name: page
+ *      - in: query
+ *        name: item_per_page
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+  router.get("/:uuid/tradingAddress",JWT.authenticate,businessController.businessTradeAddress)
 
 
 module.exports = router

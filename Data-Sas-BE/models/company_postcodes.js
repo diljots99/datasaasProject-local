@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const sequelizePaginate = require('sequelize-paginate')
+
 module.exports = (sequelize, DataTypes) => {
   class Company_Postcodes extends Model {
     /**
@@ -55,5 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "company_postcodes",
     }
   );
+  sequelizePaginate.paginate(Company_Postcodes)
+
   return Company_Postcodes;
 };

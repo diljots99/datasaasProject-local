@@ -161,34 +161,85 @@ async function businessTrade(req, res) {
       message: "uuid is important",
     });
   }
-  let company = await dao.getCompanyOfficalByUuid({
+  let company_offical = await dao.getCompanyOfficalByUuid({
     where: {
       uuid: uuid,
     },
   });
 
+  let company = await dao.getCompany({
+    where:{
+      chn : company_offical.dataValues.chn
+    }
+  })
   return res.send({
     status: true,
     result: {
       trade: {
-        uk_sic_section: null,
-        uk_sic: null,
+        uk_sic_section: company.dataValues.sic_section,
+        uk_sic: company.dataValues.uk_sic_2007_code,
         us_sic: null,
-        nace: null,
-        naics: null,
-        subsector: null,
-        sector: null,
-        exporter_status: null,
-        importer_status: null,
+        nace: company.dataValues.nace_rev_2_code,
+        naics: company.dataValues.naics_2017_code,
+        subsector: company.dataValues.main_subsector,
+        sector: company.dataValues.main_sector,
+        exporter_status: company.dataValues.exporter,
+        export_probability:company.dataValues.export_probability,
+        importer_status: company.dataValues.importer,
       },
       import_export: [{}],
     },
   });
 }
 
+async function businessTradeAddress(req, res) {
+  let page = req.query.page ? parseInt(req.query.page) : 1;
+  let item_per_page = req.query.item_per_page
+    ? parseInt(req.query.item_per_page)
+    : 25;
+  let uuid = req.params.uuid;
+  if (!uuid) {
+    return res.send({
+      status: false,
+      message: "uuid is important",
+    });
+  }
+  let company_offical = await dao.getCompanyOfficalByUuid({
+    where: {
+      uuid: uuid,
+    },
+  });
+
+  let company = await dao.getCompany({
+    where:{
+      chn : company_offical.dataValues.chn
+    }
+  })
+  let company_postcodes = await dao.getAllCompanyPostCodes({
+    page:page,
+    paginate:item_per_page,
+    where:{
+      chn:company_offical.dataValues.chn
+    }
+  })
+
+  return res.send({
+    status:true,
+    page:page,
+    item_per_page:item_per_page,
+    total:company_postcodes.total,
+    pages:company_postcodes.pages,
+
+    result: company_postcodes.docs,
+
+  })
+}
+
+
 module.exports = {
   businessSearch,
   businessPeople,
   businessDirectors,
   businessTrade,
+  businessTradeAddress
 };
