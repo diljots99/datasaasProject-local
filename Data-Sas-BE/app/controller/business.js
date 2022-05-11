@@ -24,35 +24,45 @@ async function businessSearch(req, res) {
 
 async function businessPeople(req, res) {
   let page = req.query.page ? parseInt(req.query.page) : 1;
-  let item_per_page = req.query.item_per_page ? parseInt(req.query.item_per_page): 25 ;
+  let item_per_page = req.query.item_per_page
+    ? parseInt(req.query.item_per_page)
+    : 25;
   let uuid = req.params.uuid;
-  if(!uuid){
-      return res.send({
-          "status":false,
-          "message":"uuid is important"
-      })
+  if (!uuid) {
+    return res.send({
+      status: false,
+      message: "uuid is important",
+    });
   }
   let company = await dao.getCompanyOfficalByUuid({
-      where:{
-          uuid:uuid
-      }
+    where: {
+      uuid: uuid,
+    },
   });
 
   let no_of_directors = await dao.getNumberOfDirectorsCompanies({
-      where:{
-          chn:company.dataValues.chn
-      }
-  })
+    where: {
+      chn: company.dataValues.chn,
+    },
+  });
 
   let officers = await dao.getOfficersForCompany({
-    page:page,
-    paginate:item_per_page,
+    page: page,
+    paginate: item_per_page,
     where: {
-        chn : company.dataValues.chn
+      chn: company.dataValues.chn,
     },
-    attributes: ["uuid","title","fullname","firstname","middlename","lastname","title","officer_role"]
-  })
-
+    attributes: [
+      "uuid",
+      "title",
+      "fullname",
+      "firstname",
+      "middlename",
+      "lastname",
+      "title",
+      "officer_role",
+    ],
+  });
 
   return res.send({
     status: true,
@@ -67,7 +77,46 @@ async function businessPeople(req, res) {
   });
 }
 
+async function businessDirectors(req, res) {
+  let page = req.query.page ? parseInt(req.query.page) : 1;
+  let item_per_page = req.query.item_per_page
+    ? parseInt(req.query.item_per_page)
+    : 25;
+  let uuid = req.params.uuid;
+  if (!uuid) {
+    return res.send({
+      status: false,
+      message: "uuid is important",
+    });
+  }
+  let company = await dao.getCompanyOfficalByUuid({
+    where: {
+      uuid: uuid,
+    },
+  });
+
+  let officers = await dao.getOfficersForCompany({
+    page: page,
+    paginate: item_per_page,
+    where: {
+      chn: company.dataValues.chn,
+    },
+    attributes: {exclude: ['id']},
+  });
+  return res.send({
+    status: true,
+    page: page,
+    item_per_page: item_per_page,
+    pages: officers.pages,
+    total: officers.total,
+
+    result: officers.docs,
+  });
+
+}
+
 module.exports = {
   businessSearch,
   businessPeople,
+  businessDirectors,
 };
