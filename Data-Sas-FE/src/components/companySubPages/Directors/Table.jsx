@@ -74,7 +74,7 @@ export default function Table({
                 </button>
             );
         }
-        console.log("renderPageBtn", buttons);
+        // console.log("renderPageBtn", buttons);
         return buttons;
     };
 

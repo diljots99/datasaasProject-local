@@ -42,9 +42,16 @@ export default function CompanyName() {
   };
 
   const applyFilter = () => {
-    if (checked.length > 0) {
-      dispatch(SetselectedFilterValues("Company Name", checked));
+    // if (checked.length > 0) {
+    //   dispatch(SetselectedFilterValues("Company Name", checked));
+    // }
+    if(selectedFilterValues['Company Name']){
+      dispatch(SetselectedFilterValues("Company Name", [...selectedFilterValues['Company Name'],checked]))
+    }else{
+      dispatch(SetselectedFilterValues("Company Name", checked))
     }
+    setChecked([])
+    setWordEntered('')
   };
   return (
     <div className="subFiltersContainerPage">
@@ -53,14 +60,14 @@ export default function CompanyName() {
           className="search"
           placeholder="search Company Name"
           value={wordEntered}
-          onChange={handleFilter}
+          onChange={val => setWordEntered(val)}
           onCancelSearch={() => {
             setFilteredData([]);
             setWordEntered("");
           }}
         ></MuiSearchBar>
       </div>
-      <div className="choosenResultsContainer">
+      {/* <div className="choosenResultsContainer">
         {filteredData.length != 0 ? (
           <div className="dataResult">
             {filteredData.map((item, key) => {
@@ -114,7 +121,27 @@ export default function CompanyName() {
             })}
           </div>
         ) : null}
-      </div>
+      </div> */}
+   <div className="choosenResultsContainer">
+{ wordEntered.length > 0 && (
+  <>
+  < div  className="dataResultItems"  onClick={()=> setChecked([`with All ${wordEntered} `])}>
+   <Checkbox checked={checked.includes(`with All ${wordEntered} `)} />
+                  <Typography variant="subtitle2" className="title">
+                  with All  {wordEntered}
+                  </Typography>
+                  </div>
+   < div  className="dataResultItems" onClick={()=> setChecked([`with only  ${wordEntered} `])} >
+   <Checkbox checked={checked.includes(`with only  ${wordEntered} `)} />
+                  <Typography variant="subtitle2" className="title">
+                  with only {wordEntered}
+                  </Typography>
+                  </div>
+ </>
+)}
+
+   </div>
+
       <div className="subFiltersContainerButton">
         <button className="subFilterApply" onClick={applyFilter}>
           Apply

@@ -279,7 +279,7 @@ export const addCompanyNotes = (data) => {
 export const getCompanyDetail = (ID) => {
   return async (dispatch) => {
     let dataToken = JSON.parse(sessionStorage.getItem("userData"));
-    console.log("😎😋😊😋😊", dataToken.token);
+    // console.log("😎😋😊😋😊", dataToken.token);
     await axios
       .get(`${BASE_URL}/api/business-watch/company-records-by-uuid/${ID}`, {
         // headers: {

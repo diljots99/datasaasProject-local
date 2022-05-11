@@ -12,27 +12,44 @@ import Table from "./Table";
 import SearchIcon from "@material-ui/icons/Search";
 import PeoplerCard from "../../common/PeopleCard";
 import { useSelector, useDispatch } from "react-redux";
+import { getProple } from '../../../redux/actions/companyActions'
+
 const People = () => {
   const classess = useStyles();
-  const [monitor, setMonitor] = useState(false);
+  const dispatch = useDispatch()
   const { companyDetail } = useSelector((state) => state.watch);
-  const [getData, setData] = useState({
-    officersCount: "",
-    fetchTableData: "",
-  });
+  const { People } = useSelector((state) => state.company);
+  const [getData, setData] = useState([]);
+  
   const [tabledata, settableData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [pageCount, setPageCount] = React.useState(0);
   const compSumfetchIdRef = React.useRef(0);
+ 
+
+  useEffect(()=>{
+    dispatch( getProple(companyDetail.uuid))
+  },
+  [companyDetail])
+
+  useEffect(() => {
+    if(People.result?.length > 0){
+      setData(People.result);
+    }else{
+      setData([]);
+    }
+    
+  }, [People]);
+
   const columns = React.useMemo(
     () => [
       {
         Header: "Name",
-        accessor: "fullname",
+        accessor: "firstname",
       },
       {
         Header: "Surname",
-        accessor: "name",
+        accessor: "lastname",
       },
       {
         Header: "Title",
@@ -46,15 +63,6 @@ const People = () => {
     []
   );
 
-  useEffect(() => {
-    setData({
-      officersCount:
-        companyDetail.officers && companyDetail.officers.length
-          ? companyDetail.officers.length
-          : 0,
-      fetchTableData: companyDetail.officers,
-    });
-  }, []);
 
   const fetchData = React.useCallback(
     ({ pageSize, pageIndex }) => {
@@ -65,13 +73,13 @@ const People = () => {
         if (fetchId === compSumfetchIdRef.current) {
           const startRow = pageSize * pageIndex;
           const endRow = startRow + pageSize;
-          settableData(getData.fetchTableData.slice(startRow, endRow));
-          setPageCount(Math.ceil(getData.fetchTableData.length / pageSize));
+          settableData(getData.slice(startRow, endRow));
+          setPageCount(Math.ceil(getData.length / pageSize));
           setLoading(false);
         }
       }, 3000);
     },
-    [getData.fetchTableData]
+    [getData]
   );
   return (
     <>
@@ -92,14 +100,14 @@ const People = () => {
         <Grid container className={classess.peopleCard}>
           <Grid item>
             <PeoplerCard
-              count={getData && getData.officersCount?getData.officersCount:0 }
+              count={ People.no_of_directors ? People.no_of_directors : 0 }
               message="No of Director"
               imgsrc="/images/DWIcon.png"
             />
           </Grid>
           <Grid item className={classess.noEmply}>
             <PeoplerCard
-              count="0"
+              count={ People.no_of_employess ? People.no_of_employess : 0 }
               message="No of Employee"
               imgsrc="/images/DouIcon.png"
             />
@@ -121,7 +129,7 @@ const People = () => {
             >
               Filter
             </Button>
-            <TextField
+            {/* <TextField
               style={{
                 background: "#FFFFFF",
                 border: "1px solid #DCD9D9",
@@ -140,10 +148,10 @@ const People = () => {
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
           </Grid>
         </Grid>
-        {getData.fetchTableData.length > 0 ? (
+        {getData.length > 0 ? (
           <Table
             columns={columns}
             data={tabledata}

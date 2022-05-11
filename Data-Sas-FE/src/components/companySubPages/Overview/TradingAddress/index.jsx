@@ -19,6 +19,7 @@ import {
     getCompanySpecificDirectorList,
     getTradingDetail,
 } from "../../../../redux/actions/watchAction";
+import { getTradingAddress } from '../../../../redux/actions/companyActions'
 import { useParams } from "react-router-dom";
 
 const Directors = () => {
@@ -30,12 +31,17 @@ const Directors = () => {
         (state) => state.watch
     );
 
+    const { TradingAddress } = useSelector(
+        (state) => state.company
+    );
+
     console.log("companyDetail.id", companyDetail.id);
-    console.log("tradingDetails here 1", tradingDetail);
+    console.log("tradingDetails here 1", {tradingDetail,TradingAddress });
 
     useEffect(() => {
         dispatch(getTradingDetail(companyDetail.id));
-    }, [companyDetail.id]);
+       dispatch(getTradingAddress(companyDetail.uuid)) 
+    }, [companyDetail]);
 
     const [tabledata, settableData] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
@@ -49,15 +55,15 @@ const Directors = () => {
             },
             {
                 Header: "Town/City",
-                accessor: "address_town",
+                accessor: "city",
             },
             {
                 Header: "Country",
-                accessor: "company_address_country",
+                accessor: "country",
             },
             {
                 Header: "Region",
-                accessor: "address_region",
+                accessor: "region",
             },
             // {
             //     Header: "Secondary Name",
@@ -72,7 +78,7 @@ const Directors = () => {
             // },
             {
                 Header: "Post Code",
-                accessor: "address_post_code",
+                accessor: "postcode",
             },
             {
                 Header: "Phone Number",
@@ -84,15 +90,29 @@ const Directors = () => {
                         </Grid>
                     );
                 },
+            },     
+            {
+                Header: "CTPS",
+                accessor: "ctps",
+                Cell: () => {
+                    return (
+                        <Grid container alignItems="center">
+                            <Grid item> N/A </Grid>
+                        </Grid>
+                    );
+                },
             },
-            // {
-            //     Header: "CTPS",
-            //     accessor: "ctps",
-            // },
-            // {
-            //     Header: "Additional Info",
-            //     accessor: "additional_info",
-            // },
+            {
+                Header: "Additional Info",
+                accessor: "additional_info",
+                Cell: () => {
+                    return (
+                        <Grid container alignItems="center">
+                            <Grid item> N/A </Grid>
+                        </Grid>
+                    );
+                },
+            },
         ],
         []
     );
@@ -106,20 +126,20 @@ const Directors = () => {
                 if (fetchId === compSumfetchIdRef.current) {
                     const startRow = pageSize * pageIndex;
                     const endRow = startRow + pageSize;
-                    settableData(tradingDetail.slice(startRow, endRow));
-                    setPageCount(Math.ceil(tradingDetail.length / pageSize));
+                    settableData(TradingAddress.result?.slice(startRow, endRow));
+                    setPageCount(Math.ceil(TradingAddress.result?.length / pageSize));
                     setLoading(false);
                 }
             }, 1000);
         },
-        [tradingDetail]
+        [TradingAddress.result]
     );
 
     const [searchKey, setSearchKey] = useState("");
     useEffect(() => {
         if (searchKey) {
             let re = new RegExp(`${searchKey}`, "gi");
-            let results = tradingDetail.filter((detail) => {
+            let results = TradingAddress.result?.filter((detail) => {
                 return (
                     (detail.address_line !== null
                         ? detail.address_line.match(re)
@@ -138,7 +158,7 @@ const Directors = () => {
 
             settableData(results);
         } else {
-            settableData(tradingDetail);
+            settableData(TradingAddress.result);
         }
     }, [searchKey]);
 

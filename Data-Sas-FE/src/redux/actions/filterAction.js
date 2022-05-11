@@ -1,6 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import {header} from '../../utils/authheader'
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 
 export const SET_FILTER = 'SET_FILTER'
 export const SET_FILTER_VALUES = 'SET_FILTER_VALUES'
@@ -45,12 +47,7 @@ export const saveFilterList =  (req, handleClose,history) =>{
 return async (dispatch)=>{
     let dataToken = JSON.parse(sessionStorage.getItem("userData"));
     await axios
-    .post(`${BASE_URL}/api/saved-searches/create`, req, {
-           headers: {
-              'Authorization': `Bearer ${dataToken.token}`
-          }
-        }
-        )
+    .post(`${BASE_URL}/api/saved-searches/create`, req, header() )
     .then((res) => {
         console.log("saved-searches/create filter response  ",res)
         dispatch(getSavedFilterList())
@@ -71,12 +68,7 @@ export const getSavedFilterList = ( ) =>{
     return async (dispatch)=>{
         let dataToken = JSON.parse(sessionStorage.getItem("userData"));
         await axios
-        .post(`${BASE_URL}/api/saved-searches/list`, {}, {
-               headers: { 
-                  'Authorization': `Bearer ${dataToken.token}`
-              }
-            }
-            )
+        .post(`${BASE_URL}/api/saved-searches/list`, {}, header())
         .then((res) => {
           //  console.log("list all filter response  ",res)
           dispatch({type:SET_SAVED_FILTERS_LIST, payload: res.data.result})
