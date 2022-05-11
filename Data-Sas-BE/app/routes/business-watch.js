@@ -15,7 +15,7 @@ router.get("/company-notes/:id", businessWatchController.getCompanyNotes);
 router.delete("/company-notes", businessWatchController.deleteCompanyNotes);
 
 //Overview
-router.get("/company-addr ess/:id", businessWatchController.getCompanyAddress);
+router.get("/company-address/:id", businessWatchController.getCompanyAddress);
 router.get("/company-contact/:id", businessWatchController.getCompanyContact);
 router.get("/company-hmrc-import/:id", businessWatchController.getAboutKeyNotes);
 

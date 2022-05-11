@@ -41,7 +41,10 @@ const JWT = require("../utils/auth");
  *                          chip_values:
  *                             type: array
  *                             items:
- *                                  type: string
+ *                                  type: object
+ *                                  properties:
+ *                                      chip_value:
+ *                                          type: string
  *     responses:
  *          '200':
  *              description: A Successfull response
@@ -49,6 +52,40 @@ const JWT = require("../utils/auth");
  *              description:  Validation error
  */
  router.post("/search/",businessController.businessSearch)
+
+
+
+
+ /**
+ * @swagger
+ *
+ * /api/business/{uuid}/people:
+ *   get:
+ *     summary: Search
+ *     tags: [Business]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     parameters:
+ *      - in: path
+ *        name: uuid
+ *        schema:
+ *            type: string
+ *        required: true
+ *        description: Company uuid
+ *      - in: query
+ *        name: page
+ *      - in: query
+ *        name: item_per_page
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.get("/:uuid/people",JWT.authenticate,businessController.businessPeople)
 
 
 
