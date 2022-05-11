@@ -47,7 +47,7 @@ async function businessSearch(req, res) {
     paginate: items_per_page ? items_per_page : 25,
     where: where
   };
-  let result = await dao.getCompaniesWithFilters(options);
+  let result = await dao.getCompanies(options);
   res.send({
     page: options.page,
     items_per_page: options.paginate,
@@ -222,7 +222,8 @@ async function businessTrade(req, res) {
         export_probability:company.dataValues.export_probability,
         importer_status: company.dataValues.importer,
       },
-      import_export: [{}],
+      import: [{}],
+      export: [{}]
     },
   });
 }
