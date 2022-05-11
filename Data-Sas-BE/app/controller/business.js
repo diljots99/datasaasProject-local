@@ -4,6 +4,7 @@ const dao = require("../dao/business");
 const errorlog = require("../../utils/logger").errorlog;
 const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
+const { Op } = require("sequelize");
 
 async function businessSearch(req, res) {
   let { page, items_per_page } = req.body;
@@ -94,14 +95,43 @@ async function businessDirectors(req, res) {
       uuid: uuid,
     },
   });
-
+  let no_of_directors = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      officer_role: {
+        [Op.like]: "%director%",
+      },
+    },
+  });
+  let no_of_secretary = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      officer_role: {
+        [Op.like]: "%secretary%",
+      },
+    },
+  });
+  let no_of_active_directors = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      resigned_on: null,
+    },
+  });
+  let no_of_resigned_directors = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      resigned_on: {
+        [Op.ne]: null,
+      },
+    },
+  });
   let officers = await dao.getOfficersForCompany({
     page: page,
     paginate: item_per_page,
     where: {
       chn: company.dataValues.chn,
     },
-    attributes: {exclude: ['id']},
+    attributes: { exclude: ["id"] },
   });
   return res.send({
     status: true,
@@ -109,10 +139,14 @@ async function businessDirectors(req, res) {
     item_per_page: item_per_page,
     pages: officers.pages,
     total: officers.total,
+    no_of_directors: no_of_directors,
+    no_of_secretary: no_of_secretary,
+    no_of_active_directors: no_of_active_directors,
+    no_of_inactive:0,
+    no_of_resigned_directors: no_of_resigned_directors,
 
     result: officers.docs,
   });
-
 }
 
 module.exports = {
