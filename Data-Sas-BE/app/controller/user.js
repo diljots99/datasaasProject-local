@@ -42,7 +42,7 @@ async function login(req, res) {
             },
             accessTokenSecret,
             {
-              expiresIn: "30m",
+              expiresIn: "1d",
             }
           );
          

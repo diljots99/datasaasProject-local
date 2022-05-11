@@ -142,10 +142,47 @@ async function businessDirectors(req, res) {
     no_of_directors: no_of_directors,
     no_of_secretary: no_of_secretary,
     no_of_active_directors: no_of_active_directors,
-    no_of_inactive:0,
+    no_of_inactive: 0,
     no_of_resigned_directors: no_of_resigned_directors,
 
     result: officers.docs,
+  });
+}
+
+async function businessTrade(req, res) {
+  let page = req.query.page ? parseInt(req.query.page) : 1;
+  let item_per_page = req.query.item_per_page
+    ? parseInt(req.query.item_per_page)
+    : 25;
+  let uuid = req.params.uuid;
+  if (!uuid) {
+    return res.send({
+      status: false,
+      message: "uuid is important",
+    });
+  }
+  let company = await dao.getCompanyOfficalByUuid({
+    where: {
+      uuid: uuid,
+    },
+  });
+
+  return res.send({
+    status: true,
+    result: {
+      trade: {
+        uk_sic_section: null,
+        uk_sic: null,
+        us_sic: null,
+        nace: null,
+        naics: null,
+        subsector: null,
+        sector: null,
+        exporter_status: null,
+        importer_status: null,
+      },
+      import_export: [{}],
+    },
   });
 }
 
@@ -153,4 +190,5 @@ module.exports = {
   businessSearch,
   businessPeople,
   businessDirectors,
+  businessTrade,
 };
