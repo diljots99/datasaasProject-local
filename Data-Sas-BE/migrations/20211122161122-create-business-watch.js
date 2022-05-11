@@ -10,7 +10,7 @@ module.exports = {
       },
       uuid: {
         type: Sequelize.UUID,
-        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
         unique: true,
       },
       user_id: {
@@ -21,7 +21,7 @@ module.exports = {
       company_id: {
         type: Sequelize.INTEGER,
         foreignKey: true,
-        references: { model: "compines_offical", key: "id" },
+        references: { model: "compines_officals", key: "id" },
       },
       b_watch_status: {
         type: Sequelize.BOOLEAN,

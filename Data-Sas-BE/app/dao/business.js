@@ -10,6 +10,18 @@ async function getCompanies(data){
       return result
 }
 
+async function getCompaniesWithFilters(data){
+    // const options = {
+    //     page: 1, // Default 1
+    //     paginate: 25, // Default 25
+    //   }
+      const result = await  model.compines_offical.paginate({
+            include:[{model:model.companies}],
+        ...data
+        })
+      return result
+}
+
 async function getCompanyOfficalByUuid(data){
     return model.compines_offical.findOne(data)
 }
@@ -42,5 +54,6 @@ module.exports ={
     getNumberOfEmployeesCompanies,
     getOfficersForCompany,
     getAllCompanyPostCodes,
-    getCompany
+    getCompany,
+    getCompaniesWithFilters
 }

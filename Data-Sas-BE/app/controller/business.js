@@ -7,13 +7,47 @@ const messages = require("../../utils/messages");
 const { Op } = require("sequelize");
 
 async function businessSearch(req, res) {
-  let { page, items_per_page } = req.body;
+  let { page, items_per_page,filterData } = req.body;
 
+  page = page ? page :1
+  items_per_page = items_per_page ? items_per_page :25
+    let where = {}
+  if (filterData){
+    filterData.forEach(chipData => {
+      if (chipData.chip_group == "Company Number"){
+        let list_ofChipData = []
+        chipData.chip_values.forEach((chip_value)=>{
+            list_ofChipData.push( { chn: `${chip_value.chip_value}`} )
+        })
+        where = {
+          [Op.or]:list_ofChipData,
+          ...where
+        }
+      }
+      
+      if (chipData.chip_group ==  "Company Name"){
+        
+        let list_ofChipData = []
+        chipData.chip_values.forEach((chip_value)=>{
+            list_ofChipData.push( `%${chip_value.chip_value}%` )
+        })
+        where = {
+          company_name: {
+            [Op.like]: list_ofChipData[0]
+          },
+          ...where
+        }
+      }
+
+
+    });
+  }
   const options = {
     page: page ? page : 1,
     paginate: items_per_page ? items_per_page : 25,
+    where: where
   };
-  let result = await dao.getCompanies(options);
+  let result = await dao.getCompaniesWithFilters(options);
   res.send({
     page: options.page,
     items_per_page: options.paginate,
@@ -35,6 +69,7 @@ async function businessPeople(req, res) {
       message: "uuid is important",
     });
   }
+
   let company = await dao.getCompanyOfficalByUuid({
     where: {
       uuid: uuid,
