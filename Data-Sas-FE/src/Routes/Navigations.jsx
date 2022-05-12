@@ -15,6 +15,7 @@ const Director = lazy(() => import("../pages/Director/"));
 const Company = lazy(() => import("../pages/Company/"));
 const SavedSearches = lazy(() => import("../pages/SavedSearches/"));
 const UserSavedList = lazy(() => import("../pages/UserSavedList/"));
+const SearchResults = lazy(() => import("../pages/SearchResults/"));
 
 export default function Navigations() {
   return (
@@ -38,6 +39,7 @@ export default function Navigations() {
         <Route path="/director/:ID" component={Director} />
         <Route path="/company/:ID" component={Company} />
         <Route path="/user-saved-list" component={UserSavedList} />
+        <Route path="/search-results" component={SearchResults} />
         <Route exact path="/" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>

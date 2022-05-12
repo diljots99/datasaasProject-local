@@ -55,6 +55,10 @@ import OwnershipAppointmentDate from "./filterOptionsPage/OwnershipAppointmentDa
 import OwnershipResignDate from "./filterOptionsPage/OwnershipResignDate";
 import ImporterStatus from "./filterOptionsPage/ImporterStatus";
 import ExporterStatus from "./filterOptionsPage/ExporterStatus";
+import AccountCategory from "./filterOptionsPage/AccountCategory";
+import LastAccountFiled from "./filterOptionsPage/LastAccountFiled";
+import CurrentAssets from "./filterOptionsPage/CurrentAssets.JSX";
+import FixedAssets from "./filterOptionsPage/FixedAssets";
 
 const optionSearchBar = () => {
     return <SearchBar placeholder={"Search"} data={SearchBarData} />;
@@ -140,8 +144,42 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Financials", option: <Financials /> },
-            { filter: "Ratios", option: <Ratios /> },
+            { filter: "Account Category", option: <AccountCategory /> },
+            { filter: "Last Account Filed", option: <LastAccountFiled /> },
+            { filter: "Current Assets", option: <CurrentAssets /> },
+            { filter: "Fixed Assets", option: <FixedAssets /> },
+            { filter: "Total Assets", option: <Ratios /> },
+            { filter: "Net Assets", option: <Ratios /> },
+            { filter: "Current Liabilities", option: <Ratios /> },
+            { filter: "Long Term Liabilities", option: <Ratios /> },
+            { filter: "Total Liabilities", option: <Ratios /> },
+            { filter: "Turnover", option: <Ratios /> },
+            { filter: "Number of Employees", option: <Ratios /> },
+            { filter: "EBITDA", option: <Ratios /> },
+            { filter: "Equity", option: <Ratios /> },
+            { filter: "Gross Profit", option: <Ratios /> },
+            { filter: "Trade Creditors", option: <Ratios /> },
+            { filter: "Trade Debtors", option: <Ratios /> },            
+        ],
+    },
+    {
+        Main: "Ratios",
+        iconClosed: <FaIcons.FaAngleRight />,
+        iconOpened: <FaIcons.FaAngleDown />,
+        Sub: [
+            { filter: "Gross Profit Margin", option: <Financials /> },
+            { filter: "Operating Profit Margin", option: <Ratios /> },
+            { filter: "Profit Margin (before Tax)", option: <Ratios /> },
+            { filter: "Profit Margin (after Tax)", option: <Ratios /> },
+            { filter: "Current Ratio", option: <Ratios /> },
+            { filter: "Liquidity Ratio", option: <Ratios /> },
+            { filter: "Asset Turnover Ratio", option: <Ratios /> },
+            { filter: "Return on Net Assets", option: <Ratios /> },
+            { filter: "Return on Equity", option: <Ratios /> },
+            { filter: "Return on Capital Employed", option: <Ratios /> },
+            { filter: "Gearing (Total Liabilities", option: <Ratios /> },
+            { filter: "Debt to Capital Ratio", option: <Ratios /> },
+            { filter: "Debt to Equity Ratio", option: <Ratios /> },
         ],
     },
     {

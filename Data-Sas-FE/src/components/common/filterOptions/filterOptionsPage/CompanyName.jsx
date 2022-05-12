@@ -13,6 +13,7 @@ export default function CompanyName() {
   const { selectedFilterValues } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [error, setError] = useState(false)
 
   const [data, setData] = useState(
     companyList.map((val) => ({ id: val.id, title: val.company_name }))
@@ -45,13 +46,19 @@ export default function CompanyName() {
     // if (checked.length > 0) {
     //   dispatch(SetselectedFilterValues("Company Name", checked));
     // }
+
+    if (checked.length > 0){
     if(selectedFilterValues['Company Name']){
-      dispatch(SetselectedFilterValues("Company Name", [...selectedFilterValues['Company Name'],checked]))
+      dispatch(SetselectedFilterValues("Company Name", [...selectedFilterValues['Company Name'],wordEntered]))
     }else{
-      dispatch(SetselectedFilterValues("Company Name", checked))
+      dispatch(SetselectedFilterValues("Company Name", [wordEntered]))
     }
     setChecked([])
     setWordEntered('')
+    setError(false)
+  }else{
+    setError(true)
+  }
   };
   return (
     <div className="subFiltersContainerPage">
@@ -143,7 +150,7 @@ export default function CompanyName() {
    </div>
 
       <div className="subFiltersContainerButton">
-        <button className="subFilterApply" onClick={applyFilter}>
+        <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter}>
           Apply
         </button>
       </div>

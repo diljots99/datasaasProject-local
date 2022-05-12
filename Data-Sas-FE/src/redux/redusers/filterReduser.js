@@ -1,10 +1,11 @@
-import { SET_FILTER, SET_FILTER_VALUES,CLEAR_ALL_FILTER, SET_ALL_FILTERS_TYPE, SET_SAVED_FILTERS_LIST } from '../actions/filterAction'
+import { SET_FILTER, SET_FILTER_VALUES,CLEAR_ALL_FILTER, SET_ALL_FILTERS_TYPE, SET_SAVED_FILTERS_LIST,SET_ALL_SEARCH_RESULTS } from '../actions/filterAction'
 
 const initialState = {
     isopen: false,
     selectedFilterValues:{}, // for the values user choose 
     filterTypeDetail : [],
-    savedFilterList:[] , // for All saved search   
+    savedFilterList:[] , // for All saved search  list 
+    filterSearchResults:[] // for store search results
 }
 
 const filterReduser = (state = initialState, action) => {
@@ -36,7 +37,11 @@ const filterReduser = (state = initialState, action) => {
                 ...state, savedFilterList: action.payload
             }
         }
-
+        case SET_ALL_SEARCH_RESULTS:{
+            return {
+                ...state, filterSearchResults: action.payload
+            }
+        }
         default:
             return {...state}
     }

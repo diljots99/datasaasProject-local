@@ -9,6 +9,7 @@ export const SET_FILTER_VALUES = 'SET_FILTER_VALUES'
 export const CLEAR_ALL_FILTER = 'CLEAR_ALL_FILTER'
 export const SET_ALL_FILTERS_TYPE = 'SET_ALL_FILTERS_TYPE'
 export const SET_SAVED_FILTERS_LIST = 'SET_SAVED_FILTERS_LIST'
+export const SET_ALL_SEARCH_RESULTS = 'SET_ALL_SEARCH_RESULTS'
 
 export const setFilter = (value) =>{
    return (dispatch) =>{
@@ -45,7 +46,6 @@ export const getAllFilterTypes = () =>{
 
 export const saveFilterList =  (req, handleClose,history) =>{
 return async (dispatch)=>{
-    let dataToken = JSON.parse(sessionStorage.getItem("userData"));
     await axios
     .post(`${BASE_URL}/api/saved-searches/create`, req, header() )
     .then((res) => {
@@ -55,7 +55,7 @@ return async (dispatch)=>{
         dispatch(clearAllFilter())
         dispatch(setFilter(false))
         history.push('/saved-searches')
-     // dispatch({type:SET_ALL_FILTERS_TYPE, payload: res.data.result})
+  
     })
     .catch((err) => {
       console.log(err);
@@ -66,7 +66,6 @@ return async (dispatch)=>{
 
 export const getSavedFilterList = ( ) =>{
     return async (dispatch)=>{
-        let dataToken = JSON.parse(sessionStorage.getItem("userData"));
         await axios
         .post(`${BASE_URL}/api/saved-searches/list`, {}, header())
         .then((res) => {
@@ -79,3 +78,23 @@ export const getSavedFilterList = ( ) =>{
         });
     }
 }
+
+export const getFilterSearchResults =  (req, handleClose,history) =>{
+  return async (dispatch)=>{
+      await axios
+      .post(`${BASE_URL}/api/business/search`, req, header() )
+      .then((res) => {
+          console.log("search result res response  ",res)
+          dispatch(getSavedFilterList())
+          handleClose()
+          dispatch(clearAllFilter())
+          dispatch(setFilter(false))
+          history.push('/search-results')
+        dispatch({type:SET_ALL_SEARCH_RESULTS, payload: res.data.result})
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("NETWORK ERROR");
+      });
+  }
+  }
