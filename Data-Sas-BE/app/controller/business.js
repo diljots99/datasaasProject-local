@@ -5,6 +5,7 @@ const errorlog = require("../../utils/logger").errorlog;
 const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
 const { Op } = require("sequelize");
+const model = require("../../models");
 
 async function businessSearch(req, res) {
   let { page, items_per_page, filterData } = req.body;
@@ -12,6 +13,7 @@ async function businessSearch(req, res) {
   page = page ? page : 1;
   items_per_page = items_per_page ? items_per_page : 25;
   let where = {};
+  let otherOptions = {};
   if (filterData) {
     filterData.forEach((chipData) => {
       if (chipData.chip_group == "Company Number") {
@@ -37,14 +39,41 @@ async function businessSearch(req, res) {
           ...where,
         };
       }
+
+      if (chipData.chip_group == "Website") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push(`%${chip_value.chip_value}%`);
+        });
+
+        const arr = {
+          model: model.companies,
+          where:{website_url_1: {
+              [Op.like]: list_ofChipData[0],
+          },}
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
     });
   }
   const options = {
+    attributes : {exclude:['id']},
     page: page ? page : 1,
-    paginate: items_per_page ? items_per_page : 25,
+    paginate: items_per_page ? items_per_page : 1 ,
     where: where,
+    ...otherOptions,
   };
   let result = await dao.getCompaniesWithFilters(options);
+
+  if (result.docs.length < items_per_page){
+    result.total = result.docs.length;
+    result.pages = 1
+  }
   res.send({
     page: options.page,
     items_per_page: options.paginate,
@@ -217,12 +246,12 @@ async function businessTrade(req, res) {
       if (key.includes("hmrc_code")) {
         if (value) {
           console.log(key, value);
-          countDict[value] =  (countDict[value] ? countDict[value] :0 )     +   1
+          countDict[value] = (countDict[value] ? countDict[value] : 0) + 1;
           exportList.push({
             hmrc_code: value,
             hmrc_date2: exportElement.dataValues.hmrc_date2,
             hmrc_postcode: exportElement.dataValues.hmrc_postcode,
-            description: "Coming Soon"
+            description: "Coming Soon",
           });
         }
       }
@@ -233,19 +262,20 @@ async function businessTrade(req, res) {
       chn: company_offical.dataValues.chn,
     },
   });
-  let importList=[]
+  let importList = [];
   let importCountDict = {};
   hmrcImports.forEach((importElement) => {
     for (const [key, value] of Object.entries(importElement.dataValues)) {
       if (key.includes("hmrc_code")) {
         if (value) {
           console.log(key, value);
-          importCountDict[value] =  (importCountDict[value] ? importCountDict[value] :0 )     +   1
+          importCountDict[value] =
+            (importCountDict[value] ? importCountDict[value] : 0) + 1;
           importList.push({
             hmrc_code: value,
             hmrc_date2: importElement.dataValues.hmrc_date2,
             hmrc_postcode: importElement.dataValues.hmrc_postcode,
-            description: "Coming Soon"
+            description: "Coming Soon",
           });
         }
       }
@@ -266,8 +296,8 @@ async function businessTrade(req, res) {
         export_probability: company.dataValues.export_probability,
         importer_status: company.dataValues.importer,
       },
-      importCount:importCountDict,
-      exportCount:countDict,
+      importCount: importCountDict,
+      exportCount: countDict,
       importTable: importList,
       exportTable: exportList,
     },

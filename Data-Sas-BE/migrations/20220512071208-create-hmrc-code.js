@@ -19,7 +19,7 @@ module.exports = {
       },
       uuid: {
         type: Sequelize.UUID,
-        default: Sequelize,UUIDV4,
+        defaultValue: Sequelize.UUIDV4,
         unique:true
       },
       createdAt: {

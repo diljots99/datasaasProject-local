@@ -16,10 +16,8 @@ async function getCompaniesWithFilters(data) {
   //     paginate: 25, // Default 25
   //   }
   const result = await model.compines_offical.paginate({
-    include: [
-      { model: model.companies, required: false, where: { chn: "02723534" }, },
-    ],
-    // ...data,
+    
+    ...data,
   });
   return result;
 }

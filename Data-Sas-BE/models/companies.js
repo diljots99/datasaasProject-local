@@ -11,8 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      companies.hasOne(models.compines_offical,{
-        foreignKey:'chn'
+      // companies.hasOne(models.compines_offical,{
+      //   foreignKey: { name: 'chn', allowNull: false },
+      //   sourceKey:'chn',
+      //   targetKey:'company_number'
+      // })
+      models.compines_offical.belongsTo(companies,{
+        foreignKey: { name: 'company_number', allowNull: false },
+        sourceKey:'company_number',
+        targetKey:'chn'
       })
     }
   };
