@@ -211,11 +211,13 @@ async function businessTrade(req, res) {
     },
   });
   let exportList = [];
+  let countDict = {};
   hmrcExports.forEach((exportElement) => {
     for (const [key, value] of Object.entries(exportElement.dataValues)) {
       if (key.includes("hmrc_code")) {
         if (value) {
           console.log(key, value);
+          countDict[value] =  (countDict[value] ? countDict[value] :0 )     +   1
           exportList.push({
             hmrc_code: value,
             hmrc_date2: exportElement.dataValues.hmrc_date2,
@@ -232,11 +234,13 @@ async function businessTrade(req, res) {
     },
   });
   let importList=[]
+  let importCountDict = {};
   hmrcImports.forEach((importElement) => {
     for (const [key, value] of Object.entries(importElement.dataValues)) {
       if (key.includes("hmrc_code")) {
         if (value) {
           console.log(key, value);
+          importCountDict[value] =  (importCountDict[value] ? importCountDict[value] :0 )     +   1
           importList.push({
             hmrc_code: value,
             hmrc_date2: importElement.dataValues.hmrc_date2,
@@ -262,8 +266,10 @@ async function businessTrade(req, res) {
         export_probability: company.dataValues.export_probability,
         importer_status: company.dataValues.importer,
       },
-      import: importList,
-      export: exportList,
+      importCount:importCountDict,
+      exportCount:countDict,
+      importTable: importList,
+      exportTable: exportList,
     },
   });
 }
