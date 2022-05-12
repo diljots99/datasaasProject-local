@@ -16,7 +16,9 @@ async function getCompaniesWithFilters(data) {
   //     paginate: 25, // Default 25
   //   }
   const result = await model.compines_offical.paginate({
-    include: [{ model: model.companies }],
+    include: [
+      { model: model.companies, required: false, where: { chn: "02723534" }, },
+    ],
     // ...data,
   });
   return result;
@@ -42,6 +44,14 @@ async function getAllCompanyPostCodes(data) {
   return await model.company_postcodes.paginate(data);
 }
 
+async function getHmrcExport(data){
+  return model.dba_hmrc_export_gen.findAll(data);
+}
+
+async function getHmrcImport(data){
+  return model.dba_hmrc_import_gen.findAll(data);
+}
+
 module.exports = {
   getCompanyOfficalByUuid,
   getCompanies,
@@ -51,4 +61,6 @@ module.exports = {
   getAllCompanyPostCodes,
   getCompany,
   getCompaniesWithFilters,
+  getHmrcExport,
+  getHmrcImport
 };

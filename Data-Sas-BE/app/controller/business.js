@@ -7,47 +7,44 @@ const messages = require("../../utils/messages");
 const { Op } = require("sequelize");
 
 async function businessSearch(req, res) {
-  let { page, items_per_page,filterData } = req.body;
+  let { page, items_per_page, filterData } = req.body;
 
-  page = page ? page :1
-  items_per_page = items_per_page ? items_per_page :25
-    let where = {}
-  if (filterData){
-    filterData.forEach(chipData => {
-      if (chipData.chip_group == "Company Number"){
-        let list_ofChipData = []
-        chipData.chip_values.forEach((chip_value)=>{
-            list_ofChipData.push( { chn: `${chip_value.chip_value}`} )
-        })
+  page = page ? page : 1;
+  items_per_page = items_per_page ? items_per_page : 25;
+  let where = {};
+  if (filterData) {
+    filterData.forEach((chipData) => {
+      if (chipData.chip_group == "Company Number") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ chn: `${chip_value.chip_value}` });
+        });
         where = {
-          [Op.or]:list_ofChipData,
-          ...where
-        }
+          [Op.or]: list_ofChipData,
+          ...where,
+        };
       }
-      
-      if (chipData.chip_group ==  "Company Name"){
-        
-        let list_ofChipData = []
-        chipData.chip_values.forEach((chip_value)=>{
-            list_ofChipData.push( `%${chip_value.chip_value}%` )
-        })
+
+      if (chipData.chip_group == "Company Name") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push(`%${chip_value.chip_value}%`);
+        });
         where = {
           company_name: {
-            [Op.like]: list_ofChipData[0]
+            [Op.like]: list_ofChipData[0],
           },
-          ...where
-        }
+          ...where,
+        };
       }
-
-
     });
   }
   const options = {
     page: page ? page : 1,
     paginate: items_per_page ? items_per_page : 25,
-    where: where
+    where: where,
   };
-  let result = await dao.getCompanies(options);
+  let result = await dao.getCompaniesWithFilters(options);
   res.send({
     page: options.page,
     items_per_page: options.paginate,
@@ -203,10 +200,53 @@ async function businessTrade(req, res) {
   });
 
   let company = await dao.getCompany({
-    where:{
-      chn : company_offical.dataValues.chn
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+
+  let hmrcExports = await dao.getHmrcExport({
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+  let exportList = [];
+  hmrcExports.forEach((exportElement) => {
+    for (const [key, value] of Object.entries(exportElement.dataValues)) {
+      if (key.includes("hmrc_code")) {
+        if (value) {
+          console.log(key, value);
+          exportList.push({
+            hmrc_code: value,
+            hmrc_date2: exportElement.dataValues.hmrc_date2,
+            hmrc_postcode: exportElement.dataValues.hmrc_postcode,
+            description: "Coming Soon"
+          });
+        }
+      }
     }
-  })
+  });
+  let hmrcImports = await dao.getHmrcImport({
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+  let importList=[]
+  hmrcImports.forEach((importElement) => {
+    for (const [key, value] of Object.entries(importElement.dataValues)) {
+      if (key.includes("hmrc_code")) {
+        if (value) {
+          console.log(key, value);
+          importList.push({
+            hmrc_code: value,
+            hmrc_date2: importElement.dataValues.hmrc_date2,
+            hmrc_postcode: importElement.dataValues.hmrc_postcode,
+            description: "Coming Soon"
+          });
+        }
+      }
+    }
+  });
   return res.send({
     status: true,
     result: {
@@ -219,11 +259,11 @@ async function businessTrade(req, res) {
         subsector: company.dataValues.main_subsector,
         sector: company.dataValues.main_sector,
         exporter_status: company.dataValues.exporter,
-        export_probability:company.dataValues.export_probability,
+        export_probability: company.dataValues.export_probability,
         importer_status: company.dataValues.importer,
       },
-      import: [{}],
-      export: [{}]
+      import: importList,
+      export: exportList,
     },
   });
 }
@@ -247,35 +287,33 @@ async function businessTradeAddress(req, res) {
   });
 
   let company = await dao.getCompany({
-    where:{
-      chn : company_offical.dataValues.chn
-    }
-  })
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
   let company_postcodes = await dao.getAllCompanyPostCodes({
-    page:page,
-    paginate:item_per_page,
-    where:{
-      chn:company_offical.dataValues.chn
-    }
-  })
+    page: page,
+    paginate: item_per_page,
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
 
   return res.send({
-    status:true,
-    page:page,
-    item_per_page:item_per_page,
-    total:company_postcodes.total,
-    pages:company_postcodes.pages,
+    status: true,
+    page: page,
+    item_per_page: item_per_page,
+    total: company_postcodes.total,
+    pages: company_postcodes.pages,
 
     result: company_postcodes.docs,
-
-  })
+  });
 }
-
 
 module.exports = {
   businessSearch,
   businessPeople,
   businessDirectors,
   businessTrade,
-  businessTradeAddress
+  businessTradeAddress,
 };
