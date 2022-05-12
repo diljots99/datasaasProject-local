@@ -12,7 +12,13 @@ const Trade = () => {
     const [tabledata, settableData] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [loading, setLoading] = useState(false);
+
+    const [tabledata2, settableData2] = useState([]);
+    const [pageCountTable2, setPageCountTable2] = useState(0);
+    const [loadingTable2, setLoadingTable2] = useState(false);
+
     const tradefetchIdRef = useRef(0);
+    const tradefetchIdRef2 = useRef(0);
 
     console.log("trade comp detail", companyDetail )
 
@@ -24,7 +30,7 @@ const Trade = () => {
 
     {
       name: 'Export',
-      data: [0, 7, 8, 20, 18, 8, 22, 15, 20, 23, 18, 15, 6, 9, 27, 22, 27, 5]
+      data: [0, 7, 8, 20, 18, 8, 22, 15, 20, 50, 18, 15, 6, 9, 27, 22, 27, 5]
     },
 
   ]
@@ -70,9 +76,7 @@ const Trade = () => {
       },
     },
     yaxis: {
-      min: -10,
-      max: 40
-
+      min: 0,
     }
   }
 
@@ -121,7 +125,65 @@ const Trade = () => {
     []
 );
 
-  
+const data2 = React.useMemo(
+  () => [
+     {
+       export_hmrc: 2034314,
+       export_discription: " Moule export des",
+       import_hmrc: 2013232,
+       import_discription:" Moule export des",
+     },
+     {
+      export_hmrc: 203432,
+      export_discription: " Moule export des",
+      import_hmrc: 201433,
+      import_discription:" Moule export des",
+    },
+  ],
+  []
+);
+
+const columns2 = useMemo(
+  () => [
+    {
+      Header: 'Import',
+      columns: [
+        {
+          Header: 'HMRC',
+          accessor: 'import_hmrc',
+          aggregate: 'count',
+          Aggregated: ({ value }) => `${value} Names`,
+        },
+        {
+          Header: 'Discription',
+          accessor: 'import_discription',      
+          aggregate: 'uniqueCount',
+          Aggregated: ({ value }) => `${value} Unique Names`,
+        },
+      ],
+    },
+    {
+      Header: 'Export',
+      columns: [
+        {
+          Header: 'HMRC',
+          accessor: 'export_hmrc',
+          aggregate: 'count',
+          Aggregated: ({ value }) => `${value} Names`,
+        },
+        {
+          Header: 'Discription',
+          accessor: 'export_discription',      
+          aggregate: 'uniqueCount',
+          Aggregated: ({ value }) => `${value} Unique Names`,
+        },
+      ],
+    },
+  ],
+  []
+);
+
+
   const fetchData = useCallback(({ pageSize, pageIndex }) => {
     const fetchId = ++tradefetchIdRef.current;
     setLoading(true);
@@ -135,6 +197,21 @@ const Trade = () => {
             setLoading(false);
         }
     }, 1000);
+}, []);
+
+const fetchDataTable2 = useCallback(({ pageSize, pageIndex }) => {
+  const fetchId = ++tradefetchIdRef2.current;
+  setLoading(true);
+
+  setTimeout(() => {
+      if (fetchId === tradefetchIdRef2.current) {
+          const startRow = pageSize * pageIndex;
+          const endRow = startRow + pageSize;
+          settableData2(data2.slice(startRow, endRow));
+          setPageCountTable2(Math.ceil(data2.length / pageSize));
+          setLoadingTable2(false);
+      }
+  }, 1000);
 }, []);
 
     return (
@@ -160,6 +237,15 @@ const Trade = () => {
                     fetchData={fetchData}
                     loading={loading}
                     pageCount={pageCount}
+                />
+    </div>
+    <div >
+    <Table
+                    columns={columns2}
+                    data={tabledata2}
+                    fetchData={fetchDataTable2}
+                    loading={loadingTable2}
+                    pageCount={pageCountTable2}
                 />
     </div>
    </>
