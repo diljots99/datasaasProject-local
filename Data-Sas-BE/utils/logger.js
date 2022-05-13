@@ -19,7 +19,19 @@ const createLogger = winston.createLogger({
   ],
 });
 
-module.exports = {
-  successlog: createLogger,
-  errorlog: createLogger,
-};
+if (process.env.NODE_ENV !== 'production') {
+  createLogger.add(new winston.transports.Console({
+    format: winston.format.simple(),
+  }));
+  module.exports = {
+    successlog: createLogger,
+    errorlog: createLogger,
+  };
+}else{
+  module.exports = {
+    successlog: createLogger,
+    errorlog: createLogger,
+  };
+}
+
+
