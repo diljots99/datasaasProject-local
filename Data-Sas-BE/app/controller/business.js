@@ -371,7 +371,19 @@ async function businessTrade(req, res) {
    
   );
 
-  let hmrcCode  
+  let exportCodeDescription = await dao.getHmrcExportCodeDescription({
+    attributes:['hmrc_code','chn','code_description'],
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  })
+
+  let importCodeDescription = await dao.getHmrcImportCodeDescription({
+    attributes:['hmrc_code','chn','code_description'],
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  })
 
 
   return res.send({
@@ -397,8 +409,8 @@ async function businessTrade(req, res) {
           imports: hmrcImportOpreationsYearly
         },
         hmrc_code_description:{
-          exports: [{hmrc_code:"8885556" , code_description: ""}],
-          imports: [{hmrc_code:"8885556" , code_description: ""}],
+          exports: exportCodeDescription,
+          imports: importCodeDescription,
         }
       },
 

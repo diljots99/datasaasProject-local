@@ -49,6 +49,14 @@ async function getHmrcImport(data) {
   return model.dba_hmrc_import_gen.findAll(data);
 }
 
+async function getHmrcImportCodeDescription(data) {
+  return model.View_unique_hmrc_imports.findAll(data);
+}
+
+async function getHmrcExportCodeDescription(data) {
+  return model.View_unique_hmrc_exports.findAll(data);
+}
+
 module.exports = {
   getCompanyOfficalByUuid,
   getCompanies,
@@ -60,4 +68,6 @@ module.exports = {
   getCompaniesWithFilters,
   getHmrcExport,
   getHmrcImport,
+  getHmrcImportCodeDescription,
+  getHmrcExportCodeDescription
 };
