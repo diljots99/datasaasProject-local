@@ -115,9 +115,7 @@ async function businessSearch(req, res) {
         const arr = {
           model: model.companies,
           where: {
-            phone1: {
-              [Op.like]: list_ofChipData[0],
-            },
+            [Op.or]: list_ofChipData
           },
         };
         otherOptions = {

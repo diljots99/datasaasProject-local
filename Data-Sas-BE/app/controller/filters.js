@@ -16,7 +16,7 @@ async function listAllFilters(req, res) {
     for (let element of list) {
         let options = {}
         element =  element.toJSON()
-        if (element.name== "Account Category" && element.category == "Company"){
+        if (element.name== "Company Account Category" && element.category == "Company"){
                 const distinctAccountCategory = await dao.getDistinctCompanyAccountCategory()
                 listOfSuggestion = []
                 for(let category of distinctAccountCategory){
