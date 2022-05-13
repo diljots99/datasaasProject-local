@@ -4,9 +4,8 @@ const dao = require("../dao/business");
 const errorlog = require("../../utils/logger").errorlog;
 const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
-const { Op } = require("sequelize");
+const { Op,Sequelize } = require("sequelize");
 const model = require("../../models");
-
 async function businessSearch(req, res) {
   let { page, items_per_page, filterData } = req.body;
 
@@ -302,53 +301,79 @@ async function businessTrade(req, res) {
     },
   });
 
-  let hmrcExports = await dao.getHmrcExport({
-    where: {
-      chn: company_offical.dataValues.chn,
-    },
-  });
-  let exportList = [];
-  let countDict = {};
-  hmrcExports.forEach((exportElement) => {
-    for (const [key, value] of Object.entries(exportElement.dataValues)) {
-      if (key.includes("hmrc_code")) {
-        if (value) {
-          console.log(key, value);
-          countDict[value] = (countDict[value] ? countDict[value] : 0) + 1;
-          exportList.push({
-            hmrc_code: value,
-            hmrc_date2: exportElement.dataValues.hmrc_date2,
-            hmrc_postcode: exportElement.dataValues.hmrc_postcode,
-            description: "Coming Soon",
-          });
-        }
-      }
+  let hmrcExportsOpreationsYearly = await dao.getHmrcExport(
+    {
+      attributes: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
+      ],
+      group: [ Sequelize.fn('YEAR', Sequelize.col('hmrc_date2'))],
+      order: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
+    ],
+      where: {
+        chn: company_offical.dataValues.chn,
+      },
     }
-  });
-  let hmrcImports = await dao.getHmrcImport({
-    where: {
-      chn: company_offical.dataValues.chn,
-    },
-  });
-  let importList = [];
-  let importCountDict = {};
-  hmrcImports.forEach((importElement) => {
-    for (const [key, value] of Object.entries(importElement.dataValues)) {
-      if (key.includes("hmrc_code")) {
-        if (value) {
-          console.log(key, value);
-          importCountDict[value] =
-            (importCountDict[value] ? importCountDict[value] : 0) + 1;
-          importList.push({
-            hmrc_code: value,
-            hmrc_date2: importElement.dataValues.hmrc_date2,
-            hmrc_postcode: importElement.dataValues.hmrc_postcode,
-            description: "Coming Soon",
-          });
-        }
-      }
+   
+  );
+  let hmrcExportsOpreationsMonthly = await dao.getHmrcExport(
+    {
+      attributes: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+        [Sequelize.literal(`MONTH(hmrc_date2)`), "month"],
+        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
+      ],
+      group: [ Sequelize.col('hmrc_date')],
+      order: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
+        [Sequelize.literal(`MONTH(hmrc_date2)`), 'DESC'],
+    ],
+      where: {
+        chn: company_offical.dataValues.chn,
+      },
     }
-  });
+   
+  );
+  let hmrcImportOpreationsYearly = await dao.getHmrcImport(
+    {
+      attributes: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
+      ],
+      group: [ Sequelize.fn('YEAR', Sequelize.col('hmrc_date2'))],
+      order: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
+    ],
+      where: {
+        chn: company_offical.dataValues.chn,
+      },
+    }
+   
+  );
+  
+  let hmrcImportOpreationsMonthly = await dao.getHmrcImport(
+    {
+      attributes: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+        [Sequelize.literal(`MONTH(hmrc_date2)`), "month"],
+        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
+      ],
+      group: [ Sequelize.col('hmrc_date')],
+      order: [
+        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
+        [Sequelize.literal(`MONTH(hmrc_date2)`), 'DESC'],
+    ],
+      where: {
+        chn: company_offical.dataValues.chn,
+      },
+    }
+   
+  );
+
+  let hmrcCode  
+
+
   return res.send({
     status: true,
     result: {
@@ -363,11 +388,20 @@ async function businessTrade(req, res) {
         exporter_status: company.dataValues.exporter,
         export_probability: company.dataValues.export_probability,
         importer_status: company.dataValues.importer,
+        monthly_opreations: {
+          exports: hmrcExportsOpreationsMonthly,
+          imports: hmrcImportOpreationsMonthly
+        },
+        yearly_opreations: {
+          exports:  hmrcExportsOpreationsYearly,
+          imports: hmrcImportOpreationsYearly
+        },
+        hmrc_code_description:{
+          exports: [{hmrc_code:"8885556" , code_description: ""}],
+          imports: [{hmrc_code:"8885556" , code_description: ""}],
+        }
       },
-      importCount: importCountDict,
-      exportCount: countDict,
-      importTable: importList,
-      exportTable: exportList,
+
     },
   });
 }
