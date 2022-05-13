@@ -53,6 +53,10 @@ export const useStyles = makeStyles((theme)=> ({
   tableHeadLast: {
     borderRadius: "0 12px 12px 0"
   },
+  nameLink:{
+    textDecoration: " underline",
+    color:"#40ACFB"
+  },
   companyNotes:{
     width: "100%",
     overflowX: "auto",

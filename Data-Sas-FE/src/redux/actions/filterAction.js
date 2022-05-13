@@ -86,7 +86,7 @@ export const getFilterSearchResults =  (req, handleClose,history) =>{
       .then((res) => {
           console.log("search result res response  ",res)
           dispatch(getSavedFilterList())
-          handleClose()
+         if(handleClose){ handleClose()}
           dispatch(clearAllFilter())
           dispatch(setFilter(false))
           history.push('/search-results')

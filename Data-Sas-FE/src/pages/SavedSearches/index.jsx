@@ -21,8 +21,14 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useTable } from "react-table";
 import { Pagination } from "@mui/material";
 import { useDispatch, useSelector} from 'react-redux'
+import { useHistory } from "react-router-dom";
+import {
+  getFilterSearchResults,
+} from "../../redux/actions/filterAction";
 
 const SavedSearches = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const classess = useStyles();
   const [pages, setPages] = useState(10);
   const [checked, setChecked] = useState([]);
@@ -56,6 +62,43 @@ console.log(" saved search list ", savedFilterList)
     setOpenDeleteModal(false);
   };
 
+  const createChipData = (data) =>{
+    let chip_data = [];
+
+    data.map((val) => {
+      // let group_values = [];
+
+      // val.chip_values.map((chip) => {
+      //   group_values.push({ chip_value: val });
+      // });
+
+      chip_data.push({
+        chip_group: val.chip_group,
+        chip_values: val.chip_values,
+      });
+    });
+
+    return chip_data
+
+  }
+
+  const handleSearchFilter = (data) => {
+   
+    let chip_data =  createChipData(data);
+
+    let req={ 
+      "filterData": chip_data
+    }
+
+    if (chip_data.length == 0) {
+      return;
+    }
+
+    console.log(" req for search ", req);
+
+    dispatch(getFilterSearchResults(req, null , history));
+  };
+
   console.log("checkeeeeeeeeeds ", checked)
   const columns = React.useMemo(
     () => [
@@ -63,7 +106,7 @@ console.log(" saved search list ", savedFilterList)
         Header: "Filter Name",
         accessor: "fliter_name",
         Cell: ({ value, row }) => {
-            // console.log("ch ", row ,checked.includes(row.original.uuid))
+             console.log("ch ", row ,checked.includes(row.original.chip_data))
           return (
             <Grid container alignItems="center">
               <Grid item>
@@ -85,7 +128,7 @@ console.log(" saved search list ", savedFilterList)
                   }}
                 />
               </Grid>
-              <Grid item>{value}</Grid>
+              <Grid item><span className={classess.nameLink} onClick={()=>handleSearchFilter(row.original.chip_data)} >{value}</span></Grid>
             </Grid>
           );
         },

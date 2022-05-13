@@ -57,8 +57,9 @@ import ImporterStatus from "./filterOptionsPage/ImporterStatus";
 import ExporterStatus from "./filterOptionsPage/ExporterStatus";
 import AccountCategory from "./filterOptionsPage/AccountCategory";
 import LastAccountFiled from "./filterOptionsPage/LastAccountFiled";
-import CurrentAssets from "./filterOptionsPage/CurrentAssets.JSX";
+import CurrentAssets from "./filterOptionsPage/CurrentAssets";
 import FixedAssets from "./filterOptionsPage/FixedAssets";
+import CompanyAccountCategory  from './filterOptionsPage/CompanyAccountCategory'
 
 const optionSearchBar = () => {
     return <SearchBar placeholder={"Search"} data={SearchBarData} />;
@@ -94,7 +95,7 @@ export const filtersData = [
             { filter: "Mail", option: <Mail />},
             { filter: "Telephone", option: <Telephone /> },
             { filter: "No. of Employees", option: <NoOfEmployees /> },
-            { filter: "Account Category", option: optionDropDownAndSearch },
+            { filter: "Account Category", option: <CompanyAccountCategory />},
         ],
     },
     {
