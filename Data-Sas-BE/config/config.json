@@ -1,9 +1,9 @@
 {
   "test": {
-    "username": "root",
-    "password": "",
+    "username": "admin",
+    "password": "Mechlin_123",
     "database": "ds_local",
-    "host": "localhost",
+    "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "development": {
@@ -16,7 +16,7 @@
   "production": {
     "username": "admin",
     "password": "Mechlin_123",
-    "database": "datasaas",
+    "database": "ds_local",
     "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
     "dialect": "mysql"
   }

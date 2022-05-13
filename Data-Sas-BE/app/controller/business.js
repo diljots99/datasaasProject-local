@@ -48,9 +48,11 @@ async function businessSearch(req, res) {
 
         const arr = {
           model: model.companies,
-          where:{website_url_1: {
+          where: {
+            website_url_1: {
               [Op.like]: list_ofChipData[0],
-          },}
+            },
+          },
         };
         otherOptions = {
           include: otherOptions.include
@@ -59,20 +61,88 @@ async function businessSearch(req, res) {
           ...otherOptions,
         };
       }
+
+      if (chipData.chip_group == "Mail") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push(`%${chip_value.chip_value}%`);
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            email1: {
+              [Op.like]: list_ofChipData[0],
+            },
+          },
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "Telephone") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push(`%${chip_value.chip_value}%`);
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            phone1: {
+              [Op.like]: list_ofChipData[0],
+            },
+          },
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      
+      if (chipData.chip_group == "Company Account Category") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({company_account_category: `${chip_value.chip_value}`});
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            phone1: {
+              [Op.like]: list_ofChipData[0],
+            },
+          },
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      
+
     });
   }
   const options = {
-    attributes : {exclude:['id']},
+    attributes: { exclude: ["id"] },
     page: page ? page : 1,
-    paginate: items_per_page ? items_per_page : 1 ,
+    paginate: items_per_page ? items_per_page : 1,
     where: where,
     ...otherOptions,
   };
   let result = await dao.getCompaniesWithFilters(options);
 
-  if (result.docs.length < items_per_page){
+  if (result.docs.length < items_per_page) {
     result.total = result.docs.length;
-    result.pages = 1
+    result.pages = 1;
   }
   res.send({
     page: options.page,

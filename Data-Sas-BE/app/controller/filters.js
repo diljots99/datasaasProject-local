@@ -13,12 +13,29 @@ const e = require("express");
 async function listAllFilters(req, res) {
     const list = await dao.getAllBusinessSearchFilters()
     const listFinal = []
-    list.forEach(element => {
+    for (let element of list) {
+        let options = {}
+        element =  element.toJSON()
+        if (element.name== "Account Category" && element.category == "Company"){
+                const distinctAccountCategory = await dao.getDistinctCompanyAccountCategory()
+                listOfSuggestion = []
+                for(let category of distinctAccountCategory){
+                        category = category.toJSON()
+                        listOfSuggestion.push(category.company_account_category)
+                }
+                options = {
+                    suggestions : listOfSuggestion,
+                    ...options
+                }
+          
+        }
+
         listFinal.push({
             featureEnabled :true,
-            ...element.dataValues
+            ...element,
+            ...options
         })
-    });
+    }
     res.send({"status":"true","result":listFinal})
 };
 
