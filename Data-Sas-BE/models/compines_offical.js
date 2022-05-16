@@ -44,6 +44,19 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "company_id",
       });
 
+
+      CompinesOffical.hasMany(models.company_location_gen, {
+        foreignKey: { name: "chn", allowNull: false },
+        sourceKey: "chn",
+        targetKey: "chn",
+      });
+
+      // CompinesOffical.hasMany(models.company_location_gen, {
+      //   foreignKey: { name: "dbe_id", allowNull: false },
+      //   sourceKey: "dbe_id",
+      //   targetKey: "dbe_id",
+      // });
+
       // Company to Company_Postcodes
       // CompinesOffical.hasMany(models.company_postcodes, {
       //   foreignKey: "id",

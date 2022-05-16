@@ -17,10 +17,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       chn: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        foreignKey:true,
+        references: { model: 'compines_officals', key: 'chn' }
       },
       dbe_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        foreignKey:true,
+        references: { model: 'compines_officals', key: 'dbe_id' }
       },
       address_type: {
         type: Sequelize.STRING

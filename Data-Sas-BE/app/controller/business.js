@@ -4,7 +4,7 @@ const dao = require("../dao/business");
 const errorlog = require("../../utils/logger").errorlog;
 const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
-const { Op,Sequelize } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 const model = require("../../models");
 async function businessSearch(req, res) {
   let { page, items_per_page, filterData } = req.body;
@@ -29,12 +29,15 @@ async function businessSearch(req, res) {
       if (chipData.chip_group == "Company Name") {
         let list_ofChipData = [];
         chipData.chip_values.forEach((chip_value) => {
-          list_ofChipData.push(`%${chip_value.chip_value}%`);
+          
+          list_ofChipData.push({
+            company_name:{
+              [Op.like]: `%${chip_value.chip_value}%`
+            }
+          });
         });
         where = {
-          company_name: {
-            [Op.like]: list_ofChipData[0],
-          },
+          [Op.or]:list_ofChipData,
           ...where,
         };
       }
@@ -104,17 +107,19 @@ async function businessSearch(req, res) {
           ...otherOptions,
         };
       }
-      
+
       if (chipData.chip_group == "Company Account Category") {
         let list_ofChipData = [];
         chipData.chip_values.forEach((chip_value) => {
-          list_ofChipData.push({company_account_category: `${chip_value.chip_value}`});
+          list_ofChipData.push({
+            company_account_category: `${chip_value.chip_value}`,
+          });
         });
 
         const arr = {
           model: model.companies,
           where: {
-            [Op.or]: list_ofChipData
+            [Op.or]: list_ofChipData,
           },
         };
         otherOptions = {
@@ -124,8 +129,143 @@ async function businessSearch(req, res) {
           ...otherOptions,
         };
       }
-      
 
+      if (chipData.chip_group == "Post Code") {
+        let list_ofChipData =   [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            address_post_code_trim: {
+              [Op.like]: `%${chip_value.chip_value}%`,
+            },
+          });
+        
+        });
+
+        const arr = {
+          model: model.company_location_gen,
+          where: {
+            [Op.or]: list_ofChipData,
+          },
+        };
+
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "City") {
+        let list_ofChipData =   [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            address_town: {
+              [Op.like]: `%${chip_value.chip_value}%`,
+            },
+          });
+        
+        });
+
+        const arr = {
+          model: model.company_location_gen,
+          where: {
+            [Op.or]: list_ofChipData,
+          },
+        };
+
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      if (chipData.chip_group == "County") {
+        let list_ofChipData =   [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            address_county_province: {
+              [Op.like]: `%${chip_value.chip_value}%`,
+            },
+          });
+        
+        });
+
+        const arr = {
+          model: model.company_location_gen,
+          where: {
+            [Op.or]: list_ofChipData,
+          },
+        };
+
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      if (chipData.chip_group == "Region") {
+        let list_ofChipData =   [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            address_region: {
+              [Op.like]: `%${chip_value.chip_value}%`,
+            },
+          });
+        
+        });
+
+        const arr = {
+          model: model.company_location_gen,
+          where: {
+            [Op.or]: list_ofChipData,
+          },
+        };
+
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      if (chipData.chip_group == "Country") {
+        let list_ofChipData =   [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            company_address_country: {
+              [Op.like]: `%${chip_value.chip_value}%`,
+            },
+          });
+          list_ofChipData.push({
+            personal_address_country: {
+              [Op.like]: `%${chip_value.chip_value}%`,
+            },
+          });
+        
+        });
+
+        const arr = {
+          model: model.company_location_gen,
+          where: {
+            [Op.or]: list_ofChipData,
+          },
+        };
+
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
     });
   }
   const options = {
@@ -301,90 +441,73 @@ async function businessTrade(req, res) {
     },
   });
 
-  let hmrcExportsOpreationsYearly = await dao.getHmrcExport(
-    {
-      attributes: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
-        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
-      ],
-      group: [ Sequelize.fn('YEAR', Sequelize.col('hmrc_date2'))],
-      order: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
+  let hmrcExportsOpreationsYearly = await dao.getHmrcExport({
+    attributes: [
+      [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+      [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
     ],
-      where: {
-        chn: company_offical.dataValues.chn,
-      },
-    }
-   
-  );
-  let hmrcExportsOpreationsMonthly = await dao.getHmrcExport(
-    {
-      attributes: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
-        [Sequelize.literal(`MONTH(hmrc_date2)`), "month"],
-        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
-      ],
-      group: [ Sequelize.col('hmrc_date')],
-      order: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
-        [Sequelize.literal(`MONTH(hmrc_date2)`), 'DESC'],
+    group: [Sequelize.fn("YEAR", Sequelize.col("hmrc_date2"))],
+    order: [[Sequelize.literal(`YEAR(hmrc_date2)`), "DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+  let hmrcExportsOpreationsMonthly = await dao.getHmrcExport({
+    attributes: [
+      [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+      [Sequelize.literal(`MONTH(hmrc_date2)`), "month"],
+      [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
     ],
-      where: {
-        chn: company_offical.dataValues.chn,
-      },
-    }
-   
-  );
-  let hmrcImportOpreationsYearly = await dao.getHmrcImport(
-    {
-      attributes: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
-        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
-      ],
-      group: [ Sequelize.fn('YEAR', Sequelize.col('hmrc_date2'))],
-      order: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
+    group: [Sequelize.col("hmrc_date")],
+    order: [
+      [Sequelize.literal(`YEAR(hmrc_date2)`), "DESC"],
+      [Sequelize.literal(`MONTH(hmrc_date2)`), "DESC"],
     ],
-      where: {
-        chn: company_offical.dataValues.chn,
-      },
-    }
-   
-  );
-  
-  let hmrcImportOpreationsMonthly = await dao.getHmrcImport(
-    {
-      attributes: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
-        [Sequelize.literal(`MONTH(hmrc_date2)`), "month"],
-        [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
-      ],
-      group: [ Sequelize.col('hmrc_date')],
-      order: [
-        [Sequelize.literal(`YEAR(hmrc_date2)`), 'DESC'],
-        [Sequelize.literal(`MONTH(hmrc_date2)`), 'DESC'],
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+  let hmrcImportOpreationsYearly = await dao.getHmrcImport({
+    attributes: [
+      [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+      [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
     ],
-      where: {
-        chn: company_offical.dataValues.chn,
-      },
-    }
-   
-  );
+    group: [Sequelize.fn("YEAR", Sequelize.col("hmrc_date2"))],
+    order: [[Sequelize.literal(`YEAR(hmrc_date2)`), "DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+
+  let hmrcImportOpreationsMonthly = await dao.getHmrcImport({
+    attributes: [
+      [Sequelize.literal(`YEAR(hmrc_date2)`), "year"],
+      [Sequelize.literal(`MONTH(hmrc_date2)`), "month"],
+      [Sequelize.literal(`COUNT(*)`), "num_of_opreations"],
+    ],
+    group: [Sequelize.col("hmrc_date")],
+    order: [
+      [Sequelize.literal(`YEAR(hmrc_date2)`), "DESC"],
+      [Sequelize.literal(`MONTH(hmrc_date2)`), "DESC"],
+    ],
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
 
   let exportCodeDescription = await dao.getHmrcExportCodeDescription({
-    attributes:['hmrc_code','chn','code_description'],
+    attributes: ["hmrc_code", "chn", "code_description"],
     where: {
       chn: company_offical.dataValues.chn,
     },
-  })
+  });
 
   let importCodeDescription = await dao.getHmrcImportCodeDescription({
-    attributes:['hmrc_code','chn','code_description'],
+    attributes: ["hmrc_code", "chn", "code_description"],
     where: {
       chn: company_offical.dataValues.chn,
     },
-  })
-
+  });
 
   return res.send({
     status: true,
@@ -402,18 +525,17 @@ async function businessTrade(req, res) {
         importer_status: company.dataValues.importer,
         monthly_opreations: {
           exports: hmrcExportsOpreationsMonthly,
-          imports: hmrcImportOpreationsMonthly
+          imports: hmrcImportOpreationsMonthly,
         },
         yearly_opreations: {
-          exports:  hmrcExportsOpreationsYearly,
-          imports: hmrcImportOpreationsYearly
+          exports: hmrcExportsOpreationsYearly,
+          imports: hmrcImportOpreationsYearly,
         },
-        hmrc_code_description:{
+        hmrc_code_description: {
           exports: exportCodeDescription,
           imports: importCodeDescription,
-        }
+        },
       },
-
     },
   });
 }
