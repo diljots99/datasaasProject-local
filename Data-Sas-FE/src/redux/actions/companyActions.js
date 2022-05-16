@@ -14,7 +14,7 @@ export const getProple=(uuid)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/people`, header() )
         .then(res =>{
             console.log("people response ", res)
-            if(res.data.status = true)
+            if(res.data.status === true)
             dispatch({type: SET_PEOPLE , payload: res.data})
         }).catch(err=>console.log(err))
     }
@@ -26,7 +26,7 @@ export const getDirectors =(uuid)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/directors`, header() )
         .then(res =>{
             console.log("Directors response ", res)
-            if(res.data.status = true)
+            if(res.data.status === true)
             dispatch({type: SET_DIRECTORS , payload: res.data})
         }).catch(err=>console.log(err))
     }
@@ -38,7 +38,7 @@ export const getTradingAddress=(uuid)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/tradingAddress`, header() )
         .then(res =>{
             console.log("get Trading Address ", res)
-            if(res.data.status = true)
+            if(res.data.status === true)
             dispatch({type: SET_TRADING_ADDRESS , payload: res.data})
         }).catch(err=>console.log(err))
     }
@@ -49,7 +49,7 @@ export const getTrade=(uuid)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/trade`, header() )
         .then(res =>{
             console.log("get Trade", res)
-            if(res.data.result.status = true)
+            if(res.data.result.status === true)
             dispatch({type: SET_TRADE , payload: res.data.result.trade})
         }).catch(err=>console.log(err))
     }

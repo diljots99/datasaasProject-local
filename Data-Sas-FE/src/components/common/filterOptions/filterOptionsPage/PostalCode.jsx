@@ -8,19 +8,19 @@ import { SetselectedFilterValues } from "../../../../redux/actions/filterAction"
 
 export default function PostalCode() {
   const dispatch = useDispatch();
-  const { companyList } = useSelector((state) => state.watch);
-  const { selectedFilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
   const getAllPostCode = ()=>{
     let postCode = []
-     companyList.map((val) => val.company_postcodes.map(postVal=>{
-      //  console.log({postVal: postVal.postcode , isexist: postCode.includes(postVal.postcode)})
-       if(!postCode.includes(val=> val.title === postVal.postcode))
-        postCode.push({ id: postVal.id, title: postVal.postcode })
-   
-       }))
+
+      let filtervalue = filterTypeDetail.filter(value => value.name ===  "Post Code" &&  value.category === "Location")
+      if(filtervalue[0].suggestions){
+        filtervalue[0].suggestions.map(val=>{
+          postCode.push({ id: val, title: val })
+        })
+      }
   
        return postCode
    

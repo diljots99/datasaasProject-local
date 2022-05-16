@@ -15,6 +15,7 @@ import { useStyles } from "./styles";
 import SearchIcon from "@material-ui/icons/Search";
 import MonitorComponent from "../../components/common/MonitorComponent";
 import NotesComponent from "../../components/common/NotesComponent";
+import SavedSearchesComponent from "../../components/common/SavedSearchesComponent";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {
@@ -32,6 +33,7 @@ export default function Dashboard() {
   //const dispatch = useDispatch();
   const companyNotes = useSelector((store) => store.watch.companyNotes);
   const { companyMonitorList ,directorMonitorList , directorList  } = useSelector((state) => state.watch);
+  const { savedFilterList } = useSelector(state => state.filter)
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
 
@@ -257,8 +259,8 @@ export default function Dashboard() {
 
                 <Grid item className={classess.infoGrid}>
                   <Grid item className={classess.savedSerchesClass}>
-                    {news.length > 0 ? (
-                      news.map((val) => <NotesComponent data={val} />)
+                    {savedFilterList.length > 0 ? (
+                      savedFilterList.map((val) => <SavedSearchesComponent data={val} />)
                     ) : (
                       <Typography variant="h6" textAlign="center">
                         No results found

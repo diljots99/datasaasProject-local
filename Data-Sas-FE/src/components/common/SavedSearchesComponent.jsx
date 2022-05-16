@@ -1,7 +1,6 @@
 import React from "react";
-import { Grid, Typography, Divider } from "@mui/material";
+import { Grid, Typography, Divider, Chip } from "@mui/material";
 import { makeStyles } from "@material-ui/core";
-import moment from "moment";
 
 const useStyles = makeStyles({
   mainContainer: {
@@ -32,8 +31,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NotesComponent({ data }) {
+export default function SavedSearchesComponent({ data }) {
   const classnames = useStyles();
+  console.log("Data", data);
   return (
     <Grid container className={classnames.mainContainer}>
       <Grid container className={classnames.infoHeader}>
@@ -43,21 +43,29 @@ export default function NotesComponent({ data }) {
             variant="h8"
             className={classnames.headerText}
           >
-            {data.n_company_name}
+            {data.fliter_name}
           </Typography>
         </Grid>
-        <Grid item>
-          <Typography display="inline" variant="h8" className={classnames.date}>
-           { moment(data.createdAt).format("YYYY/MM/DD")}
-          </Typography>
+        <Grid item className={classnames.filterHeading}>
+          {data.chip_data.map((dat) => (
+            <>
+              <Typography> {dat.chip_group}</Typography>
+              <Grid item>
+                {dat.chip_values.map((val) => {
+                  return (
+                    <Chip
+                      style={{ margin: "2px" }}
+                      label={val.chip_value}
+                      color="success"
+                    />
+                  );
+                })}
+              </Grid>
+            </>
+          ))}
         </Grid>
       </Grid>
-      <Grid item className={classnames.paraContainer}>
-        <Typography display="inline" variant="p" className={classnames.para}>
-          {data.n_text}
-        </Typography>
-        <Divider className={classnames.divider} />
-      </Grid>
+      <Divider className={classnames.divider} />
     </Grid>
   );
 }

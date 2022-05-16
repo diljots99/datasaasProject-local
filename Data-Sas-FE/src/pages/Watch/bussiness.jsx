@@ -8,6 +8,9 @@ import {
   InputAdornment,
   Button,
   Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./styles";
@@ -228,9 +231,10 @@ const Table = ({
           }}
         >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-            <option className="select" key={pageSize} value={pageSize}>
-              {pageSize}
-            </option>
+               <MenuItem  key={pageSize} value={pageSize} > {pageSize}</MenuItem>
+            // <option className="select" key={pageSize} value={pageSize}>
+            //   {pageSize}
+            // </option>
           ))}
         </Select>
         <nav aria-label="Page navigation example">
@@ -353,10 +357,11 @@ const BussinessWatch = ({ data }) => {
     [companyList]
   );
 
+
   return (
     <div>
       <Grid container style={{ marginBottom: "10px" }}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} style={{display:'flex'}}>
           <Typography
             variant="h5"
             style={{ fontWeight: 600 }}
@@ -364,6 +369,26 @@ const BussinessWatch = ({ data }) => {
           >
             Business Search
           </Typography>
+
+          <Select
+          className="select"
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          style={{width:"130px", marginLeft: "10px"}}
+          // open={open}
+          // onClose={handleClose}
+          // onOpen={handleOpen}
+          value={0}
+          placeholder="Export"
+          label="Export"
+          // onChange={handleChange}
+        >
+         <MenuItem value={0} disabled>
+          Export
+        </MenuItem>
+          <MenuItem value={10} onClick >Export All</MenuItem>
+          <MenuItem value={21}>Export Selected</MenuItem>
+        </Select>
         </Grid>
         <Grid item xs={12} sm={6} className={classess.searchcontainer}>
           <TextField

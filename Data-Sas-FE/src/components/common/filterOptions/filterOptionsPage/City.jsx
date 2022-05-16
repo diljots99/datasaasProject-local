@@ -9,18 +9,19 @@ import { SetselectedFilterValues } from "../../../../redux/actions/filterAction"
 export default function City() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { selectedFilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
   const getAllCity = ()=>{
     let allCitys = []
-     companyList.map((val) => val.company_postcodes.map(Val=>{
-      //  console.log({Val: Val.postcode , isexist: allCitys.includes(Val.postcode)})
-       if(!allCitys.includes(val=> val.title === Val.city))
-        allCitys.push({ id: Val.id, title: Val.city })
    
-       }))
+       let filtervalue = filterTypeDetail.filter(value => value.name ===  "City" &&  value.category === "Location")
+       if(filtervalue[0].suggestions){
+         filtervalue[0].suggestions.map(val=>{
+          allCitys.push({ id: val, title: val })
+         })
+       }
   
        return allCitys
    

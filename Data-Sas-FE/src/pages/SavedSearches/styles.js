@@ -55,7 +55,8 @@ export const useStyles = makeStyles((theme)=> ({
   },
   nameLink:{
     textDecoration: " underline",
-    color:"#40ACFB"
+    color:"#40ACFB",
+    cursor: "pointer"
   },
   companyNotes:{
     width: "100%",

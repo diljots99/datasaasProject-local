@@ -47,6 +47,8 @@ const Directors = () => {
     const [loading, setLoading] = React.useState(false);
     const [pageCount, setPageCount] = React.useState(0);
     const compSumfetchIdRef = React.useRef(0);
+
+    console.log("tabledata ",tabledata)
     const columns = React.useMemo(
         () => [
             {
@@ -121,16 +123,18 @@ const Directors = () => {
         ({ pageSize, pageIndex }) => {
             const fetchId = ++compSumfetchIdRef.current;
             setLoading(true);
-
-            setTimeout(() => {
-                if (fetchId === compSumfetchIdRef.current) {
-                    const startRow = pageSize * pageIndex;
-                    const endRow = startRow + pageSize;
-                    settableData(TradingAddress.result?.slice(startRow, endRow));
-                    setPageCount(Math.ceil(TradingAddress.result?.length / pageSize));
-                    setLoading(false);
-                }
-            }, 1000);
+if(TradingAddress.result !== undefined ){
+    setTimeout(() => {
+        if (fetchId === compSumfetchIdRef.current) {
+            const startRow = pageSize * pageIndex;
+            const endRow = startRow + pageSize;
+            settableData(TradingAddress?.result?.slice(startRow, endRow));
+            setPageCount(Math.ceil(TradingAddress?.result?.length / pageSize));
+            setLoading(false);
+        }
+    }, 1000);
+}
+          
         },
         [TradingAddress.result]
     );
@@ -241,7 +245,7 @@ const Directors = () => {
                     </Grid>
                 </Grid>
 
-                {tabledata.length > 0 || searchKey === "" ? (
+                { tabledata.length > 0 || searchKey === "" ? (
                     <Table
                         columns={columns}
                         data={tabledata}

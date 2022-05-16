@@ -13,7 +13,9 @@ export default function CompanyAccountCategory() {
   );
 
   const getOptions = () => {
-    return filterTypeDetail.filter(value => value.name === "Company Account Category")[0].suggestions.map(opt=> ({ value: opt, label: opt }))
+    console.log("aaaaaaaavvv", filterTypeDetail.filter(value => value.name ===  "Account Category" &&  value.category === "Company"))
+    let filtervalue = filterTypeDetail.filter(value => value.name ===  "Account Category" &&  value.category === "Company")
+     return filtervalue[0].suggestions ? filtervalue[0].suggestions.map(opt=> ({ value: opt, label: opt })) : []
   }
 
   const options = getOptions()

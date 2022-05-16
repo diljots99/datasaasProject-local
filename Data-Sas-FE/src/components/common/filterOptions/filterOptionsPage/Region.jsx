@@ -1,58 +1,85 @@
 import React, { useState } from "react";
 import "./searchBar.css";
-import MuiSearchBar from "material-ui-search-bar";
-import data from "../subFilterOptions/data.json";
+import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 
 export default function Region() {
-  const [filteredData, setFilteredData] = useState([]);
-  const [wordEntered, setWordEntered] = useState("");
+  const dispatch = useDispatch();
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [error, setError] = useState(false)
+  const {  selectedFilterValues , filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
 
-  const handleFilter = (value) => {
-    const searchWord = value;
-    setWordEntered(searchWord);
-    const newFilter = data.filter((item) => {
-      return item.title.toLowerCase().includes(searchWord.toLowerCase());
-    });
-    if (searchWord === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-    }
+  const getOptions = () => {
+ 
+    let filtervalue = filterTypeDetail.filter(value => value.name ===  "Region" &&  value.category === "Location")
+     return filtervalue[0].suggestions ? filtervalue[0].suggestions.map(opt=> ({ value: opt, label: opt })) : []
+  }
+
+  const options = getOptions()
+
+  const applyFilter = () => {
+    // if (checked.length > 0) {
+    //   dispatch(SetselectedFilterValues("Company Name", checked));
+    // }
+
+    if( selectedOption !==null && selectedOption.length > 0){
+      let filterval = selectedOption.map(val=> val.value)
+      dispatch(SetselectedFilterValues("Region", filterval))
+      setSelectedOption(null)
+    setError(false)
+  }else{
+    setError(true)
+  }
+  };
+
+
+
+  const customStyles = {
+    control: (styles) => ({
+      ...styles,
+      backgroundColor: "white",
+      width: "100%",
+      padding: "3px",
+      borderRadius: "10px",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      fontSize: "14px",
+      fontWeight: "300",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      fontWeight: "400",
+    }),
+    valueContainer: (provided) => ({
+      ...provided,
+      fontWeight: "400",
+      fontSize: "16px",
+    }),
   };
   return (
     <div className="subFiltersContainerPage">
-      <div className="searchContainer">
-        <MuiSearchBar
-          className="search"
-          placeholder="Search Region"
-          value={wordEntered}
-          onChange={handleFilter}
-          onCancelSearch={() => {
-            setFilteredData([]);
-            setWordEntered("");
-          }}
-        ></MuiSearchBar>
-        <div className="searchResultContainer">
-          {filteredData.length != 0 ? (
-            <div className="dataResult">
-              {filteredData.slice(0, 3).map((item, key) => {
-                return (
-                  <a className="dataItem" href={item.link} target="_blank">
-                    <div>{item.title} </div>
-                  </a>
-                );
-              })}
-            </div>
-          ) : wordEntered != "" ? (
-            <div className="dataResult">
-              <a className="dataItem">No results found</a>
-            </div>
-          ) : null}
-        </div>
-      </div>
-      <div className="subFiltersContainerButton">
-        <button className="subFilterApply">Apply</button>
-      </div>
+    <div className="searchContainer">
+      <Select
+        styles={customStyles}
+        isMulti
+        defaultValue={selectedOption}
+        placeholder="Region"
+        onChange={setSelectedOption}
+        options={options}
+      />
     </div>
+
+    <div className="choosenResultsContainer">
+
+    </div>
+
+    <div className="subFiltersContainerButton">
+      <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter} >Apply</button>
+    </div>
+  </div>
   );
 }
