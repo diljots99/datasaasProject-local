@@ -266,6 +266,18 @@ async function businessSearch(req, res) {
           ...otherOptions,
         };
       }
+      if (chipData.chip_group == "Status") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ company_status: `${chip_value.chip_value}` });
+        });
+        where = {
+          [Op.or]: list_ofChipData,
+          ...where,
+        };
+      }
+      
+   
     });
   }
   const options = {

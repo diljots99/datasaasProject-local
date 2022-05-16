@@ -48,66 +48,84 @@ async function listAllFilters(req, res) {
     }
 
     if (element.name == "City") {
-        const distinct = await dao.getDistinctCompanyCity();
-        listOfSuggestion = [];
-        for (let category of distinct) {
-          category = category.toJSON();
-          if (category.address_town) {
-            listOfSuggestion.push(category.address_town);
-          }
+      const distinct = await dao.getDistinctCompanyCity();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.address_town) {
+          listOfSuggestion.push(category.address_town);
         }
-        options = {
-          suggestions: listOfSuggestion,
-          ...options,
-        };
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
     }
 
     if (element.name == "County") {
-        const distinct = await dao.getDistinctCompanyCounty();
-        listOfSuggestion = [];
-        for (let category of distinct) {
-          category = category.toJSON();
-          if (category.address_county_province) {
-            listOfSuggestion.push(category.address_county_province);
-          }
+      const distinct = await dao.getDistinctCompanyCounty();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.address_county_province) {
+          listOfSuggestion.push(category.address_county_province);
         }
-        options = {
-          suggestions: listOfSuggestion,
-          ...options,
-        };
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
     }
 
     if (element.name == "Region") {
-        const distinct = await dao.getDistinctCompanyRegion();
-        listOfSuggestion = [];
-        for (let category of distinct) {
-          category = category.toJSON();
-          if (category.address_region) {
-            listOfSuggestion.push(category.address_region);
-          }
+      const distinct = await dao.getDistinctCompanyRegion();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.address_region) {
+          listOfSuggestion.push(category.address_region);
         }
-        options = {
-          suggestions: listOfSuggestion,
-          ...options,
-        };
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
     }
 
     if (element.name == "Country") {
-        const distinct = await dao.getDistinctCompanyCountry();
-        listOfSuggestion = [];
-        for (let category of distinct) {
-          category = category.toJSON();
-          if (category.personal_address_country) {
-            listOfSuggestion.push(category.personal_address_country);
-          }
-          if (category.company_address_country) {
-            listOfSuggestion.push(category.company_address_country);
-          }
+      const distinct = await dao.getDistinctCompanyCountry();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.personal_address_country) {
+          listOfSuggestion.push(category.personal_address_country);
         }
-        options = {
-          suggestions: listOfSuggestion,
-          ...options,
-        };
+        if (category.company_address_country) {
+          listOfSuggestion.push(category.company_address_country);
+        }
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "Status" &&
+      element.category == "Status"
+    ) {
+      const distinct = await dao.getDistinctCompanyStatus();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.company_status) {
+          listOfSuggestion.push(category.company_status);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
     }
 
     listFinal.push({
@@ -115,7 +133,6 @@ async function listAllFilters(req, res) {
       ...element,
       ...options,
     });
-
   }
   res.send({ status: "true", result: listFinal });
 }
