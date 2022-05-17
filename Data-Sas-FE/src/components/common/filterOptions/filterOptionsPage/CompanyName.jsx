@@ -6,20 +6,37 @@ import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
 import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 // import data from "../subFilterOptions/data.json";
+import UpdatePlan from "./UpdatePlan";
 
 export default function CompanyName() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { selectedFilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [error, setError] = useState(false)
-
-  const [data, setData] = useState(
-    companyList.map((val) => ({ id: val.id, title: val.company_name }))
-  );
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [data, setData] = useState([]);
   const [checked, setChecked] = useState([]);
   console.log("companyList", companyList);
+
+  useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+   
+    let filtervalue = filterTypeDetail.filter(
+      (value) =>
+        value.name === "Company Number" && value.category === "Company"
+    );
+   console.log("com name fil val ",filtervalue )
+      setIsEnabled(filtervalue[0].featureEnabled);
+  
+    setData(
+      filtervalue[0].suggestions
+        ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
+        : []
+    );
+  };
 
   useEffect(() => {
       if(selectedFilterValues['Company Name']){
@@ -62,6 +79,7 @@ export default function CompanyName() {
   };
   return (
     <div className="subFiltersContainerPage">
+     {isEnabled ? <>
       <div className="searchContainer">
         <MuiSearchBar
           className="search"
@@ -154,6 +172,7 @@ export default function CompanyName() {
           Apply
         </button>
       </div>
+     </>: <UpdatePlan />}
     </div>
   );
 }

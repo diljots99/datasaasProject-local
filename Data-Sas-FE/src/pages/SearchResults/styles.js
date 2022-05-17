@@ -26,4 +26,8 @@ export const useStyles = makeStyles({
         lineHeight: "39px",
         color: "#000",
       },
+      checkBox: {
+        display: "flex",
+        alignItems: "center",
+      },
 });
