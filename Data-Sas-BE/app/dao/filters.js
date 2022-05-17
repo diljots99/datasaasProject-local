@@ -74,7 +74,12 @@ async function getDistinctCompanyStatus() {
   });
 }
 
-
+async function getDistinctCompanyCategory() {
+  return await model.compines_offical.findAll({
+    attributes: ["company_category"],
+    group: ["company_category"],
+  });
+}
 module.exports = {
   getAllBusinessSearchFilters,
   getFilterById,
@@ -85,5 +90,6 @@ module.exports = {
   getDistinctCompanyCounty,
   getDistinctCompanyRegion,
   getDistinctCompanyCountry,
-  getDistinctCompanyStatus
+  getDistinctCompanyStatus,
+  getDistinctCompanyCategory
 };

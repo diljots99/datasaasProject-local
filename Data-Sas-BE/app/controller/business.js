@@ -6,6 +6,7 @@ const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
 const { Op, Sequelize } = require("sequelize");
 const model = require("../../models");
+const {stringToDate} = require("../comman/dates")
 async function businessSearch(req, res) {
   let { page, items_per_page, filterData } = req.body;
 
@@ -269,6 +270,7 @@ async function businessSearch(req, res) {
       if (chipData.chip_group == "Status") {
         let list_ofChipData = [];
         chipData.chip_values.forEach((chip_value) => {
+          
           list_ofChipData.push({ company_status: `${chip_value.chip_value}` });
         });
         where = {
@@ -277,6 +279,47 @@ async function businessSearch(req, res) {
         };
       }
       
+      if (chipData.chip_group == "Company Category") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            company_category:{
+              [Op.like]: `%${chip_value.chip_value}%`
+            }
+          });
+        });
+        where = {
+          [Op.or]: list_ofChipData,
+          ...where,
+        };
+      }
+      
+      if (chipData.chip_group == "Incorporation date") {
+        let list_ofChipData = [];
+        if (chipData.chip_values.length < 2){
+          return res.send({"status":false,"message":"Please send from date in index 0 and to date in index 1 atleast two dates"})
+        }
+          list_ofChipData.push({ incorporation_date: {[Op.gte]: stringToDate(`${chipData.chip_values[0].chip_value}`) }});
+          list_ofChipData.push({ incorporation_date: {[Op.lte]: stringToDate(`${chipData.chip_values[1].chip_value}`) }});
+        where = {
+          [Op.and]: list_ofChipData,
+          ...where,
+        };
+      }
+
+      if (chipData.chip_group == "Dissolution Date") {
+        let list_ofChipData = [];
+        if (chipData.chip_values.length < 2){
+          return res.send({"status":false,"message":"Please send from date in index 0 and to date in index 1 atleast two dates"})
+        }
+          list_ofChipData.push({ dissolution_date: {[Op.gte]: stringToDate(`${chipData.chip_values[0].chip_value}`) }});
+          list_ofChipData.push({ dissolution_date: {[Op.lte]: stringToDate(`${chipData.chip_values[1].chip_value}`) }});
+        where = {
+          [Op.and]: list_ofChipData,
+          ...where,
+        };
+      }
    
     });
   }

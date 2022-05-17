@@ -64,10 +64,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       dissolution_date: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       incorporation_date: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       accounts_account_ref_day: {
         type: Sequelize.STRING
