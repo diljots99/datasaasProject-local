@@ -24,7 +24,7 @@ module.exports = {
       company_id: {
         type: Sequelize.INTEGER,
         foreignKey: true,
-        references: { model: "compines_offical", key: "id" },
+        references: { model: "compines_officals", key: "id" },
       },
       officer_id: {
         type: Sequelize.INTEGER,

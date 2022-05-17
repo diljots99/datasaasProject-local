@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const businessController = require("../controller/business");
+const savedSearchController = require("../controller/saved-searches");
 const JWT = require("../utils/auth");
 
 /**
@@ -23,12 +23,12 @@ const JWT = require("../utils/auth");
  *            schema:
  *              type: object
  *              properties:
- *                filterName:
+ *                fliter_name:
  *                  type: string
- *                searchType:
+ *                search_type:
  *                  type: string
  *                  enum: [Business Search, desc]
- *                chipData:
+ *                chip_data:
  *                  type: array
  *                  items:
  *                      type: object
@@ -38,14 +38,38 @@ const JWT = require("../utils/auth");
  *                          chip_values:
  *                             type: array
  *                             items:
- *                                  type: string
+ *                                  type: object
+ *                                  properties:
+ *                                      chip_value:
+ *                                          type: string
  *     responses:
  *          '200':
  *              description: A Successfull response
  *          '422':
  *              description:  Validation error
  */
- router.post("/create/",businessController.businessSearch)
+ router.post("/create/",JWT.authenticate,savedSearchController.createSavedSearch)
+
+
+/**
+ * @swagger
+ *
+ * /api/saved-searches/list:
+ *   post:
+ *     summary: List all Saved Searched for a user
+ *     tags: [Saved Searches]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.post("/list/",JWT.authenticate,savedSearchController.listUserSavedSearches)
 
 
 

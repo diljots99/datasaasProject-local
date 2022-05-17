@@ -11,17 +11,33 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.saved_search.hasMany(saved_searches__chip_data,{
+        foreignKey: "ss_id",
+        as: "chip_data"
+      })
+      saved_searches__chip_data.hasMany(models.saved_searches_chip_values,{
+        foreignKey:"ss_cd_id",
+        as: "chip_values"
+
+      })
+      console.log(models)
     }
   };
   saved_searches__chip_data.init({
     uuid:{
       type: DataTypes.UUID,
-      defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+      defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
       unique: true,
     }, 
-    ss_cd_chip_group: DataTypes.STRING,
-    ss_id: DataTypes.INTEGER
-  }, {
+    chip_group:{ 
+      field: "ss_cd_chip_group",
+      type:DataTypes.STRING
+    },
+    ss_id: {
+     type: DataTypes.INTEGER,
+
+  }
+}, {
     sequelize,
     modelName: 'saved_searches_chip_data',
   });

@@ -21,7 +21,7 @@ module.exports = {
       company_id: {
         type: Sequelize.INTEGER,
         foreignKey: true,
-        references: { model: "compines_offical", key: "id" },
+        references: { model: "compines_officals", key: "id" },
       },
       b_watch_status: {
         type: Sequelize.BOOLEAN,

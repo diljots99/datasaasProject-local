@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Plan_Features extends Model {
+  class hmrc_code extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,17 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  Plan_Features.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
-      unique: true,
-    },
-    plan_details_id: DataTypes.INTEGER,
-    feature_name: DataTypes.STRING
+  hmrc_code.init({
+    code_description: DataTypes.STRING,
+    measure: DataTypes.STRING,
+    hmrc_code: DataTypes.STRING,
+    uuid: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'plan_features',
+    modelName: 'hmrc_code',
   });
-  return Plan_Features;
+  return hmrc_code;
 };

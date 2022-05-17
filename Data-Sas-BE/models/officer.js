@@ -1,4 +1,6 @@
 "use strict";
+const sequelizePaginate = require('sequelize-paginate')
+
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Officer extends Model {
@@ -31,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
         unique: true,
       },
       company_id: DataTypes.INTEGER,
@@ -66,5 +68,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "officer",
     }
   );
+  sequelizePaginate.paginate(Officer)
+
   return Officer;
 };

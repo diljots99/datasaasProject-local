@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const sequelizePaginate = require('sequelize-paginate')
+const sequelizePaginate = require("sequelize-paginate");
 module.exports = (sequelize, DataTypes) => {
   class CompinesOffical extends Model {
     /**
@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-       // define association here
+      // define association here
       // Company to officer
-     //console.log("models", models);
-      CompinesOffical.hasMany(models.business_watch,{
+      //console.log("models", models);
+      CompinesOffical.hasMany(models.business_watch, {
         foreignKey: "company_id",
       });
-      CompinesOffical.hasMany(models.company_postcodes,{
+      CompinesOffical.hasMany(models.company_postcodes, {
         foreignKey: "chn",
       });
       CompinesOffical.hasMany(models.User, {
@@ -36,13 +36,26 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id",
       });
 
-      CompinesOffical.hasMany(models.officer,{
+      CompinesOffical.hasMany(models.officer, {
         foreignKey: "company_id",
       });
 
-      CompinesOffical.hasMany(models.notes,{
+      CompinesOffical.hasMany(models.notes, {
         foreignKey: "company_id",
       });
+
+
+      CompinesOffical.hasMany(models.company_location_gen, {
+        foreignKey: { name: "chn", allowNull: false },
+        sourceKey: "chn",
+        targetKey: "chn",
+      });
+
+      // CompinesOffical.hasMany(models.company_location_gen, {
+      //   foreignKey: { name: "dbe_id", allowNull: false },
+      //   sourceKey: "dbe_id",
+      //   targetKey: "dbe_id",
+      // });
 
       // Company to Company_Postcodes
       // CompinesOffical.hasMany(models.company_postcodes, {
@@ -59,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
         unique: true,
       },
       dbe_id: DataTypes.INTEGER,
@@ -129,6 +142,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "compines_offical",
     }
   );
-  sequelizePaginate.paginate(CompinesOffical)
+  sequelizePaginate.paginate(CompinesOffical);
   return CompinesOffical;
 };

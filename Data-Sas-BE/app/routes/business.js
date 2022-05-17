@@ -10,7 +10,7 @@ const JWT = require("../utils/auth");
  *   post:
  *     summary: Search
  *     tags: [Business]
- *     description: 
+ *     description: Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country | Status
  *     produces:
  *       - application/json
  *     security:
@@ -41,7 +41,10 @@ const JWT = require("../utils/auth");
  *                          chip_values:
  *                             type: array
  *                             items:
- *                                  type: string
+ *                                  type: object
+ *                                  properties:
+ *                                      chip_value:
+ *                                          type: string
  *     responses:
  *          '200':
  *              description: A Successfull response
@@ -53,8 +56,134 @@ const JWT = require("../utils/auth");
 
 
 
+ /**
+ * @swagger
+ *
+ * /api/business/{uuid}/people:
+ *   get:
+ *     summary: Search
+ *     tags: [Business]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     parameters:
+ *      - in: path
+ *        name: uuid
+ *        schema:
+ *            type: string
+ *        required: true
+ *        description: Company uuid
+ *      - in: query
+ *        name: page
+ *      - in: query
+ *        name: item_per_page
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.get("/:uuid/people",JWT.authenticate,businessController.businessPeople)
 
 
+
+/**
+ * @swagger
+ *
+ * /api/business/{uuid}/directors:
+ *   get:
+ *     summary: Search
+ *     tags: [Business]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     parameters:
+ *      - in: path
+ *        name: uuid
+ *        schema:
+ *            type: string
+ *        required: true
+ *        description: Company uuid
+ *      - in: query
+ *        name: page
+ *      - in: query
+ *        name: item_per_page
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.get("/:uuid/directors",JWT.authenticate,businessController.businessDirectors)
+
+
+
+/**
+ * @swagger
+ *
+ * /api/business/{uuid}/trade:
+ *   get:
+ *     summary: Trade
+ *     tags: [Business]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     parameters:
+ *      - in: path
+ *        name: uuid
+ *        schema:
+ *            type: string
+ *        required: true
+ *        description: Company uuid
+ *      - in: query
+ *        name: page
+ *      - in: query
+ *        name: item_per_page
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.get("/:uuid/trade",JWT.authenticate,businessController.businessTrade)
+
+
+ /**
+ * @swagger
+ *
+ * /api/business/{uuid}/tradingAddress:
+ *   get:
+ *     summary: tradingAddress
+ *     tags: [Business]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []
+ *     parameters:
+ *      - in: path
+ *        name: uuid
+ *        schema:
+ *            type: string
+ *        required: true
+ *        description: Company uuid
+ *      - in: query
+ *        name: page
+ *      - in: query
+ *        name: item_per_page
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+  router.get("/:uuid/tradingAddress",JWT.authenticate,businessController.businessTradeAddress)
 
 
 module.exports = router

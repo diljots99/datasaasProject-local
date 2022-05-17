@@ -1,5 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
+const sequelizePaginate = require('sequelize-paginate')
+
 module.exports = (sequelize, DataTypes) => {
   class Company_Postcodes extends Model {
     /**
@@ -34,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       uuid: {
         type: DataTypes.UUID,
-        defaultValue: sequelize.UUIDV4, // Or Sequelize.UUIDV1
+        defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
         unique: true,
       },
       company_id: DataTypes.INTEGER,
@@ -55,5 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "company_postcodes",
     }
   );
+  sequelizePaginate.paginate(Company_Postcodes)
+
   return Company_Postcodes;
 };
