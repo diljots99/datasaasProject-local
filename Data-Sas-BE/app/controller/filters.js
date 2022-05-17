@@ -127,9 +127,10 @@ async function listAllFilters(req, res) {
         ...options,
       };
     }
-
+    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status"])
+    
     listFinal.push({
-      featureEnabled: true,
+      featureEnabled: working_filters.has( element.name),
       ...element,
       ...options,
     });
