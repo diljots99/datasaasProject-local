@@ -10,7 +10,7 @@ const JWT = require("../utils/auth");
  *   post:
  *     summary: Search
  *     tags: [Business]
- *     description: Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country
+ *     description: Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country | Status
  *     produces:
  *       - application/json
  *     security:
