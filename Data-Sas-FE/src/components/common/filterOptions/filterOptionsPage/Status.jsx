@@ -1,15 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
+import UpdatePlan from './UpdatePlan'
 
 export default function Status() {
+  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState(null);
+  const [error, setError] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [options, setOptions] = useState([]);
+  const {  selectedFilterValues , filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
 
-  const options = [
-    { value: "active", label: "Active" },
-    { value: "inactive", label: "Inactive" },
-    { value: "item-3", label: "Search item-3" },
-  ];
+  useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+ 
+    let filtervalue = filterTypeDetail.filter(value => value.name ===  "Status" &&  value.category === "Status")
+    if (filtervalue) {
+      setIsEnabled(filtervalue[0].featureEnabled);
+    }
+
+    setOptions(
+      filtervalue[0].suggestions
+        ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
+        : []
+    );
+  }
+
+
+  const applyFilter = () => {
+    // if (checked.length > 0) {
+    //   dispatch(SetselectedFilterValues("Company Name", checked));
+    // }
+
+    if( selectedOption !==null && selectedOption.length > 0){
+      let filterval = selectedOption.map(val=> val.value)
+      dispatch(SetselectedFilterValues("Status", filterval))
+      setSelectedOption(null)
+    setError(false)
+  }else{
+    setError(true)
+  }
+  };
 
   const customStyles = {
     control: (styles) => ({
@@ -37,18 +73,25 @@ export default function Status() {
 
   return (
     <div className="subFiltersContainerPage">
+     {isEnabled ? <>
       <div className="searchContainer">
         <Select
           styles={customStyles}
+          isMulti
           defaultValue={selectedOption}
           placeholder="Status"
           onChange={setSelectedOption}
           options={options}
         />
       </div>
-      <div className="subFiltersContainerButton">
-        <button className="subFilterApply">Apply</button>
+
+      <div className="choosenResultsContainer">
+
       </div>
+
+      <div className="subFiltersContainerButton">
+        <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter} >Apply</button>
+      </div></> : <UpdatePlan />}
     </div>
   );
 }

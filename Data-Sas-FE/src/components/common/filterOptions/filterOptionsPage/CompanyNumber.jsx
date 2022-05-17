@@ -4,19 +4,37 @@ import MuiSearchBar from "material-ui-search-bar";
 import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
+import UpdatePlan from "./UpdatePlan";
 import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 
 export default function CompanyNumber() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { selectedFilterValues } = useSelector(state => state.filter)
+  const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
-
-  const [data, setData] = useState(
-    companyList.map((val) => ({ id: val.id, title: val.company_number }))
-  );
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [data, setData] = useState([]);
   const [checked, setChecked] = useState([]);
+
+  useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+
+    let filtervalue = filterTypeDetail.filter(
+      (value) =>
+        value.name === "Company Number" && value.category === "Company"
+    );
+    if (filtervalue) {
+      setIsEnabled(filtervalue[0].featureEnabled);
+    }
+    setData(  companyList.map((val) => ({ id: val.id, title: val.company_number })))
+    // setData(
+    //   filtervalue[0].suggestions
+    //     ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
+    //     : []
+    // );
+  };
 
   useEffect(() => {
     if(selectedFilterValues["Company Number"]){
@@ -47,7 +65,8 @@ export default function CompanyNumber() {
 
   return (
     <div className="subFiltersContainerPage">
-      <div className="searchContainer">
+      {isEnabled ? <>
+        <div className="searchContainer">
         <MuiSearchBar
           className="search"
           placeholder="search Company Number"
@@ -119,6 +138,7 @@ export default function CompanyNumber() {
           Apply
         </button>
       </div>
+      </>: <UpdatePlan />}
     </div>
   );
 }
