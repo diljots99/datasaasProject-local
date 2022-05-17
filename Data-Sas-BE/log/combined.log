@@ -1353,3 +1353,5 @@
 {"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-01 14:47:51"}
 {"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-07 23:38:56"}
 {"level":"info","message":"Records found successfully","service":"dataSaas-service","timestamp":"2022-04-07 23:43:23"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-05-17 14:38:24"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-05-17 14:39:01"}

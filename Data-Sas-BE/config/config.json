@@ -4,7 +4,12 @@
     "password": "Mechlin_123",
     "database": "ds_local",
     "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "dialectOptions": {
+      "dateStrings": true,
+      "typeCast": true
+    },
+    "timezone": "+05:30"
   },
   "development1": {
     "username": "root",

@@ -127,7 +127,7 @@ async function listAllFilters(req, res) {
         ...options,
       };
     }
-    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status"])
+    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date"])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),
