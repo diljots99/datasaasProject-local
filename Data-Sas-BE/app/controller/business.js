@@ -270,7 +270,24 @@ async function businessSearch(req, res) {
       if (chipData.chip_group == "Status") {
         let list_ofChipData = [];
         chipData.chip_values.forEach((chip_value) => {
+          
           list_ofChipData.push({ company_status: `${chip_value.chip_value}` });
+        });
+        where = {
+          [Op.or]: list_ofChipData,
+          ...where,
+        };
+      }
+      
+      if (chipData.chip_group == "Company Category") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          
+          list_ofChipData.push({
+            company_category:{
+              [Op.like]: `%${chip_value.chip_value}%`
+            }
+          });
         });
         where = {
           [Op.or]: list_ofChipData,

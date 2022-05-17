@@ -11,7 +11,7 @@ const JWT = require("../utils/auth");
  *     summary: Search
  *     tags: [Business]
  *     description: |
- *      Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country | Status | Incorporation date | Dissolution Date
+ *      Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country | Status | Incorporation date | Dissolution Date | Company Category
  *      </br> date formats:  YYYY-MM-DDTHH:MM:SS+05:30   2018-01-29T13:20:22+05:30
  *      produces:
  *       - application/json

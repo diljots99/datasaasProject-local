@@ -127,7 +127,25 @@ async function listAllFilters(req, res) {
         ...options,
       };
     }
-    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date"])
+    if (
+      element.name == "Company Category" &&
+      element.category == "Status"
+    ) {
+      const distinct = await dao.getDistinctCompanyCategory();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.company_category) {
+          listOfSuggestion.push(category.company_category);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category"])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),
