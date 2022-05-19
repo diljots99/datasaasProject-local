@@ -28,6 +28,7 @@ const companyReduser = (state = initialState, action) => {
         };
       }
       case SET_TRADE: {
+        console.log(" Trade: action.payload" , action.payload)
         return {
           ...state,
           Trade: action.payload,

@@ -48,7 +48,8 @@ export const getTrade=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/trade`, header() )
         .then(res =>{
-            console.log("get Trade", res)
+            console.log("get Trade", res , res.data.result)
+           
             if(res.data.result.status === true)
             dispatch({type: SET_TRADE , payload: res.data.result.trade})
         }).catch(err=>console.log(err))

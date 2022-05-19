@@ -8,6 +8,7 @@ import {
   InputAdornment,
   Button,
   Select,
+  MenuItem,
 } from "@material-ui/core";
 import Checkbox from "@mui/material/Checkbox";
 import SearchIcon from "@material-ui/icons/Search";
@@ -16,6 +17,7 @@ import { useTable, usePagination } from "react-table";
 import { useSelector } from "react-redux";
 import { FilterBox } from "../../components/common/filterOptions/filterBox";
 import moment from 'moment'
+import { CSVLink } from "react-csv";
 
 const Table = ({
   columns,
@@ -407,6 +409,30 @@ console.log("Filter Results",  filterSearchResults )
           >
             Business Search
           </Typography> */}
+           <Select
+          className="select"
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          style={{width:"130px", marginLeft: "10px"}}
+          // open={open}
+          // onClose={handleClose}
+          // onOpen={handleOpen}
+          value={0}
+          placeholder="Export"
+          label="Export"
+          // onChange={handleChange}
+        >
+         <MenuItem value={0} disabled>
+          Export
+        </MenuItem>
+         <CSVLink
+                data={tabledata}
+                filename={'Search result all List'}
+          >
+          <MenuItem value={10} onClick={()=>{}} >Export All</MenuItem>
+          </CSVLink>
+          <MenuItem value={21}>Export Selected</MenuItem>
+        </Select>
         </Grid>
         <Grid item xs={12} sm={6} className={classess.searchcontainer}>
           <TextField
