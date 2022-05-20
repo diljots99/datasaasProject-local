@@ -88,6 +88,9 @@ export default function Profile() {
     if (!data.phoneNumber) {
       errors.phoneNumber = "Phone number field required";
     }
+    if (data.phoneNumber.length >10) {
+      errors.phoneNumber = "Phone number cannot contain more then 10 digits";
+    }
     if (!data.companyName) {
       errors.companyName = "Company name field required";
     }
@@ -102,6 +105,9 @@ export default function Profile() {
     }
     if (!data.postalCode) {
       errors.postalCode = "Postal code field required";
+    }
+    if (data.postalCode.length > 6) {
+      errors.postalCode = "Postal code cannot contain more then 6 digits";
     }
     if (!data.county) {
       errors.county = "County field required";
@@ -159,7 +165,7 @@ export default function Profile() {
           <Grid container justify="space-around">
             <Grid item xs={12} sm={6} className={classes.inputItem}>
               <Typography variant="h6" className={classes.lable}>
-                Name
+               First Name
               </Typography>
               <TextField
                 className={classes.profileinput}

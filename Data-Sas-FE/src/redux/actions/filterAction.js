@@ -29,6 +29,12 @@ export const clearAllFilter =()=>{
        }
 }
 
+export const clearFilterGroup =(val)=>{
+return (dispatch)=>{
+  return dispatch({type:CLEAR_ALL_FILTER, payload: val})
+}
+}
+
 export const getAllFilterTypes = () =>{
     return async (dispatch) => {
         await axios
