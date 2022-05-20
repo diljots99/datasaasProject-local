@@ -85,10 +85,11 @@ export const getFilterSearchResults =  (req, handleClose,history) =>{
       .post(`${BASE_URL}/api/business/search`, req, header() )
       .then((res) => {
           console.log("search result res response  ",res)
-          dispatch(getSavedFilterList())
+          
          if(handleClose){ handleClose()}
           dispatch(clearAllFilter())
           dispatch(setFilter(false))
+          dispatch(getSavedFilterList())
           history.push('/search-results')
         dispatch({type:SET_ALL_SEARCH_RESULTS, payload: res.data.result})
       })

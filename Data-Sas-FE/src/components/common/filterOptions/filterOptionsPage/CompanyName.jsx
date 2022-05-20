@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import MuiSearchBar from "material-ui-search-bar";
 import { Typography } from "@material-ui/core";
@@ -11,10 +11,12 @@ import UpdatePlan from "./UpdatePlan";
 export default function CompanyName() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
+  const { selectedFilterValues, filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
   const [data, setData] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -23,14 +25,12 @@ export default function CompanyName() {
   useEffect(() => getOptions(), []);
 
   const getOptions = () => {
-   
     let filtervalue = filterTypeDetail.filter(
-      (value) =>
-        value.name === "Company Number" && value.category === "Company"
+      (value) => value.name === "Company Number" && value.category === "Company"
     );
-   console.log("com name fil val ",filtervalue )
-      setIsEnabled(filtervalue[0].featureEnabled);
-  
+    console.log("com name fil val ", filtervalue);
+    setIsEnabled(filtervalue[0].featureEnabled);
+
     setData(
       filtervalue[0].suggestions
         ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
@@ -39,12 +39,12 @@ export default function CompanyName() {
   };
 
   useEffect(() => {
-      if(selectedFilterValues['Company Name']){
-        setChecked(selectedFilterValues['Company Name'])
-      }else{
-        setChecked([])
-      }
-  },[selectedFilterValues])
+    if (selectedFilterValues["Company Name"]) {
+      setChecked(selectedFilterValues["Company Name"]);
+    } else {
+      setChecked([]);
+    }
+  }, [selectedFilterValues]);
 
   const handleFilter = (value) => {
     const searchWord = value;
@@ -64,35 +64,41 @@ export default function CompanyName() {
     //   dispatch(SetselectedFilterValues("Company Name", checked));
     // }
 
-    if (checked.length > 0){
-    if(selectedFilterValues['Company Name']){
-      dispatch(SetselectedFilterValues("Company Name", [...selectedFilterValues['Company Name'],wordEntered]))
-    }else{
-      dispatch(SetselectedFilterValues("Company Name", [wordEntered]))
+    if (checked.length > 0) {
+      if (selectedFilterValues["Company Name"]) {
+        dispatch(
+          SetselectedFilterValues("Company Name", [
+            ...selectedFilterValues["Company Name"],
+            wordEntered,
+          ])
+        );
+      } else {
+        dispatch(SetselectedFilterValues("Company Name", [wordEntered]));
+      }
+      setChecked([]);
+      setWordEntered("");
+      setError(false);
+    } else {
+      setError(true);
     }
-    setChecked([])
-    setWordEntered('')
-    setError(false)
-  }else{
-    setError(true)
-  }
   };
   return (
     <div className="subFiltersContainerPage">
-     {isEnabled ? <>
-      <div className="searchContainer">
-        <MuiSearchBar
-          className="search"
-          placeholder="search Company Name"
-          value={wordEntered}
-          onChange={val => setWordEntered(val)}
-          onCancelSearch={() => {
-            setFilteredData([]);
-            setWordEntered("");
-          }}
-        ></MuiSearchBar>
-      </div>
-      {/* <div className="choosenResultsContainer">
+      {isEnabled ? (
+        <>
+          <div className="searchContainer">
+            <MuiSearchBar
+              className="search"
+              placeholder="search Company Name"
+              value={wordEntered}
+              onChange={(val) => setWordEntered(val)}
+              onCancelSearch={() => {
+                setFilteredData([]);
+                setWordEntered("");
+              }}
+            ></MuiSearchBar>
+          </div>
+          {/* <div className="choosenResultsContainer">
         {filteredData.length != 0 ? (
           <div className="dataResult">
             {filteredData.map((item, key) => {
@@ -147,32 +153,48 @@ export default function CompanyName() {
           </div>
         ) : null}
       </div> */}
-   <div className="choosenResultsContainer">
-{ wordEntered.length > 0 && (
-  <>
-  < div  className="dataResultItems"  onClick={()=> setChecked([`with All ${wordEntered} `])}>
-   <Checkbox checked={checked.includes(`with All ${wordEntered} `)} />
+          <div className="choosenResultsContainer">
+            {wordEntered.length > 0 && (
+              <>
+                <div
+                  className="dataResultItems"
+                  onClick={() => setChecked([`with All ${wordEntered} `])}
+                >
+                  <Checkbox
+                    checked={checked.includes(`with All ${wordEntered} `)}
+                  />
                   <Typography variant="subtitle2" className="title">
-                  with All  {wordEntered}
+                    with All {wordEntered}
                   </Typography>
-                  </div>
-   < div  className="dataResultItems" onClick={()=> setChecked([`with only  ${wordEntered} `])} >
-   <Checkbox checked={checked.includes(`with only  ${wordEntered} `)} />
+                </div>
+                <div
+                  className="dataResultItems"
+                  onClick={() => setChecked([`with only  ${wordEntered} `])}
+                >
+                  <Checkbox
+                    checked={checked.includes(`with only  ${wordEntered} `)}
+                  />
                   <Typography variant="subtitle2" className="title">
-                  with only {wordEntered}
+                    with only {wordEntered}
                   </Typography>
-                  </div>
- </>
-)}
+                </div>
+              </>
+            )}
+          </div>
 
-   </div>
-
-      <div className="subFiltersContainerButton">
-        <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter}>
-          Apply
-        </button>
-      </div>
-     </>: <UpdatePlan />}
+          <div className="subFiltersContainerButton">
+            <button
+              className="subFilterApply"
+              style={{ border: error ? "3px solid red" : "" }}
+              onClick={applyFilter}
+            >
+              Apply
+            </button>
+          </div>
+        </>
+      ) : (
+        <UpdatePlan />
+      )}
     </div>
   );
 }

@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import MuiSearchBar from "material-ui-search-bar";
 import data from "../subFilterOptions/data.json";
+import { useSelector, useDispatch } from "react-redux";
+import UpdatePlan from "./UpdatePlan";
 
 export default function LocalAuthority() {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [isEnabled, setIsEnabled] = useState(true);
+  const { selectedFilterValues, filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
+  // const [data, setData] = useState([]);
+
+  useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+    let filtervalue = filterTypeDetail.filter(
+      (value) => value.name === "Local Authority" && value.category === "Location"
+    );
+    console.log("com name fil val ", filtervalue);
+    setIsEnabled(filtervalue[0].featureEnabled);
+
+    // setData(
+    //   filtervalue[0].suggestions
+    //     ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
+    //     : []
+    // );
+  };
 
   const handleFilter = (value) => {
     const searchWord = value;
@@ -21,6 +44,7 @@ export default function LocalAuthority() {
   };
   return (
     <div className="subFiltersContainerPage">
+     {isEnabled ? <>
       <div className="searchContainer">
         <MuiSearchBar
           className="search"
@@ -52,7 +76,7 @@ export default function LocalAuthority() {
       </div>
       <div className="subFiltersContainerButton">
         <button className="subFilterApply">Apply</button>
-      </div>
+      </div></>: <UpdatePlan />}
     </div>
   );
 }

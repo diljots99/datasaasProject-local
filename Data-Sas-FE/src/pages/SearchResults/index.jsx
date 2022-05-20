@@ -199,7 +199,7 @@ const Table = ({
         </tr> */}
 
         {/* Table Data */}
-        { data.length === 0 && <Typography variant="h6">No results found</Typography>}
+        {!loading && data.length === 0 && <Typography variant="h6">No results found</Typography>}
         {loading && <div>Loading ...</div>}
         {!loading &&
           rows.map((row, i) => {

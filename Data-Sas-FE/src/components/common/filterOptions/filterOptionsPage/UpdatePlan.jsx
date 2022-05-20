@@ -1,10 +1,11 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import { Button , Typography } from  '@mui/material';
 
 export default function UpdatePlan() {
   return (
-    <div><h4>to access This feature update your Plan</h4>
-    <Button variant='outlined' size="small" color='warning'  >Update Plan</Button>
+    <div style={{display: 'flex', flexDirection: 'column'}}
+    ><Typography variant="h6">to access This feature update your Plan</Typography>
+    <Button variant="contained"  size="small" color='warning'  >Update Plan</Button>
     </div>
   )
 }
