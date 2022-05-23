@@ -13,9 +13,15 @@ export default function AppliedFilters({ values }) {
   // console.log( Object.keys(values) )
 
   const handelRemove = (filterName, chipValue) => {
+    if(filterName == "Incorporation Date"){
+       handleAllRemove(filterName)
+       return 
+      }
+
     let chips = values[filterName].filter((val) => val !== chipValue);
     console.log("chip remove", chips);
     if (chips.length > 0) dispatch(SetselectedFilterValues(filterName, chips));
+
   };
 
   const handleAllRemove = (filterName) => {

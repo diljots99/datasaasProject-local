@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import MuiSearchBar from "material-ui-search-bar";
 import { Typography } from "@material-ui/core";
@@ -10,7 +10,9 @@ import { SetselectedFilterValues } from "../../../../redux/actions/filterAction"
 export default function Website() {
   const dispatch = useDispatch();
   const { companyList } = useSelector((state) => state.watch);
-  const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
+  const { selectedFilterValues, filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [isEnabled, setIsEnabled] = useState(true);
@@ -20,15 +22,13 @@ export default function Website() {
   useEffect(() => getOptions(), []);
 
   const getOptions = () => {
-
     let filtervalue = filterTypeDetail.filter(
-      (value) =>
-        value.name === "Website" && value.category === "Company"
+      (value) => value.name === "Website" && value.category === "Company"
     );
     if (filtervalue) {
       setIsEnabled(filtervalue[0].featureEnabled);
     }
-   
+
     setData(
       filtervalue[0].suggestions
         ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
@@ -37,12 +37,12 @@ export default function Website() {
   };
 
   useEffect(() => {
-      if(selectedFilterValues.Website){
-        setChecked(selectedFilterValues.Website)
-      }else{
-        setChecked([])
-      }
-  },[selectedFilterValues])
+    if (selectedFilterValues.Website) {
+      setChecked(selectedFilterValues.Website);
+    } else {
+      setChecked([]);
+    }
+  }, [selectedFilterValues]);
 
   const handleFilter = (value) => {
     const searchWord = value;
@@ -64,22 +64,22 @@ export default function Website() {
   };
 
   return (
-  
-       <div className="subFiltersContainerPage">
-       {isEnabled ? <>
-         <div className="searchContainer">
-         <MuiSearchBar
-           className="search"
-           placeholder="search Company Website"
-           value={wordEntered}
-           onChange={handleFilter}
-           onCancelSearch={() => {
-             setFilteredData([]);
-             setWordEntered("");
-           }}
-         ></MuiSearchBar>
-       </div>
-       {/* <div className="choosenResultsContainer">
+    <div className="subFiltersContainerPage">
+      {isEnabled ? (
+        <>
+          <div className="searchContainer">
+            <MuiSearchBar
+              className="search"
+              placeholder="Search Company Website"
+              value={wordEntered}
+              onChange={handleFilter}
+              onCancelSearch={() => {
+                setFilteredData([]);
+                setWordEntered("");
+              }}
+            ></MuiSearchBar>
+          </div>
+          {/* <div className="choosenResultsContainer">
          {filteredData.length != 0 ? (
            <div className="dataResult">
              {filteredData.map((item, key) => {
@@ -135,31 +135,43 @@ export default function Website() {
          ) : null}
        </div> */}
 
-<div className="choosenResultsContainer">
-{ wordEntered.length > 0 && (
-  <>
-  < div  className="dataResultItems"  onClick={()=> setChecked([`with All ${wordEntered} `])}>
-   <Checkbox checked={checked.includes(`with All ${wordEntered} `)} />
+          <div className="choosenResultsContainer">
+            {wordEntered.length > 0 && (
+              <>
+                <div
+                  className="dataResultItems"
+                  onClick={() => setChecked([`with All ${wordEntered} `])}
+                >
+                  <Checkbox
+                    checked={checked.includes(`with All ${wordEntered} `)}
+                  />
                   <Typography variant="subtitle2" className="title">
-                  with All  {wordEntered}
+                    with All {wordEntered}
                   </Typography>
-                  </div>
-   < div  className="dataResultItems" onClick={()=> setChecked([`with only  ${wordEntered} `])} >
-   <Checkbox checked={checked.includes(`with only  ${wordEntered} `)} />
+                </div>
+                <div
+                  className="dataResultItems"
+                  onClick={() => setChecked([`with only  ${wordEntered} `])}
+                >
+                  <Checkbox
+                    checked={checked.includes(`with only  ${wordEntered} `)}
+                  />
                   <Typography variant="subtitle2" className="title">
-                  with only {wordEntered}
+                    with only {wordEntered}
                   </Typography>
-                  </div>
- </>
-)}
-
-   </div>
-       <div className="subFiltersContainerButton">
-         <button className="subFilterApply" onClick={applyFilter}>
-           Apply
-         </button>
-       </div>
-       </>: <UpdatePlan />}
-     </div>
+                </div>
+              </>
+            )}
+          </div>
+          <div className="subFiltersContainerButton">
+            <button className="subFilterApply" onClick={applyFilter}>
+              Apply
+            </button>
+          </div>
+        </>
+      ) : (
+        <UpdatePlan />
+      )}
+    </div>
   );
 }

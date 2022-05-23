@@ -68,7 +68,7 @@ export default function Telephone() {
         <div className="searchContainer">
         <MuiSearchBar
           className="search"
-          placeholder="search Telephone"
+          placeholder="Search Telephone"
           value={wordEntered}
           onChange={handleFilter}
           onCancelSearch={() => {

@@ -70,7 +70,7 @@ export default function Mail() {
           <div className="searchContainer">
             <MuiSearchBar
               className="search"
-              placeholder="search Company Mail"
+              placeholder="Search Company Mail"
               value={wordEntered}
               onChange={handleFilter}
               onCancelSearch={() => {

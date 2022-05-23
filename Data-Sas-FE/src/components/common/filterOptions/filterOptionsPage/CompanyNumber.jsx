@@ -69,7 +69,7 @@ export default function CompanyNumber() {
         <div className="searchContainer">
         <MuiSearchBar
           className="search"
-          placeholder="search Company Number"
+          placeholder="Search Company Number"
           value={wordEntered}
           onChange={handleFilter}
           onCancelSearch={() => {

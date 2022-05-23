@@ -68,7 +68,7 @@ export default function ReferenceNumber() {
         <div className="searchContainer">
         <MuiSearchBar
           className="search"
-          placeholder="search Reference Number"
+          placeholder="Search Reference Number"
           value={wordEntered}
           onChange={handleFilter}
           onCancelSearch={() => {

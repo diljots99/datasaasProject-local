@@ -89,7 +89,7 @@ export default function CompanyName() {
           <div className="searchContainer">
             <MuiSearchBar
               className="search"
-              placeholder="search Company Name"
+              placeholder="Search Company Name"
               value={wordEntered}
               onChange={(val) => setWordEntered(val)}
               onCancelSearch={() => {

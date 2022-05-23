@@ -6,12 +6,16 @@ import {
   Container,
   Button,
 } from "@material-ui/core";
+import "./searchBar.css";
+import Select from "react-select";
 import { Edit, Save } from "@material-ui/icons";
 import { useStyles } from "./styles";
 import { useDispatch } from "react-redux";
 import ChangePassword from "../../components/common/changePassword";
 import { updateUser } from "../../redux/actions/authActions";
 import ExtensionIcon from "@mui/icons-material/Extension";
+import countrys from '../../utils/countrys.json'
+import countys from '../../utils/countys.json'
 // import { useParams } from "react-router-dom";
 // import { getCompanyDetail } from "../../redux/actions/watchAction";
 
@@ -39,6 +43,23 @@ export default function Profile() {
     u_email_option: "",
   });
 
+  const countryOptions = countrys.map(country => ({ value: country.name , label: country.name  }))
+
+  const getCountyOption =()=>{
+    let states = []
+    if(data.country){
+      let countryObject = countys.countries.filter(({country}) => country === data.country)
+      console.log("country ....",countryObject, data.country,countys.countries)
+      if(countryObject){
+        states = countryObject[0]?.states.map(state => ({ value: state , label: state  }))
+      }
+    }
+console.log("state", states)
+    return states
+    // data.country ? countys.countries.filter(({country}) => country === data.country)[0]?.states.map(state => ({ value: state , label: state  })) : []
+  }
+  const contyOption = getCountyOption()
+
   useEffect(() => {
     // dispatch(getCompanyDetail(ID));
     //console.log("😋😋😋😋😋😋userData😋😋😋😋😋😋", JSON.parse(sessionStorage.getItem("userData")) );
@@ -55,11 +76,40 @@ export default function Profile() {
       postalCode: userData.u_postal_code,
       companyNumber: userData.u_company_no,
       city: userData.u_city,
-      county: userData.u_country,
+      county: userData.u_county,
       u_country_code: userData.u_country_code,
       u_email_option: userData.u_email_option,
     });
   }, []);
+console.log("data", data)
+  const customStyles = {
+    container:(styles)=>({
+      ...styles,
+      margin:"0 20px"
+    }),
+    control: (styles) => ({
+      ...styles,
+      backgroundColor: "white",
+      width: "90%",
+      padding: "3px",
+      borderRadius: "10px",
+     
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      fontSize: "14px",
+      fontWeight: "300",
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      fontWeight: "400",
+    }),
+    valueContainer: (provided) => ({
+      ...provided,
+      fontWeight: "400",
+      fontSize: "16px",
+    }),
+  };
 
   const classes = useStyles();
   const cancelBtn = () => {
@@ -122,7 +172,8 @@ export default function Profile() {
       u_company_no: data.companyNumber.trim(),
       u_city: data.city.trim(),
       u_email: data.email.trim(),
-      u_country: data.country.trim(),
+      u_country: data.country,
+      u_county: data.county,
       u_address: data.address.trim(),
       u_postal_code: data.postalCode.toString().trim(),
       u_email_option: data.u_email_option.trim(),
@@ -227,15 +278,17 @@ export default function Profile() {
               <Typography variant="h6" className={classes.lable}>
                 Country
               </Typography>
-              <TextField
-                className={classes.profileinput}
-                disabled={editable}
-                size="small"
-                variant="outlined"
-                error={Error.country ? true : false}
-                value={data.country}
-                onChange={(e) => setData({ ...data, country: e.target.value })}
-              />
+                <Select
+                 className={classes.profileinput}
+                 isDisabled={editable}
+                 disabled={editable}
+          styles={customStyles}
+          // defaultValue={data.country}
+          value={data.country}
+          placeholder={data.country ? data.country : "Country" }
+          onChange={ val => setData({ ...data, country: val.value })}
+          options={countryOptions}
+        />
               {Error.country && (
                 <Typography className={classes.inputError}>
                   {Error.country}
@@ -268,15 +321,14 @@ export default function Profile() {
               <Typography variant="h6" className={classes.lable}>
                 County
               </Typography>
-              <TextField
-                className={classes.profileinput}
-                disabled={editable}
-                variant="outlined"
-                size="small"
-                error={Error.county ? true : false}
-                value={data.county}
-                onChange={(e) => setData({ ...data, county: e.target.value })}
-              />
+              <Select         
+               className={classes.profileinput} 
+                 isDisabled={editable}
+          styles={customStyles}
+          placeholder={data.county ? data.county: "County" }
+          onChange={ val => setData({ ...data, county: val.value })}
+          options={contyOption}
+        />
               {Error.county && (
                 <Typography className={classes.inputError}>
                   {Error.county}

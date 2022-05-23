@@ -69,7 +69,7 @@ export default function Address() {
       <div className="searchContainer">
       <MuiSearchBar
         className="search"
-        placeholder="search Address"
+        placeholder="Search Address"
         value={wordEntered}
         onChange={handleFilter}
         onCancelSearch={() => {
