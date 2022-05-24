@@ -42,6 +42,8 @@ const JWT = require("../utils/auth");
  *                  type: string
  *                u_country:
  *                  type: string
+ *                u_county:
+ *                  type: string
  *                u_address:
  *                  type: string
  *                u_postal_code:
@@ -162,6 +164,8 @@ router.get("/user", JWT.authenticate, userController.getUser);
  *                u_last_name:
  *                  type: string
  *                u_country_code:
+ *                  type: string
+ *                u_county:
  *                  type: string
  *                u_phone_no:
  *                  type: string

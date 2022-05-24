@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       u_phone_no: DataTypes.INTEGER,
       u_company_name: DataTypes.STRING,
       u_company_no: DataTypes.STRING,
+      u_county: DataTypes.STRING,
       u_city: DataTypes.STRING,
       u_email: DataTypes.STRING,
       u_country: DataTypes.STRING,

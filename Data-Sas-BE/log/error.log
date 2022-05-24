@@ -228,3 +228,7 @@
 {"level":"error","message":"Error Occur in Business Watch Save Data : TypeError: dao.getComapnyNotes is not a function ","service":"dataSaas-service","timestamp":"2022-03-10 01:08:35"}
 {"level":"error","message":"Error Occur in Business Watch Save Data : Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client ","service":"dataSaas-service","timestamp":"2022-03-16 13:32:08"}
 {"level":"error","message":"Error Occur in Business Watch Save Data : SequelizeDatabaseError: Unknown column 'uid' in 'field list' ","service":"dataSaas-service","timestamp":"2022-04-01 14:46:51"}
+{"level":"error","message":"Error Occur in User Login : Login credentials are invalid ","service":"dataSaas-service","timestamp":"2022-05-24 17:59:00"}
+{"level":"error","message":"Error Occur in User Login : Login credentials are invalid ","service":"dataSaas-service","timestamp":"2022-05-24 18:02:31"}
+{"level":"error","message":"Error Occur in User Login : Login credentials are invalid ","service":"dataSaas-service","timestamp":"2022-05-24 18:04:10"}
+{"level":"error","message":"Error Occur in User Login : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-05-24 18:30:43"}
