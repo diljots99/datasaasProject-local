@@ -40,7 +40,7 @@ export default function IncorporationDate() {
 
     if (startDate && endDate) {
       dispatch(
-        SetselectedFilterValues("Incorporation Date", [ moment(startDate).format("YYYY-MM-DD"),  moment(endDate).format("YYYY-MM-DD")])
+        SetselectedFilterValues("Incorporation Date", [ moment(startDate).format(),  moment(endDate).format()])
       );
       setStartDate(null);
       setEndDate(null);

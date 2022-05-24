@@ -59,7 +59,7 @@ export default function Mail() {
 
   const applyFilter = () => {
     if (checked.length > 0) {
-      dispatch(SetselectedFilterValues("Mail", checked));
+      dispatch(SetselectedFilterValues("Mail", [wordEntered]));
     }
   };
 
