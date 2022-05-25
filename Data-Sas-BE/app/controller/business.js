@@ -17,6 +17,7 @@ async function businessSearch(req, res) {
   let otherOptions = {};
   if (filterData) {
     filterData.forEach((chipData) => {
+
       if (chipData.chip_group == "Company Number") {
         let list_ofChipData = [];
         chipData.chip_values.forEach((chip_value) => {
@@ -345,6 +346,132 @@ async function businessSearch(req, res) {
             : [arr],
         }
       }
+
+      if (chipData.chip_group == "UK SIC Section") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ sic_section: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      if (chipData.chip_group == "SubSector") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ main_subsector: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "Sector") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ main_sector: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "NACE") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ nace_rev_2_code: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "UK SIC") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ uk_sic_2007_code: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "NAICS") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ naics_2017_code: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      
     });
   }
   const options = {
