@@ -79,7 +79,7 @@ export default function Activites() {
 
         <Grid container spacing={2} justifyContent="space-around" margin="10px 0">
           <Grid item xs={4}>
-            <Paper className={classess.paper}>
+            <Paper className={classess.paper} style={{width:"390px"}} >
               <Typography variant="h5" className={classess.donutHeading}>
                 No. of Companies by Expoter
               </Typography>
@@ -88,7 +88,7 @@ export default function Activites() {
           </Grid>
 
           <Grid item xs={4}>
-            <Paper className={classess.paper}>
+            <Paper className={classess.paper} style={{width:"390px"}} >
               <Typography variant="h5" className={classess.donutHeading}>
                 No. of Companies by Importer
               </Typography>

@@ -162,7 +162,7 @@ export default function DetailCard() {
               <div
                 style={{
                   backgroundColor: "#ccecd7",
-                  width: "80px",
+                  width: "95%",
                   textAlign: "center",
                   color: "#03A339",
                   fontWeight: "bold",
@@ -389,7 +389,7 @@ export default function DetailCard() {
               <div
                 style={{
                   backgroundColor: "#ccecd7",
-                  width: "80px",
+                  width: "95%",
                   textAlign: "center",
                   color: "#03A339",
                   fontWeight: "bold",
