@@ -27,14 +27,14 @@ const Profile = () => {
       //   country: userData.u_country,
       //   phoneNumber: userData.u_phone_no,
       //   companyName: userData.u_company_name,
-      Constituency:companyDetail.company_postcodes[0].county?companyDetail.company_postcodes[0].county:'',
-      localAuth:companyDetail.company_postcodes[0].territory?companyDetail.company_postcodes[0].territory:"",
-      region: companyDetail.company_postcodes[0].region?companyDetail.company_postcodes[0].region:"",
-      lastAccountdate:companyDetail.company_postcodes[0].createdAt?moment(companyDetail.company_postcodes[0].createdAt).format('MM/DD/YYYY'):'',
-      postalCode: companyDetail.company_postcodes[0].postcode?companyDetail.company_postcodes[0].postcode:"",
+      Constituency:companyDetail.company_postcodes[0]?.county?companyDetail.company_postcodes[0].county:'',
+      localAuth:companyDetail.company_postcodes[0]?.territory?companyDetail.company_postcodes[0].territory:"",
+      region: companyDetail.company_postcodes[0]?.region?companyDetail.company_postcodes[0].region:"",
+      lastAccountdate:companyDetail.company_postcodes[0]?.createdAt?moment(companyDetail.company_postcodes[0].createdAt).format('MM/DD/YYYY'):'',
+      postalCode: companyDetail.company_postcodes[0]?.postcode?companyDetail.company_postcodes[0].postcode:"",
       company_name: companyDetail.company_category?companyDetail.company_category:"",
-      city: companyDetail.company_postcodes[0].city?companyDetail.company_postcodes[0].city:"",
-      country: companyDetail.company_postcodes[0].country?companyDetail.company_postcodes[0].country:"",
+      city: companyDetail.company_postcodes[0]?.city?companyDetail.company_postcodes[0].city:"",
+      country: companyDetail.company_postcodes[0]?.country?companyDetail.company_postcodes[0].country:"",
     });
   }, []);
 
