@@ -23,6 +23,11 @@ export default function AppliedFilters({ values }) {
        return 
       }
 
+      if(filterName === "Current Assets"){
+        handleAllRemove(filterName)
+        return 
+      }
+
     let chips = values[filterName].filter((val) => val !== chipValue);
     console.log("chip remove", chips);
     if (chips.length > 0) dispatch(SetselectedFilterValues(filterName, chips));
