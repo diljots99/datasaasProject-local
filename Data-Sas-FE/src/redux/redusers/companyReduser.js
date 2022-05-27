@@ -3,7 +3,7 @@ import { SET_PEOPLE, SET_DIRECTORS, SET_TRADING_ADDRESS , SET_TRADE } from "../a
 const initialState = {
   People: {},
   Directors: {},
-  TradingAddress:{},
+  TradingAddress:[],
   Trade:{}
 };
 
@@ -28,6 +28,7 @@ const companyReduser = (state = initialState, action) => {
         };
       }
       case SET_TRADE: {
+        console.log(" Trade: action.payload" , action.payload)
         return {
           ...state,
           Trade: action.payload,

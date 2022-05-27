@@ -18,6 +18,7 @@ import { useTable, usePagination } from "react-table";
 import { useSelector } from "react-redux";
 import { FilterBox } from "../../components/common/filterOptions/filterBox";
 import moment from 'moment'
+import { CSVLink } from "react-csv";
 
 const Table = ({
   columns,
@@ -386,7 +387,12 @@ const BussinessWatch = ({ data }) => {
          <MenuItem value={0} disabled>
           Export
         </MenuItem>
-          <MenuItem value={10} onClick >Export All</MenuItem>
+         <CSVLink
+                data={companyList}
+                filename={'Business Search all List'}
+          >
+          <MenuItem value={10} onClick={()=>{}} >Export All</MenuItem>
+          </CSVLink>
           <MenuItem value={21}>Export Selected</MenuItem>
         </Select>
         </Grid>

@@ -43,7 +43,7 @@ export default function Type() {
       <div className={classess.segmentWrapper}>
         <Grid container spacing={2} justifyContent="space-around">
           <Grid item xs={4}>
-            <Paper className={classess.paper}>
+            <Paper className={classess.paper} style={{width:"380px"}} >
               <Typography variant="h5" className={classess.donutHeading}>
                 Companies by Status
               </Typography>
@@ -52,7 +52,7 @@ export default function Type() {
           </Grid>
 
           <Grid item xs={4}>
-            <Paper className={classess.paper}>
+            <Paper className={classess.paper} style={{width:"380px"}} >
               <Typography variant="h5" className={classess.donutHeading}>
                 Account Categories
               </Typography>
@@ -61,7 +61,7 @@ export default function Type() {
           </Grid>
 
           <Grid item xs={4}>
-            <Paper className={classess.paper}>
+            <Paper className={classess.paper} style={{width:"380px"}} >
               <Typography variant="h5" className={classess.donutHeading}>
                 Companies by Type
               </Typography>

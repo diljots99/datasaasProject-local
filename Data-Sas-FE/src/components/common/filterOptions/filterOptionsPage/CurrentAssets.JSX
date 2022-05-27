@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import { TextField } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
+import UpdatePlan from "./UpdatePlan";
 
 const textFieldStyle = {
     width: "45%",
@@ -12,25 +15,76 @@ const textFieldStyle = {
 
 
 export default function CurrentAssets() {
+  const dispatch = useDispatch();
+  const [min , setMin] = useState('')
+  const [max , setMax] = useState('')
+  const [error, setError] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
+  const { selectedFilterValues, filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
+
+  useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+    let filtervalue = filterTypeDetail.filter(
+      (value) =>
+        value.name === "Current Assets" && value.category === "Financials"
+    );
+    if (filtervalue) {
+      setIsEnabled(filtervalue[0].featureEnabled);
+    }
+  };
+
+  const applyFilter = () => {
+
+    if ( min < max) {
+      dispatch(
+        SetselectedFilterValues("Current Assets", [ min,  max])
+      );
+      setMin('');
+      setMax('');
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
+
+  console.log({min , max})
+
   return (
     <div className="subFiltersContainerPage">
-    <div className="searchContainer">
+    {isEnabled ? <>
+      <div className="searchContainer">
     <TextField
               style={textFieldStyle}
               variant="outlined"
               placeholder="Min"
               size="small"
+              type="number"
+              value={min}
+              onChange={e => setMin(parseInt(e.target.value, 10))}
           />
           <TextField
               style={textFieldStyle}
               variant="outlined"
               placeholder="Max"
               size="small"
+              type="number"
+              value={max}
+              onChange={e =>setMax(parseInt(e.target.value, 10))}
           />
     </div>
     <div className="subFiltersContainerButton">
-      <button className="subFilterApply">Apply</button>
+    <button
+        className="subFilterApply"
+        style={{ border: error ? "3px solid red" : "" }}
+        onClick={applyFilter}
+      >
+        Apply
+      </button>
     </div>
+    </>: <UpdatePlan />}
   </div>
 );
   

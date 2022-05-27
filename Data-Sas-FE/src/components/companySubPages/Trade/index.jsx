@@ -30,7 +30,10 @@ const Trade = () => {
 
   const { Trade } = useSelector((state) => state.company);
 
-  console.log("trade", Trade);
+ 
+  useEffect(()=>{
+    console.log("trade ue", Trade);
+  },[Trade])
 
   useEffect(() => {
     dispatch(getTrade(companyDetail.uuid));

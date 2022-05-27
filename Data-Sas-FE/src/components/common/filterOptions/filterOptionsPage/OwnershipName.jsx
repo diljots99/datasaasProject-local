@@ -24,7 +24,7 @@ export default function OwnershipName() {
         <div className="searchContainer">
           <MuiSearchBar
             className="search"
-            placeholder="search OwnershipName"
+            placeholder="Search OwnershipName"
             value={wordEntered}
             onChange={handleFilter}
             onCancelSearch={() => {
