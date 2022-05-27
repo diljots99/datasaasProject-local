@@ -11,11 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      
       Officer.hasMany(models.director_watch,{
         foreignKey: "officer_id",
       });
-      Officer.belongsTo(models.compines_offical, {
-        foreignKey: "company_id",
+      
+      // Officer.belongsTo(models.compines_offical, {
+      //   foreignKey: "company_id",
+      // });
+     
+      Officer.belongsTo(models.compines_offical, {    
+        foreignKey: "chn",
       });
       // models.compines_offical.belongsTo(Officer, {
       //   foreignKey: "id",

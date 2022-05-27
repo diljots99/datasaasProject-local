@@ -17,7 +17,9 @@ module.exports = {
         references: { model: 'compines_officals', key: 'id' }
       },
       chn: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        foreignKey:true,
+        references: { model: 'compines_officals', key: 'chn' }
       },
       file_name: {
         type: Sequelize.STRING

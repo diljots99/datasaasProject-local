@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       CompinesOffical.hasMany(models.officer, {
-        foreignKey: "company_id",
+        foreignKey: "chn",
       });
 
       CompinesOffical.hasMany(models.notes, {

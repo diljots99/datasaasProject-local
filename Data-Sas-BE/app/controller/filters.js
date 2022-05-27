@@ -248,7 +248,7 @@ async function listAllFilters(req, res) {
       };
     }
     
-    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE"])
+    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets"])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),

@@ -471,7 +471,116 @@ async function businessSearch(req, res) {
           ...otherOptions,
         };
       }
-      
+
+      if (chipData.chip_group == "Current Assets") {
+        let list_ofChipData = [];
+        if (chipData.chip_values.length != 2) {
+          res.send({ status: false, message: "Min Max Filter it neesds 2 values to work" })
+        }
+        list_ofChipData.push({ value: { [Op.gte]: chipData.chip_values[0].chip_value } });
+        list_ofChipData.push({ value: { [Op.lte]: chipData.chip_values[1].chip_value } });
+        list_ofChipData.push({value_name:  `CurrentAssets`});
+
+        const arr = {
+          model: model.dbf_financials_main,
+          where: {
+            [Op.and]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "Director Name") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ name: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.officer,
+          where: {
+            [Op.or]: list_ofChipData, 
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "Director Name") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ name: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.officer,
+          where: {
+            [Op.or]: list_ofChipData, 
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "Director Name") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ name: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.officer,
+          where: {
+            [Op.or]: list_ofChipData, 
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      if (chipData.chip_group == "Director Name") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ name: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.officer,
+          where: {
+            [Op.or]: list_ofChipData, 
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+    
+
     });
   }
   const options = {
