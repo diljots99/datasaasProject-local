@@ -11,6 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // dbf_financials_main.belongsTo(models.compines_offical,{
+      //   foreignKey: "chn",
+      // });
+      dbf_financials_main.belongsTo(models.compines_offical,{
+        foreignKey: { name: 'chn', allowNull: false },
+        sourceKey:'chn',
+        targetKey:'chn'
+      })
+      models.compines_offical.hasMany(dbf_financials_main,{
+        foreignKey: { name: 'chn', allowNull: false },
+        sourceKey:'chn',
+        targetKey:'chn'
+      })
     }
   };
   dbf_financials_main.init({
