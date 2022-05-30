@@ -145,7 +145,110 @@ async function listAllFilters(req, res) {
         ...options,
       };
     }
-    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category"])
+    if (
+      element.name == "UK SIC Section" 
+    ) {
+      const distinct = await dao.getDistinctUKSICSection();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.sic_section) {
+          listOfSuggestion.push(category.sic_section);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "SubSector" 
+    ) {
+      const distinct = await dao.getDistinctCompanySubSector();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.main_subsector) {
+          listOfSuggestion.push(category.main_subsector);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "Sector" 
+    ) {
+      const distinct = await dao.getDistinctCompanySector();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.main_sector) {
+          listOfSuggestion.push(category.main_sector);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "NAICS" 
+    ) {
+      const distinct = await dao.getDistinctCompanyNAICS();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.naics_2017_code) {
+          listOfSuggestion.push(category.naics_2017_code);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "UK SIC" 
+    ) {
+      const distinct = await dao.getDistinctCompanyUKSIC();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.naics_2017_code) {
+          listOfSuggestion.push(category.naics_2017_code);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "NACE" 
+    ) {
+      const distinct = await dao.getDistinctCompanyNACE();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.nace_rev_2_code) {
+          listOfSuggestion.push(category.nace_rev_2_code);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets"])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),

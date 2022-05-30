@@ -80,6 +80,45 @@ async function getDistinctCompanyCategory() {
     group: ["company_category"],
   });
 }
+
+async function getDistinctUKSICSection() {
+  return await model.companies.findAll({
+    attributes: ["sic_section"],
+    group: ["sic_section"],
+  });
+}
+async function getDistinctCompanySubSector() {
+  return await model.companies.findAll({
+    attributes: ["main_subsector"],
+    group: ["main_subsector"],
+  });
+}
+async function getDistinctCompanySector() {
+  return await model.companies.findAll({
+    attributes: ["main_sector"],
+    group: ["main_sector"],
+  });
+}
+async function getDistinctCompanyNAICS() {
+  return await model.companies.findAll({
+    attributes: ["naics_2017_code"],
+    group: ["naics_2017_code"],
+  });
+}
+async function getDistinctCompanyUKSIC() {
+  return await model.companies.findAll({
+    attributes: ["uk_sic_2007_code"],
+    group: ["uk_sic_2007_code"],
+  });
+}
+
+async function getDistinctCompanyNACE() {
+  return await model.companies.findAll({
+    attributes: ["nace_rev_2_code"],
+    group: ["nace_rev_2_code"],
+  });
+}
+
 module.exports = {
   getAllBusinessSearchFilters,
   getFilterById,
@@ -91,5 +130,11 @@ module.exports = {
   getDistinctCompanyRegion,
   getDistinctCompanyCountry,
   getDistinctCompanyStatus,
-  getDistinctCompanyCategory
+  getDistinctCompanyCategory,
+  getDistinctUKSICSection,
+  getDistinctCompanySubSector,
+  getDistinctCompanySector,
+ getDistinctCompanyNAICS,
+ getDistinctCompanyUKSIC,
+ getDistinctCompanyNACE
 };

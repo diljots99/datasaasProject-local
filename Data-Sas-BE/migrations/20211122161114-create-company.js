@@ -20,6 +20,7 @@ module.exports = {
       chn: {
         type: Sequelize.STRING,
         unique:true
+        
       },
       company_name: {
         type: Sequelize.STRING

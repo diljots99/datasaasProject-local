@@ -38,6 +38,7 @@
     "mysql2": "^2.3.2",
     "nocache": "^3.0.1",
     "sequelize": "^6.8.0",
+    "sequelize-auto-migrations-v2": "^1.2.1",
     "sequelize-paginate": "^1.1.6",
     "sequelize-views-support": "^1.2.2",
     "sqlite3": "^5.0.2",

@@ -25,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
   };
   companies.init({
     chn: DataTypes.STRING,
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, // Or Sequelize.UUIDV1
+      unique: true,
+    },
     dbe_id: DataTypes.INTEGER,
     website_url_1: DataTypes.STRING,
     email1: DataTypes.STRING,

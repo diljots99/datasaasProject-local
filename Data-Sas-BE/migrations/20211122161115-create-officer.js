@@ -21,8 +21,8 @@ module.exports = {
       },
       chn: {
         type: Sequelize.STRING,
-        // foreignKey:true,
-        // references: { model: 'compines_offical', key: 'chn' }
+        foreignKey:true,
+        references: { model: 'compines_officals', key: 'chn' }
       },
       dbe_id: {
         type: Sequelize.INTEGER,
