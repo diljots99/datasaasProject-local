@@ -5,6 +5,7 @@ import { Grid, Typography, Card } from "@material-ui/core";
 
  const ProfileDetail = ({companyDetail}) => {
     const classess = useStyles();
+    console.log("trade info", companyDetail)
     return (
       <div>
       <Card className={classess.root} variant="outlined">

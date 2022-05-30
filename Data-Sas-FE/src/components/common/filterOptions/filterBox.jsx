@@ -270,7 +270,7 @@ export const FilterBox = () => {
                 className="clearFiltersContainerText"
                 onClick={() => dispatch(clearAllFilter())}
               >
-                Clear Filters
+                Clear All Filters
               </div>
               <div className="appliedFilters">
                 <AppliedFilters values={selectedFilterValues} />

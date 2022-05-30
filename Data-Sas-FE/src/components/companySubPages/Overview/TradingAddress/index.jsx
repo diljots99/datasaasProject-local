@@ -39,7 +39,6 @@ const Directors = () => {
     console.log("tradingDetails here 1", {tradingDetail,TradingAddress });
 
     useEffect(() => {
-        dispatch(getTradingDetail(companyDetail.id));
        dispatch(getTradingAddress(companyDetail.uuid)) 
     }, [companyDetail]);
 
@@ -123,27 +122,27 @@ const Directors = () => {
         ({ pageSize, pageIndex }) => {
             const fetchId = ++compSumfetchIdRef.current;
             setLoading(true);
-if(TradingAddress.result !== undefined ){
+if(TradingAddress !== undefined ){
     setTimeout(() => {
         if (fetchId === compSumfetchIdRef.current) {
             const startRow = pageSize * pageIndex;
             const endRow = startRow + pageSize;
-            settableData(TradingAddress?.result?.slice(startRow, endRow));
-            setPageCount(Math.ceil(TradingAddress?.result?.length / pageSize));
+            settableData(TradingAddress?.slice(startRow, endRow));
+            setPageCount(Math.ceil(TradingAddress?.length / pageSize));
             setLoading(false);
         }
     }, 1000);
 }
           
         },
-        [TradingAddress.result]
+        [TradingAddress]
     );
 
     const [searchKey, setSearchKey] = useState("");
     useEffect(() => {
         if (searchKey) {
             let re = new RegExp(`${searchKey}`, "gi");
-            let results = TradingAddress.result?.filter((detail) => {
+            let results = TradingAddress?.filter((detail) => {
                 return (
                     (detail.address_line !== null
                         ? detail.address_line.match(re)
@@ -162,7 +161,7 @@ if(TradingAddress.result !== undefined ){
 
             settableData(results);
         } else {
-            settableData(TradingAddress.result);
+            settableData(TradingAddress);
         }
     }, [searchKey]);
 
@@ -245,10 +244,10 @@ if(TradingAddress.result !== undefined ){
                     </Grid>
                 </Grid>
 
-                { tabledata.length > 0 || searchKey === "" ? (
+                { tabledata?.length > 0 || searchKey === "" ? (
                     <Table
                         columns={columns}
-                        data={tabledata}
+                        data={tabledata === undefined ? [] :tabledata}
                         fetchData={fetchData}
                         loading={loading}
                         pageCount={pageCount}

@@ -1,13 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "./datePicker.css";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { useDispatch, useSelector } from "react-redux";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
+import UpdatePlan from "./UpdatePlan";
+import moment from "moment";
 
 export default function LastAccountFiled() {
+  const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-  
+    const [isEnabled, setIsEnabled] = useState(true);
+    const [error, setError] = useState(false);
+    const { selectedFilterValues, filterTypeDetail } = useSelector(
+      (state) => state.filter
+    );
+
+    useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+    let filtervalue = filterTypeDetail.filter(
+      (value) =>
+        value.name === "Last Account Filed" && value.category === "Financials"
+    );
+    if (filtervalue) {
+      setIsEnabled(filtervalue[0].featureEnabled);
+    }
+
+  };
+
+  const applyFilter = () => {
+
+    if (startDate && endDate) {
+      dispatch(
+        SetselectedFilterValues("Incorporation Date", [ moment(startDate).format(),  moment(endDate).format()])
+      );
+      setStartDate(null);
+      setEndDate(null);
+      setError(false);
+    } else {
+      setError(true);
+    }
+  };
   
     const customStyle = {
         display: "flex",
@@ -16,7 +51,8 @@ export default function LastAccountFiled() {
   
   return (
     <div className="subFiltersContainerPage">
-      <div className="searchContainer">
+      { isEnabled ? <>
+        <div className="searchContainer">
       <div style={customStyle}>
             <DatePicker
                 selected={startDate}
@@ -39,8 +75,15 @@ export default function LastAccountFiled() {
         </div>
       </div>
       <div className="subFiltersContainerButton">
-        <button className="subFilterApply">Apply</button>
-      </div>
+      <button
+        className="subFilterApply"
+        style={{ border: error ? "3px solid red" : "" }}
+        onClick={applyFilter}
+      >
+        Apply
+      </button>
+    </div>
+      </>: <UpdatePlan /> }
     </div>
   );
 }

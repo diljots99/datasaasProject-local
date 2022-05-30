@@ -37,9 +37,9 @@ export const getTradingAddress=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/tradingAddress`, header() )
         .then(res =>{
-            console.log("get Trading Address ", res)
+            console.log("get Trading Address ", res.data)
             if(res.data.status === true)
-            dispatch({type: SET_TRADING_ADDRESS , payload: res.data})
+            dispatch({type: SET_TRADING_ADDRESS , payload: res.data.result})
         }).catch(err=>console.log(err))
     }
 }
@@ -48,8 +48,9 @@ export const getTrade=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/trade`, header() )
         .then(res =>{
-            console.log("get Trade", res)
-            if(res.data.result.status === true)
+            // console.log("get Trade", res , res.data.result)
+           
+            if(res.data.status === true)
             dispatch({type: SET_TRADE , payload: res.data.result.trade})
         }).catch(err=>console.log(err))
     }

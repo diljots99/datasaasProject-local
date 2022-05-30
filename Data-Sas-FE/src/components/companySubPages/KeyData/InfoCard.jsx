@@ -108,7 +108,7 @@ export default function InfoCard({ data }) {
           </Typography>
         </Grid>
         <Grid item xs={1} sm={1} className={classes.gridItem}>
-          <Typography
+          <Typography 
             display="inline"
             variant="h8"
             style={{ color: "#8a8fa7" }}
@@ -116,7 +116,7 @@ export default function InfoCard({ data }) {
             :
           </Typography>
         </Grid>
-        <Grid item xs={6} sm={3} className={classes.gridItem}>
+        <Grid item xs={5} sm={3} className={classes.gridItem}>
           <Typography variant="h8" style={{ color: "#34c0f6" }}>
             Loremipsum@gmail.com
           </Typography>

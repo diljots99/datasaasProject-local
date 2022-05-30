@@ -8,13 +8,16 @@ import {
   InputAdornment,
   Button,
   Select,
+  MenuItem,
 } from "@material-ui/core";
+import Checkbox from "@mui/material/Checkbox";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./styles";
 import { useTable, usePagination } from "react-table";
 import { useSelector } from "react-redux";
 import { FilterBox } from "../../components/common/filterOptions/filterBox";
 import moment from 'moment'
+import { CSVLink } from "react-csv";
 
 const Table = ({
   columns,
@@ -48,7 +51,7 @@ const Table = ({
     },
     usePagination
   );
-
+  const classess = useStyles();
   useEffect(() => {
     fetchData({ pageIndex, pageSize });
   }, [fetchData, pageIndex, pageSize]);
@@ -176,8 +179,27 @@ const Table = ({
           </tr>
         ))}
 
+        {/* <tr>
+          <td>  <div className={classess.checkBox}>
+                <Checkbox
+                  size="small"
+                  checked={true}
+                  onChange={() => {
+                    // setAllSelected(!allSelected);
+                  }}
+                />
+                <Typography variant="h6">Select all </Typography>
+              </div></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr> */}
+
         {/* Table Data */}
-        { data.length === 0 && <Typography variant="h6">No results found</Typography>}
+        {!loading && data.length === 0 && <Typography variant="h6">No results found</Typography>}
         {loading && <div>Loading ...</div>}
         {!loading &&
           rows.map((row, i) => {
@@ -273,14 +295,13 @@ const Table = ({
   const [loading, setLoading] = React.useState(false);
   const [pageCount, setPageCount] = React.useState(0);
   const businessfetchIdRef = React.useRef(0);
-  const { companyList } = useSelector((state) => state.watch);
   const { filterSearchResults } = useSelector(
     (state) => state.filter
   );
   const [tabledata, settableData] = React.useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [searchKey, setSearchKey] = useState("");
-
+console.log("Filter Results",  filterSearchResults )
   useEffect(() => {
     if (searchKey) {
       let re = new RegExp(`${searchKey}`, "gi");
@@ -309,6 +330,21 @@ const Table = ({
         width: 200,
       },
       {
+        Header: "Company Number",
+        accessor: "company_number",
+        width: 200,
+      },
+      {
+        Header: "Company Status",
+        accessor: "company_status",
+        width: 200,
+      },
+      {
+        Header: "Postal Code",
+        accessor: "regaddress_postcode_trim",
+        width: 200,
+      },
+      {
         Header: "Address",
         accessor: "regaddress_addressline1",
         width: 200,
@@ -322,19 +358,24 @@ const Table = ({
         }
       },
       {
-        Header: "Notification",
+        Header: "SIS Code",
+        accessor: "siccode_1",
         width: 200,
-        accessor: "id",
-        Cell: (val) => {
-          return (
-            <Grid container style={{ justifyContent: "center" }}>
-              <Grid item>
-                <img src={"/images/notification.png"} alt="logo" />
-              </Grid>
-            </Grid>
-          );
-        },
       },
+      // {
+      //   Header: "Notification",
+      //   width: 200,
+      //   accessor: "id",
+      //   Cell: (val) => {
+      //     return (
+      //       <Grid container style={{ justifyContent: "center" }}>
+      //         <Grid item>
+      //           <img src={"/images/notification.png"} alt="logo" />
+      //         </Grid>
+      //       </Grid>
+      //     );
+      //   },
+      // },
     ],
     []
   );
@@ -368,6 +409,30 @@ const Table = ({
           >
             Business Search
           </Typography> */}
+           <Select
+          className="select"
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          style={{width:"130px", marginLeft: "10px"}}
+          // open={open}
+          // onClose={handleClose}
+          // onOpen={handleOpen}
+          value={0}
+          placeholder="Export"
+          label="Export"
+          // onChange={handleChange}
+        >
+         <MenuItem value={0} disabled>
+          Export
+        </MenuItem>
+         <CSVLink
+                data={tabledata}
+                filename={'Search result all List'}
+          >
+          <MenuItem value={10} onClick={()=>{}} >Export All</MenuItem>
+          </CSVLink>
+          <MenuItem value={21}>Export Selected</MenuItem>
+        </Select>
         </Grid>
         <Grid item xs={12} sm={6} className={classess.searchcontainer}>
           <TextField

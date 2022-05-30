@@ -65,8 +65,6 @@ export default class SmoothLine extends React.Component {
 
         }
       },
-
-
     };
   }
 

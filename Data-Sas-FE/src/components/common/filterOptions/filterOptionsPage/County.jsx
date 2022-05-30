@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
+import UpdatePlan from './UpdatePlan'
 
 export default function County() {
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState(null);
   const [error, setError] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [options, setOptions] = useState([]);
   const {  selectedFilterValues , filterTypeDetail } = useSelector(
     (state) => state.filter
   );
 
+  useEffect(() => getOptions(), []);
+
   const getOptions = () => {
  
     let filtervalue = filterTypeDetail.filter(value => value.name ===  "County" &&  value.category === "Location")
-     return filtervalue[0].suggestions ? filtervalue[0].suggestions.map(opt=> ({ value: opt, label: opt })) : []
+    if (filtervalue) {
+      setIsEnabled(filtervalue[0].featureEnabled);
+    }
+
+    setOptions(
+      filtervalue[0].suggestions
+        ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
+        : []
+    );
   }
 
-  const options = getOptions()
+
 
   const applyFilter = () => {
     // if (checked.length > 0) {
@@ -63,6 +76,7 @@ export default function County() {
 
   return (
     <div className="subFiltersContainerPage">
+     {isEnabled ? <>
       <div className="searchContainer">
         <Select
           styles={customStyles}
@@ -80,7 +94,7 @@ export default function County() {
 
       <div className="subFiltersContainerButton">
         <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter} >Apply</button>
-      </div>
+      </div></> : <UpdatePlan />}
     </div>
   );
 }

@@ -5,12 +5,16 @@ import { Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
 import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
+import UpdatePlan from './UpdatePlan'
 
 export default function PostalCode() {
   const dispatch = useDispatch();
   const { selectedFilterValues, filterTypeDetail } = useSelector(state => state.filter)
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+  const [data, setData] = useState([]);
+  const [isEnabled , setIsEnabled] = useState(true)
+  useEffect(() => {getAllPostCode()},[])
 
   const getAllPostCode = ()=>{
     let postCode = []
@@ -21,16 +25,12 @@ export default function PostalCode() {
           postCode.push({ id: val, title: val })
         })
       }
-  
-       return postCode
+      console.log("post data",filtervalue)
+      setIsEnabled(filtervalue[0].featureEnabled)
+      setData(postCode)
    
    }
 
-  const [data, setData] = useState(
-    getAllPostCode()
-  );
-
- 
   // console.log("post data",data)
   const [checked, setChecked] = useState([]);
 
@@ -63,6 +63,7 @@ export default function PostalCode() {
   
   return (
     <div className="subFiltersContainerPage">
+     {isEnabled? <>
       <div className="searchContainer">
         <MuiSearchBar
           className="search"
@@ -134,7 +135,7 @@ export default function PostalCode() {
         <button className="subFilterApply" onClick={applyFilter}>
           Apply
         </button>
-      </div>
+      </div></>:<UpdatePlan />}
     </div>
   );
 }
