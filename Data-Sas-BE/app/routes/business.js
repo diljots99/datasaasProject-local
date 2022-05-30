@@ -11,7 +11,7 @@ const JWT = require("../utils/auth");
  *     summary: Search
  *     tags: [Business]
  *     description: |
- *       Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country | Status | Incorporation date | Dissolution Date | Company Category | Last Accounts Date | UK SIC Section | SubSector | Sector | NACE | UK SIC | NAICS | Current Assets
+ *       Company Name | Company Number | Website | Telephone | Mail | Company Account Category | Post Code | City | County | Region | Country | Status | Incorporation date | Dissolution Date | Company Category | Last Accounts Date | UK SIC Section | SubSector | Sector | NACE | UK SIC | NAICS | Current Assets | Director Name | Director Role | Director Occupation | Director Nationality | Director Country of Residence | Director Resign Date | Director Appointment Date  | Ownership Name | Ownership Kind | Ownership Nationality | Ownership Country of Residence
  *       </br> date formats:  YYYY-MM-DDTHH:MM:SS+05:30   2018-01-29T13:20:22+05:30
  *     produces:
  *       - application/json

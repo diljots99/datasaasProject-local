@@ -29,14 +29,14 @@ async function getDistinctCompanyAccountCategory() {
     attributes: ["company_account_category"],
     group: ["company_account_category"],
   });
-  
+
 }
 async function getDistinctCompanyPostCode() {
   return await model.company_location_gen.findAll({
     attributes: ["address_post_code_trim"],
     group: ["address_post_code_trim"],
   });
-  
+
 }
 
 async function getDistinctCompanyCity() {
@@ -44,14 +44,14 @@ async function getDistinctCompanyCity() {
     attributes: ["address_town"],
     group: ["address_town"],
   });
-  
+
 }
 async function getDistinctCompanyCounty() {
   return await model.company_location_gen.findAll({
     attributes: ["address_county_province"],
     group: ["address_county_province"],
   });
-  
+
 }
 async function getDistinctCompanyRegion() {
   return await model.company_location_gen.findAll({
@@ -62,8 +62,8 @@ async function getDistinctCompanyRegion() {
 
 async function getDistinctCompanyCountry() {
   return await model.company_location_gen.findAll({
-    attributes: ["company_address_country","personal_address_country"],
-    group: ["company_address_country","personal_address_country"],
+    attributes: ["company_address_country", "personal_address_country"],
+    group: ["company_address_country", "personal_address_country"],
   });
 }
 
@@ -118,6 +118,49 @@ async function getDistinctCompanyNACE() {
     group: ["nace_rev_2_code"],
   });
 }
+async function getDistinctOfficer_Role() {
+  return await model.officer.findAll({
+    attributes: ["officer_role"],
+    group: ["officer_role"],
+  });
+}
+async function getDistinctOfficerOccupation() {
+  return await model.officer.findAll({
+    attributes: ["occupation"],
+    group: ["occupation"],
+  });
+}
+async function getDistinctOfficerNationality() {
+  return await model.officer.findAll({
+    attributes: ["nationality"],
+    group: ["nationality"],
+  });
+}
+async function getDistinctOfficerCountryOfResidence() {
+  return await model.officer.findAll({
+    attributes: ["country_of_residence"],
+    group: ["country_of_residence"],
+  });
+}
+async function getDistinctPSCKIND() {
+  return await model.dbp_psc_gen.findAll({
+    attributes: ["kind"],
+    group: ["kind"],
+  });
+}
+async function getDistinctPSCNationality() {
+  return await model.dbp_psc_gen.findAll({
+    attributes: ["nationality"],
+    group: ["nationality"],
+  });
+}
+async function getDistinctPSCCountryOfResidence() {
+  return await model.dbp_psc_gen.findAll({
+    attributes: ["country_of_residence"],
+    group: ["country_of_residence"],
+  });
+}
+
 
 module.exports = {
   getAllBusinessSearchFilters,
@@ -134,7 +177,14 @@ module.exports = {
   getDistinctUKSICSection,
   getDistinctCompanySubSector,
   getDistinctCompanySector,
- getDistinctCompanyNAICS,
- getDistinctCompanyUKSIC,
- getDistinctCompanyNACE
+  getDistinctCompanyNAICS,
+  getDistinctCompanyUKSIC,
+  getDistinctCompanyNACE,
+  getDistinctOfficer_Role,
+  getDistinctOfficerOccupation,
+  getDistinctOfficerNationality,
+  getDistinctOfficerCountryOfResidence,
+  getDistinctPSCKIND,
+  getDistinctPSCNationality,
+  getDistinctPSCCountryOfResidence
 };
