@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
 import UpdatePlan from './UpdatePlan'
 
-
-export default function DirectorStatus() {
+export default function MultiChoice({name, category}) {
   const dispatch = useDispatch();
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState([]);
   const [error, setError] = useState(false)
   const [isEnabled, setIsEnabled] = useState(true);
   const [options, setOptions] = useState([]);
@@ -16,11 +15,11 @@ export default function DirectorStatus() {
     (state) => state.filter
   );
 
-  useEffect(() => getOptions(), []);
+  useEffect(() => getOptions(), [name, category]);
 
   const getOptions = () => {
  
-    let filtervalue = filterTypeDetail.filter(value => value.name ===  "Director Status" &&  value.category === "Directors")
+    let filtervalue = filterTypeDetail.filter(value => value.name ===  name &&  value.category === category)
     if (filtervalue) {
       setIsEnabled(filtervalue[0].featureEnabled);
     }
@@ -38,10 +37,10 @@ export default function DirectorStatus() {
     //   dispatch(SetselectedFilterValues("Company Name", checked));
     // }
 
-    if( selectedOption !==null && selectedOption.length > 0){
+    if( selectedOption.length > 0){
       let filterval = selectedOption.map(val=> val.value)
-      dispatch(SetselectedFilterValues("Director Status", filterval))
-      setSelectedOption(null)
+      dispatch(SetselectedFilterValues(name, filterval))
+      setSelectedOption([])
     setError(false)
   }else{
     setError(true)
@@ -71,28 +70,29 @@ export default function DirectorStatus() {
       fontSize: "16px",
     }),
   };
-  
-    return (
-<div className="subFiltersContainerPage">
-{isEnabled ? <>
- <div className="searchContainer">
-   <Select
-     styles={customStyles}
-     isMulti
-     defaultValue={selectedOption}
-     placeholder="Director Status"
-     onChange={setSelectedOption}
-     options={options}
-   />
- </div>
 
- <div className="choosenResultsContainer">
 
- </div>
-
- <div className="subFiltersContainerButton">
-   <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter} >Apply</button>
- </div></> : <UpdatePlan />}
-</div>
-    );
+  return (
+        <div className="subFiltersContainerPage">
+        {isEnabled ? <>
+         <div className="searchContainer">
+           <Select
+             styles={customStyles}
+             isMulti
+             value={selectedOption}
+             placeholder={name}
+             onChange={setSelectedOption}
+             options={options}
+           />
+         </div>
+   
+         <div className="choosenResultsContainer">
+   
+         </div>
+   
+         <div className="subFiltersContainerButton">
+           <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter} >Apply</button>
+         </div></> : <UpdatePlan />}
+       </div>
+  );
 }
