@@ -374,7 +374,7 @@ async function listAllFilters(req, res) {
       };
     }
     
-    working_filters =new Set( ["Ownership Country of Residence","Ownership Nationality","Ownership Kind","Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets", "Director Name" , "Director Role" , "Director Occupation" , "Director Nationality" , "Director Country of Residence" , "Director Resign Date" , "Director Appointment Date" ])
+    working_filters =new Set( ["Gross Profit","Trade Debtors","Trade Creditors","Gross Profit","Number of Employees","Turnover","Equity","Fixed Assets","Ownership Country of Residence","Ownership Nationality","Ownership Kind","Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets", "Director Name" , "Director Role" , "Director Occupation" , "Director Nationality" , "Director Country of Residence" , "Director Resign Date" , "Director Appointment Date" ])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),
