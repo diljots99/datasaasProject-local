@@ -421,8 +421,7 @@ export default function CompaniesSummary() {
             />
           </Grid>
         </Grid>
-
-        <Table
+{ tabledata.length > 0 && <Table
           columns={columns}
           //data={tabledata}
           data={searchResults.length > 0 ? searchResults : tabledata}
@@ -430,7 +429,8 @@ export default function CompaniesSummary() {
           loading={loading}
           pageCount={pageCount}
           // defaultFilterMethod={(filter, row) =>{ return row[filter.id].toLowerCase().includes(filter.value.toLowerCase()) }}
-        />
+        />}
+      
       </div>
       <div>{/* <DirectorDet /> */}</div>
     </>
