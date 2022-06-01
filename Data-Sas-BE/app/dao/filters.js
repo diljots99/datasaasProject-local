@@ -154,12 +154,35 @@ async function getDistinctPSCNationality() {
     group: ["nationality"],
   });
 }
+
 async function getDistinctPSCCountryOfResidence() {
   return await model.dbp_psc_gen.findAll({
     attributes: ["country_of_residence"],
     group: ["country_of_residence"],
   });
 }
+
+async function getDistinctPSCCountryOfResidence() {
+  return await model.dbp_psc_gen.findAll({
+    attributes: ["country_of_residence"],
+    group: ["country_of_residence"],
+  });
+}
+
+async function getDistinctExporter() {
+  return await model.companies.findAll({
+    attributes: ["exporter"],
+    group: ["exporter"],
+  });
+}
+
+async function getDistinctImporter() {
+  return await model.companies.findAll({
+    attributes: ["importer"],
+    group: ["importer"],
+  });
+}
+
 
 
 module.exports = {
@@ -186,5 +209,7 @@ module.exports = {
   getDistinctOfficerCountryOfResidence,
   getDistinctPSCKIND,
   getDistinctPSCNationality,
-  getDistinctPSCCountryOfResidence
+  getDistinctPSCCountryOfResidence,
+  getDistinctExporter,
+  getDistinctImporter
 };

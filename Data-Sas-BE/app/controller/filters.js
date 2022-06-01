@@ -374,7 +374,42 @@ async function listAllFilters(req, res) {
       };
     }
     
-    working_filters =new Set( ["Gross Profit","Trade Debtors","Trade Creditors","Gross Profit","Number of Employees","Turnover","Equity","Fixed Assets","Ownership Country of Residence","Ownership Nationality","Ownership Kind","Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets", "Director Name" , "Director Role" , "Director Occupation" , "Director Nationality" , "Director Country of Residence" , "Director Resign Date" , "Director Appointment Date" ])
+    if (
+      element.name == "Importer Status" 
+    ) {
+      const distinct = await dao.getDistinctImporter();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.importer) {
+          listOfSuggestion.push(category.importer);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "Exporter Status" 
+    ) {
+      const distinct = await dao.getDistinctExporter();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.exporter) {
+          listOfSuggestion.push(category.exporter);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    working_filters =new Set( ["Exporter Status","Importer Status","Gross Profit","Trade Debtors","Trade Creditors","Gross Profit","Number of Employees","Turnover","Equity","Fixed Assets","Ownership Country of Residence","Ownership Nationality","Ownership Kind","Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets", "Director Name" , "Director Role" , "Director Occupation" , "Director Nationality" , "Director Country of Residence" , "Director Resign Date" , "Director Appointment Date" ])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),

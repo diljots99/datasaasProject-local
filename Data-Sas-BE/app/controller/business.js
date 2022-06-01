@@ -907,6 +907,53 @@ async function businessSearch(req, res) {
         };
       }
 
+
+      if (chipData.chip_group == "Importer Status") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ importer: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+
+      
+      if (chipData.chip_group == "Exporter Status") {
+        let list_ofChipData = [];
+        chipData.chip_values.forEach((chip_value) => {
+          list_ofChipData.push({ exporter: { [Op.like]: `%${chip_value.chip_value}%` } });
+        });
+
+        const arr = {
+          model: model.companies,
+          where: {
+            [Op.or]: list_ofChipData,
+            ...where,
+          }
+        };
+        otherOptions = {
+          include: otherOptions.include
+            ? otherOptions.include.push(arr)
+            : [arr],
+          ...otherOptions,
+        };
+      }
+      
+
+
+
     });
   }
   const options = {
