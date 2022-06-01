@@ -3,24 +3,25 @@ import "./searchBar.css";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
-import UpdatePlan from './UpdatePlan'
-
+import UpdatePlan from "./UpdatePlan";
 
 export default function DirectorStatus() {
   const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState(null);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const [isEnabled, setIsEnabled] = useState(true);
   const [options, setOptions] = useState([]);
-  const {  selectedFilterValues , filterTypeDetail } = useSelector(
+  const { selectedFilterValues, filterTypeDetail } = useSelector(
     (state) => state.filter
   );
 
   useEffect(() => getOptions(), []);
 
   const getOptions = () => {
- 
-    let filtervalue = filterTypeDetail.filter(value => value.name ===  "Director Status" &&  value.category === "Directors")
+    let filtervalue = filterTypeDetail.filter(
+      (value) =>
+        value.name === "Director Status" && value.category === "Directors"
+    );
     if (filtervalue) {
       setIsEnabled(filtervalue[0].featureEnabled);
     }
@@ -30,22 +31,17 @@ export default function DirectorStatus() {
         ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
         : []
     );
-  }
-
+  };
 
   const applyFilter = () => {
-    // if (checked.length > 0) {
-    //   dispatch(SetselectedFilterValues("Company Name", checked));
-    // }
-
-    if( selectedOption !==null && selectedOption.length > 0){
-      let filterval = selectedOption.map(val=> val.value)
-      dispatch(SetselectedFilterValues("Director Status", filterval))
-      setSelectedOption(null)
-    setError(false)
-  }else{
-    setError(true)
-  }
+    if (selectedOption !== null && selectedOption.length > 0) {
+      let filterval = selectedOption.map((val) => val.value);
+      dispatch(SetselectedFilterValues("Director Status", filterval));
+      setSelectedOption(null);
+      setError(false);
+    } else {
+      setError(true);
+    }
   };
 
   const customStyles = {
@@ -71,28 +67,37 @@ export default function DirectorStatus() {
       fontSize: "16px",
     }),
   };
-  
-    return (
-<div className="subFiltersContainerPage">
-{isEnabled ? <>
- <div className="searchContainer">
-   <Select
-     styles={customStyles}
-     isMulti
-     defaultValue={selectedOption}
-     placeholder="Director Status"
-     onChange={setSelectedOption}
-     options={options}
-   />
- </div>
 
- <div className="choosenResultsContainer">
+  return (
+    <div className="subFiltersContainerPage">
+      {isEnabled ? (
+        <>
+          <div className="searchContainer">
+            <Select
+              styles={customStyles}
+              isMulti
+              defaultValue={selectedOption}
+              placeholder="Director Status"
+              onChange={setSelectedOption}
+              options={options}
+            />
+          </div>
 
- </div>
+          <div className="choosenResultsContainer"></div>
 
- <div className="subFiltersContainerButton">
-   <button className="subFilterApply" style={{ border:  error ? '3px solid red' : ''}} onClick={applyFilter} >Apply</button>
- </div></> : <UpdatePlan />}
-</div>
-    );
+          <div className="subFiltersContainerButton">
+            <button
+              className="subFilterApply"
+              style={{ border: error ? "3px solid red" : "" }}
+              onClick={applyFilter}
+            >
+              Apply
+            </button>
+          </div>
+        </>
+      ) : (
+        <UpdatePlan />
+      )}
+    </div>
+  );
 }

@@ -1,15 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./searchBar.css";
 import Select from "react-select";
+import { useDispatch, useSelector } from "react-redux";
+import { SetselectedFilterValues } from "../../../../redux/actions/filterAction";
+import UpdatePlan from "./UpdatePlan";
 
 export default function ExporterStatus() {
+  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState(null);
+  const [error, setError] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(true);
+  const [options, setOptions] = useState([]);
+  const {  selectedFilterValues , filterTypeDetail } = useSelector(
+    (state) => state.filter
+  );
 
-  const options = [
-    { value: "item-1", label: "Search item-1" },
-    { value: "item-2", label: "Search item-2" },
-    { value: "item-3", label: "Search item-3" },
-  ];
+  useEffect(() => getOptions(), []);
+
+  const getOptions = () => {
+ 
+    let filtervalue = filterTypeDetail.filter(value => value.name ===  "Exporter Status" &&  value.category === "Trade")
+    if (filtervalue) {
+      setIsEnabled(filtervalue[0].featureEnabled);
+    }
+
+    setOptions(
+      filtervalue[0].suggestions
+        ? filtervalue[0].suggestions.map((opt) => ({ value: opt, label: opt }))
+        : []
+    );
+  }
+
+
+  const applyFilter = () => {
+
+    if( selectedOption !==null ){
+      dispatch(SetselectedFilterValues("Exporter Status", [selectedOption.value]))
+      setSelectedOption(null)
+    setError(false)
+  }else{
+    setError(true)
+  }
+  };
 
   const customStyles = {
     control: (styles) => ({
@@ -34,21 +66,37 @@ export default function ExporterStatus() {
       fontSize: "16px",
     }),
   };
+  
 
   return (
-    <div className="subFiltersContainerPage">
-      <div className="searchContainer">
-        <Select
-          styles={customStyles}
-          defaultValue={selectedOption}
-          placeholder="Exporter Status"
-          onChange={setSelectedOption}
-          options={options}
-        />
-      </div>
-      <div className="subFiltersContainerButton">
-        <button className="subFilterApply">Apply</button>
-      </div>
+<div className="subFiltersContainerPage">
+{isEnabled ? (
+  <>
+    <div className="searchContainer">
+      <Select
+        styles={customStyles}
+        defaultValue={selectedOption}
+        placeholder="Exporter Status"
+        onChange={setSelectedOption}
+        options={options}
+      />
     </div>
+
+    <div className="choosenResultsContainer"></div>
+
+    <div className="subFiltersContainerButton">
+      <button
+        className="subFilterApply"
+        style={{ border: error ? "3px solid red" : "" }}
+        onClick={applyFilter}
+      >
+        Apply
+      </button>
+    </div>
+  </>
+) : (
+  <UpdatePlan />
+)}
+</div>
   );
 }
