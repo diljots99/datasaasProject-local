@@ -1270,10 +1270,157 @@ async function businessTradeAddress(req, res) {
   });
 }
 
+async function businessOverviewAbout(req, res) {
+  let page = req.query.page ? parseInt(req.query.page) : 1;
+  let item_per_page = req.query.item_per_page
+    ? parseInt(req.query.item_per_page)
+    : 25;
+  let uuid = req.params.uuid;
+  if (!uuid) {
+    return res.send({
+      status: false,
+      message: "uuid is important",
+    });
+  }
+  let company_offical = await dao.getCompanyOfficalByUuid({
+    where: {
+      uuid: uuid,
+    },
+  });
+
+  let company = await dao.getCompany({
+    where: {
+      chn: company_offical.dataValues.chn,
+    },
+  });
+
+  let no_of_directors = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      officer_role: {
+        [Op.like]: "%director%",
+      },
+    },
+  });
+  let no_of_secretary = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      officer_role: {
+        [Op.like]: "%secretary%",
+      },
+    },
+  });
+  let no_of_active_directors = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      resigned_on: null,
+    },
+  });
+  let no_of_resigned_directors = await dao.getNumberOfDirectorsCompanies({
+    where: {
+      chn: company.dataValues.chn,
+      resigned_on: {
+        [Op.ne]: null,
+      },
+    },
+  });
+  let officers = await dao.getOfficersForCompany({
+    page: page,
+    paginate: item_per_page,
+    where: {
+      chn: company.dataValues.chn,
+    },
+    attributes: { exclude: ["id"] },
+  });
+
+
+  let turnover_raw = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`Turnover`,`TurnoverRevenue`,`TurnoverRevenue:Consolidated`]
+      },
+      
+    },
+  })
+
+
+  let gross_profit = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`GrossProfitLoss`,`GrossProfitLoss:Consolidated`]
+      },
+      
+    },
+  })
+  let EmployeesTotal = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`EmployeesTotal`]
+      },
+      
+    },
+  })
+  
+  result = {
+    company_name : company.dataValues.business_name?company.dataValues.business_name:"",
+    website:company.dataValues.website_url_1?company.dataValues.website_url_1:"",
+    postcode:company.dataValues.postcode_trim?company.dataValues.postcode_trim:"",
+    no_of_employee:"",  
+    facebook_link:"",
+    linkedIn_link:"",
+    twitter_link:"",
+    graph:{
+      turnover:turnover_raw,
+      total_assest:[],
+      total_libilities:[],
+      net_worth:[],
+      profit_before_tax:gross_profit,
+      ebidta:[]
+    },
+    turnover:{
+      turnover_estimate:company.dataValues.turnover_estimate?company.dataValues.turnover_estimate:""
+    },
+    total_assest:{},
+    total_libilities:{},
+    net_worth:{},
+    profit_before_tax:{},
+    ebidta:{},
+    director:{
+      total:no_of_directors,
+      activate:no_of_active_directors,
+      secretory:no_of_secretary,
+      inactive:0,
+      resgin:no_of_resigned_directors
+    },
+    account_category:company.dataValues.company_account_category?company.dataValues.company_account_category:"",
+    account:"",
+    confirmation_statement:"",
+    bank_name:"",
+    bank_sard_code:"",
+    auditor_and_accountant:"",
+    director:officers
+  }
+  return res.send({
+    status: true,
+    result: result
+  });
+}
+
+
 module.exports = {
   businessSearch,
   businessPeople,
   businessDirectors,
   businessTrade,
   businessTradeAddress,
+  businessOverviewAbout
 };

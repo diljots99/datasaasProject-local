@@ -65,15 +65,17 @@ router.get("/hmrc_code", (req, res) => {
 });
 
 let RESults = [];
-router.get("/tests", async (req, res) => {
-  let someting = await model.View_unique_hmrc_exports.findAll({
-    attributes: ["hmrc_code1", "chn"],
+router.get("/hmrc_populate", async (req, res) => {
+  let someting = await model.dba_hmrc_import_gen.findAll({
+    attributes: ["hmrc_code1"],
+
   });
 
   for (let some of someting) {
     try {
       let element = some.toJSON();
       if (element.hmrc_code1) {
+        console.log('Finding the '+element.hmrc_code1)
         let res = await CallAPI(element.hmrc_code1);
         if (res) {
           RESults.push({

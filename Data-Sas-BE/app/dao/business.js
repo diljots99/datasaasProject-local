@@ -57,7 +57,12 @@ async function getHmrcExportCodeDescription(data) {
   return model.View_unique_hmrc_exports.findAll(data);
 }
 
+async function getFinacialsForCompany(data) {
+  return await model.dbf_financials_main.findAll(data);
+}
+
 module.exports = {
+  getFinacialsForCompany,
   getCompanyOfficalByUuid,
   getCompanies,
   getNumberOfDirectorsCompanies,
