@@ -1,14 +1,87 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import { useStyles } from "./styles";
 import Donut from "./pieChart";
 import BarChart from "./barChart";
+import { useSelector } from "react-redux";
+import DonutChart from "./Donut";
 
 export default function Type() {
-    const classess = useStyles();
+  const classess = useStyles();
+  const { Insights } = useSelector((state) => state.company);
+
+  const [byStatus, setByStatus] = useState({});
+  const [byAccountCategory, setByAccountCategory] = useState({});
+  const [byTypes, setByTypes] = useState({});
+  console.log("Insights", Insights);
+
+  useEffect(() => {
+    if (Insights.companiesByStatus) {
+      handleByStatus(Insights.companiesByStatus);
+    }
+    if (Insights.companiesByAccountCategory) {
+      handleByAccountCategory(Insights.companiesByAccountCategory);
+    }
+    if (Insights.companiesByType) {
+      handleByType(Insights.companiesByType);
+    }
+  }, [Insights]);
+
+  const handleByStatus = (value) => {
+    let data = [];
+    let total = value.reduce((total, val) => total + val.statusCount, 0);
+    console.log("total,", total);
+    value.forEach((val) => {
+      let per = (val.statusCount / total) * 100;
+      data.push({
+        name: val.status,
+        y: per,
+      });
+    });
+    console.log("sby status", data);
+    setByStatus(data);
+  };
+
+  const handleByAccountCategory = (value) => {
+    let data = [];
+    let total = value.reduce(
+      (total, val) => total + val.accountCategoryCount,
+      0
+    );
+    console.log("total,", total);
+    value.forEach((val) => {
+      let per = (val.accountCategoryCount / total) * 100;
+      data.push({
+        name: val.company_account_category,
+        y: per,
+      });
+    });
+    console.log("sby AC", data);
+    setByAccountCategory(data);
+  };
+
+  const handleByType = (value) => {
+    let series = [];
+    let lables = [];
+    let data = [];
+    let total = value.reduce((total, val) => total + val.typeCount, 0);
+    console.log("total,", total);
+    value.forEach((val) => {
+      let per = (val.typeCount / total) * 100;
+      data.push({
+        name: val.type,
+        y: per,
+      });
+      series.push(per);
+      lables.push(val.type);
+    });
+    console.log("sby type", data);
+    setByTypes(data);
+  };
+
   return (
     <>
-    <Grid
+      <Grid
         container
         justifyContent="space-between"
         alignItems="center"
@@ -43,29 +116,35 @@ export default function Type() {
       <div className={classess.segmentWrapper}>
         <Grid container spacing={2} justifyContent="space-around">
           <Grid item xs={4}>
-            <Paper className={classess.paper} style={{width:"380px"}} >
-              <Typography variant="h5" className={classess.donutHeading}>
+            <Paper className={classess.paper} style={{ width: "380px" }}>
+              {/* <Typography variant="h5" className={classess.donutHeading}>
                 Companies by Status
-              </Typography>
-              <Donut />
+              </Typography> */}
+              {/* <Donut series={byStatus.series} lables={byStatus.lables}  /> */}
+              <DonutChart data={byStatus} title="Companies by Status" />
             </Paper>
           </Grid>
 
           <Grid item xs={4}>
-            <Paper className={classess.paper} style={{width:"380px"}} >
-              <Typography variant="h5" className={classess.donutHeading}>
+            <Paper className={classess.paper} style={{ width: "380px" }}>
+              {/* <Typography variant="h5" className={classess.donutHeading}>
                 Account Categories
-              </Typography>
-              <Donut />
+              </Typography> */}
+              <DonutChart data={byAccountCategory} title="Account Categories" />
+              {/* <Donut series={[1,2,3]} lables={["one", "two", "three"]} /> */}
             </Paper>
           </Grid>
 
           <Grid item xs={4}>
-            <Paper className={classess.paper} style={{width:"380px"}} >
-              <Typography variant="h5" className={classess.donutHeading}>
+            <Paper className={classess.paper} style={{ width: "380px" }}>
+              {/* <Typography variant="h5" className={classess.donutHeading}>
                 Companies by Type
-              </Typography>
-              <Donut />
+              </Typography> */}
+              {/* <Donut
+                series={byTypes.series}
+                // lables={["one", "two", "three"]}
+              /> */}
+              <DonutChart data={byTypes} title="DonCompanies by Type" />
             </Paper>
           </Grid>
         </Grid>
@@ -83,7 +162,7 @@ export default function Type() {
               <Typography variant="h5" className={classess.donutHeading}>
                 No. of Companies by Age of Business
               </Typography>
-              <BarChart barColor={'#2d99ff'} />
+              <BarChart barColor={"#2d99ff"} />
             </Paper>
           </Grid>
 
@@ -107,5 +186,5 @@ export default function Type() {
         </Grid>
       </div>
     </>
-  )
+  );
 }

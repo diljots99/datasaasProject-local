@@ -8,6 +8,7 @@ export const SET_PEOPLE = 'SET_PEOPLE'
 export const SET_DIRECTORS = 'SET_DIRECTORS'
 export const SET_TRADING_ADDRESS = 'SET_TRADING_ADDRESS'
 export const SET_TRADE = "SET_TRADE"
+export const SET_INSIGHTS = "SET_INSIGHTS"
 
 export const getProple=(uuid)=>{
     return (dispatch)=>{
@@ -52,6 +53,18 @@ export const getTrade=(uuid)=>{
            
             if(res.data.status === true)
             dispatch({type: SET_TRADE , payload: res.data.result.trade})
+        }).catch(err=>console.log(err))
+    }
+}
+
+export const getInsights =()=>{
+    return (dispatch)=>{
+        axios.post(`${BASE_URL}/api/insights`, {},header() )
+        .then(res =>{
+             console.log("get INDSIGHTS", res )
+           
+            if(res.data.status === true)
+            dispatch({type: SET_INSIGHTS , payload: res.data})
         }).catch(err=>console.log(err))
     }
 }
