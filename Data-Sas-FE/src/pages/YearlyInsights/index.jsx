@@ -1,15 +1,26 @@
-import React from "react";
+import React , { Suspense, lazy }from "react";
 import { useStyles } from "./styles";
 
+// import Type from './Type'
+// import Geography from './Geography'
+// import Activites from "./Activites";
+// import Financials from "./Financials";
 
-import Type from './Type'
-import Geography from './Geography'
-import Activites from "./Activites";
-import Financials from "./Financials";
+const Type = lazy(() => import("./Type"));
+const Activites = lazy(() => import("./Activites"));
+const Geography = lazy(() => import("./Geography"));
+const Financials= lazy(() => import("./Financials"));
 
 export default function YearlyInsights() {
   const classess = useStyles();
   return (
+    <Suspense
+    fallback={
+      <div>
+        <h1>LOADING Insights .... </h1>
+      </div>
+    }
+  > 
     <div className={classess.insightsMain}>
         {/* Types charts */}
       <Type />
@@ -26,5 +37,6 @@ export default function YearlyInsights() {
 
      <Financials />
     </div>
+    </Suspense>
   );
 }
