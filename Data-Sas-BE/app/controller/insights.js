@@ -12,24 +12,64 @@ const e = require("express");
 const { Op, Sequelize } = require("sequelize");
 
 
-async function getInsights(req,res){
-    const companiesByStatus  =  await dao.getCompanies({
-        attributes : ["chn","status",[Sequelize.fn('COUNT', 'status'), 'statusCount']],
-        group:"status"
+async function getInsights(req, res) {
+    const companiesByStatus = await dao.getCompanies({
+        attributes: ["status", [Sequelize.fn('COUNT', 'status'), 'statusCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "status"
     })
-    const companiesBySize  =  await dao.getCompanies({
-        attributes : ["chn","size_estimate",[Sequelize.fn('COUNT', 'size_estimate'), 'size_estimateCount']],
-        group:"size_estimate"
+
+
+    const companiesByAccountCategory = await dao.getCompanies({
+        attributes: ["company_account_category", [Sequelize.fn('COUNT', 'company_account_category'), 'accountCategoryCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "company_account_category"
     })
-    const companiesByAccountCategory  =  await dao.getCompanies({
-        attributes : ["chn","company_account_category",[Sequelize.fn('COUNT', 'company_account_category'), 'accountCategoryCount']],
-        group:"company_account_category"
+    const companiesByType = await dao.getCompanies({
+        attributes: ["type", [Sequelize.fn('COUNT', 'type'), 'typeCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "type"
     })
-    const companiesByType  =  await dao.getCompanies({
-        attributes : ["chn","type",[Sequelize.fn('COUNT', 'type'), 'typeCount']],
-        group:"type"
+
+    const companiesByExporter = await dao.getCompanies({
+        attributes: ["exporter", [Sequelize.fn('COUNT', 'exporter'), 'exporterCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "exporter"
     })
-    res.send({status:true,"companiesByStatus":companiesByStatus,"companiesByAccountCategory":companiesByAccountCategory,"companiesBySize":[],"companiesByType":companiesByType})
+    const companiesByImporter = await dao.getCompanies({
+        attributes: ["importer", [Sequelize.fn('COUNT', 'importer'), 'importerCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "importer"
+    })
+
+
+    const companiesBySector = await dao.getCompanies({
+        attributes: ["main_sector", [Sequelize.fn('COUNT', 'main_sector'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "main_sector"
+    })
+
+    const companiesBySICSection = await dao.getCompanies({
+        attributes: ["sic_section", [Sequelize.fn('COUNT', 'sic_section'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "sic_section"
+    })
+
+    const companiesByAgeOfBusiness = await dao.getCompanies({
+        attributes: ["age_of_business", [Sequelize.fn('COUNT', 'sic_section'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "age_of_business"
+    })
+    const companiesByEmployeeSize = await dao.getCompanies({
+        attributes: ["size_estimate", [Sequelize.fn('COUNT', 'sic_section'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
+        group: "size_estimate"
+    })
+    
+
+
+    res.send({ 
+        status: true, 
+        "companiesByStatus": companiesByStatus, 
+        "companiesByAccountCategory": companiesByAccountCategory, 
+        "companiesBySize": [], 
+        "companiesByType": companiesByType, 
+        "companiesByExporter": companiesByExporter,
+        "companiesByImporter": companiesByImporter,
+        "companiesBySector": companiesBySector,
+        "companiesBySICSection": companiesBySICSection,
+        "companiesByEmployeeSize":companiesByEmployeeSize })
 }
 
 

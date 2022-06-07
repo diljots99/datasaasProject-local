@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const savedSearchController = require("../controller/insights");
+const savedSearchController = require("../controller/insights");    
 const JWT = require("../utils/auth");
 
 
@@ -9,16 +9,16 @@ const JWT = require("../utils/auth");
  * @swagger
  *
  * /api/insights/:
- *   post:
+ *   post:  
  *     summary: 
  *     tags: [Insights]
  *     description: 
  *     produces:
  *       - application/json
  *     security:
- *       - jwt: []
+ *       - jwt: []  
  *     responses:
- *          '200':
+ *          '200':  
  *              description: A Successfull response
  *          '422':
  *              description:  Validation error
