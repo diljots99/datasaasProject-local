@@ -57,7 +57,7 @@ async function getInsights(req, res) {
         group: "size_estimate"
     })
     
-
+    
 
     res.send({ 
         status: true, 

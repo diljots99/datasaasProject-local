@@ -1288,6 +1288,7 @@ async function businessOverviewAbout(req, res) {
     },
   });
 
+if(company_offical)  {
   let company = await dao.getCompany({
     where: {
       chn: company_offical.dataValues.chn,
@@ -1296,7 +1297,7 @@ async function businessOverviewAbout(req, res) {
 
   let no_of_directors = await dao.getNumberOfDirectorsCompanies({
     where: {
-      chn: company.dataValues.chn,
+      chn:  company_offical.dataValues.chn,
       officer_role: {
         [Op.like]: "%director%",
       },
@@ -1304,7 +1305,7 @@ async function businessOverviewAbout(req, res) {
   });
   let no_of_secretary = await dao.getNumberOfDirectorsCompanies({
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
       officer_role: {
         [Op.like]: "%secretary%",
       },
@@ -1312,13 +1313,13 @@ async function businessOverviewAbout(req, res) {
   });
   let no_of_active_directors = await dao.getNumberOfDirectorsCompanies({
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
       resigned_on: null,
     },
   });
   let no_of_resigned_directors = await dao.getNumberOfDirectorsCompanies({
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
       resigned_on: {
         [Op.ne]: null,
       },
@@ -1328,7 +1329,7 @@ async function businessOverviewAbout(req, res) {
     page: page,
     paginate: item_per_page,
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
     },
     attributes: { exclude: ["id"] },
   });
@@ -1338,7 +1339,7 @@ async function businessOverviewAbout(req, res) {
     attributes : ["value","value_name","correctdate2"],
       order: [ ["correctdate2","DESC"]],
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
       value_name:  {
         [Op.or] :[`Turnover`,`TurnoverRevenue`,`TurnoverRevenue:Consolidated`]
       },
@@ -1351,7 +1352,7 @@ async function businessOverviewAbout(req, res) {
     attributes : ["value","value_name","correctdate2"],
       order: [ ["correctdate2","DESC"]],
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
       value_name:  {
         [Op.or] :[`GrossProfitLoss`,`GrossProfitLoss:Consolidated`]
       },
@@ -1362,7 +1363,7 @@ async function businessOverviewAbout(req, res) {
     attributes : ["value","value_name","correctdate2"],
       order: [ ["correctdate2","DESC"]],
     where: {
-      chn: company.dataValues.chn,
+      chn: company_offical.dataValues.chn,
       value_name:  {
         [Op.or] :[`EmployeesTotal`]
       },
@@ -1371,10 +1372,10 @@ async function businessOverviewAbout(req, res) {
   })
   
   result = {
-    company_name : company.dataValues.business_name?company.dataValues.business_name:"",
-    website:company.dataValues.website_url_1?company.dataValues.website_url_1:"",
-    postcode:company.dataValues.postcode_trim?company.dataValues.postcode_trim:"",
-    no_of_employee:"",  
+    company_name : company?company.dataValues.business_name:company_offical.dataValues.company_name,
+    website:company?company.dataValues.website_url_1:"",
+    postcode:company?company.dataValues.postcode_trim:"",
+    no_of_employee:company?company.dataValues.size_estimate:0,  
     facebook_link:"",
     linkedIn_link:"",
     twitter_link:"",
@@ -1387,7 +1388,7 @@ async function businessOverviewAbout(req, res) {
       ebidta:[]
     },
     turnover:{
-      turnover_estimate:company.dataValues.turnover_estimate?company.dataValues.turnover_estimate:""
+      turnover_estimate:company?company.dataValues.turnover_estimate:""
     },
     total_assest:{},
     total_libilities:{},
@@ -1401,7 +1402,7 @@ async function businessOverviewAbout(req, res) {
       inactive:0,
       resgin:no_of_resigned_directors
     },
-    account_category:company.dataValues.company_account_category?company.dataValues.company_account_category:"",
+    account_category:company?company.dataValues.company_account_category:"",
     account:"",
     confirmation_statement:"",
     bank_name:"",
@@ -1413,6 +1414,12 @@ async function businessOverviewAbout(req, res) {
     status: true,
     result: result
   });
+
+}else{
+  res.send({
+    status:false,
+    message:`Company with ${uuid} doesnot exist`  })
+}
 }
 
 
