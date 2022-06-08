@@ -1,11 +1,12 @@
-import { SET_PEOPLE, SET_DIRECTORS, SET_TRADING_ADDRESS , SET_TRADE, SET_INSIGHTS } from "../actions/companyActions";
+import { SET_PEOPLE, SET_DIRECTORS, SET_TRADING_ADDRESS , SET_TRADE, SET_INSIGHTS,SET_ABOUT } from "../actions/companyActions";
 
 const initialState = {
   People: {},
   Directors: {},
   Insights:{},
   TradingAddress:[],
-  Trade:{}
+  Trade:{},
+  About: {},
 };
 
 const companyReduser = (state = initialState, action) => {
@@ -39,6 +40,12 @@ const companyReduser = (state = initialState, action) => {
         return {
           ...state,
           Insights: action.payload,
+        };
+      }
+      case SET_ABOUT: {
+        return {
+          ...state,
+          About: action.payload,
         };
       }
     default: {

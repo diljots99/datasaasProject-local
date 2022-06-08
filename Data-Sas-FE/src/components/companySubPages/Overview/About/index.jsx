@@ -34,6 +34,7 @@ import { lightBlue } from "@material-ui/core/colors";
 
 import { useSelector, useDispatch } from "react-redux";
 import { keynotedetails } from "../../../../redux/actions/watchAction";
+import  { getAbout } from '../../../../redux/actions/companyActions'
 const pdata = [
   {
     date: "2014",
@@ -118,13 +119,14 @@ const pdata = [
 ];
 
 export default function Index() {
-  const { directorList, companyDetail, getkeynotedetails } = useSelector(
+  const { directorList, companyDetail} = useSelector(
     (state) => state.watch
   );
+  const { About } = useSelector((state) => state.company);
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [activeUsers, setActiveUsers] = useState([]);
-  console.log("++++++++++", getkeynotedetails);
+  console.log("++++++++++", About);
 
 let  series = [
   {
@@ -193,14 +195,18 @@ let  series = [
     }
   }
 
-  useEffect(() => {
-    dispatch(keynotedetails(companyDetail.id));
+  useEffect(()=>{
+    dispatch(getAbout(companyDetail.uuid))
+  },[companyDetail])
 
-    const temp = directorList.filter((data) => {
-      return data.company_id === companyDetail.id;
-    });
-    setData(temp);
-  }, [directorList]);
+
+  useEffect(()=>{
+      if(About?.director?.docs  ){
+        setData(About?.director?.docs)
+      }
+  },[About])
+
+
 
   // Counters
   let counterTotal = data.length;
@@ -326,9 +332,7 @@ let  series = [
                   variant="h5"
                   style={{ marginLeft: "50px" }}
                 >
-                  {getkeynotedetails && getkeynotedetails.length
-                    ? getkeynotedetails[0].company_name
-                    : "N/A"}
+                  {About?.company_name ?About?.company_name : "N/A" }
                 </Typography>
               </Grid>
               <br />
@@ -363,7 +367,7 @@ let  series = [
                   style={{ marginLeft: "55px" }}
                 >
                   <a href="" style={{ textDecoration: "none" }}>
-                    {"N/A"}
+                  {About?.website ?About?.website : "N/A" }
                   </a>
                 </Typography>
               </Grid>
@@ -398,9 +402,7 @@ let  series = [
                   variant="h5"
                   style={{ marginLeft: "54px" }}
                 >
-                  {getkeynotedetails && getkeynotedetails.length
-                    ? getkeynotedetails[0].hmrc_postcode
-                    : "N/A"}{" "}
+                 {About?.postcode ?About?.postcode : "N/A" }
                 </Typography>
               </Grid>
               <br />
@@ -434,9 +436,7 @@ let  series = [
                   variant="h5"
                   style={{ marginLeft: "55px" }}
                 >
-                  {getkeynotedetails && getkeynotedetails.length
-                    ? getkeynotedetails.length
-                    : "N/A"}
+                {About?.no_of_employee ?About?.no_of_employee: "N/A" }
                 </Typography>
               </Grid>
               <br />
@@ -800,7 +800,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>N/A</b>
+                  <b> {About?.account_category ?About?.account_categoryt: "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -835,7 +835,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                 <b>N/A</b>
+                 <b> {About?.account ?About?.account: "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -870,7 +870,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>N/A</b>
+                  <b>{About?.confirmation_statement ?About?.confirmation_statement: "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -902,7 +902,7 @@ let  series = [
                   variant="h5"
                   style={{ marginLeft: "50px" }}
                 >
-                  <b>N/A</b>
+                  <b>{About?.bank_name ?About?.bank_name : "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -937,7 +937,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>N/A</b>
+                  <b>{About?.bank_sard_code ?About?.bank_sard_code : "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -972,7 +972,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>N/A</b>
+                  <b>{About?.auditor_and_accountant ?About?.auditor_and_accountant: "N/A" }</b>
                 </Typography>
               </Grid>
             </Box>

@@ -9,6 +9,8 @@ export const SET_DIRECTORS = 'SET_DIRECTORS'
 export const SET_TRADING_ADDRESS = 'SET_TRADING_ADDRESS'
 export const SET_TRADE = "SET_TRADE"
 export const SET_INSIGHTS = "SET_INSIGHTS"
+export const SET_ABOUT = "SET_ABOUT"
+
 
 export const getProple=(uuid)=>{
     return (dispatch)=>{
@@ -57,6 +59,20 @@ export const getTrade=(uuid)=>{
     }
 }
 
+export const getAbout=(uuid)=>{
+    return (dispatch)=>{
+        axios.get(`${BASE_URL}/api/business/${uuid}/overview/about`, header() )
+        .then(res =>{
+            // console.log("get about", res , res.data.result)
+           
+            if(res.data.status === true)
+            dispatch({type: SET_ABOUT , payload: res.data.result})
+        }).catch(err=>console.log(err))
+    }
+}
+
+
+// for Insights 
 export const getInsights =()=>{
     return (dispatch)=>{
         axios.post(`${BASE_URL}/api/insights`, {},header() )

@@ -3,58 +3,43 @@ import Chart from "react-apexcharts";
 
 const BarChart =({barColor, data})=>{
   console.log({barColor , data})
-  const [ series , setSeries ] = useState([])
-
-  useEffect(()=>{
-    if(data && data.length > 0){
-      setSeries([
+  const [ series , setSeries ] = useState([
+    {
+      name: "Actual",
+      data:[
         {
-          name: "Actual",
-          data: data 
+          x: "2011",
+          y: 12,
+         
         },
-      ])
-    }else{
-      setSeries([
         {
-          name: "Actual",
-          data:[
-            {
-              x: "2011",
-              y: 12,
-             
-            },
-            {
-              x: "2012",
-              y: 44,
-              
-            },
-            {
-              x: "2013",
-              y: 54,
-             
-            },
-            {
-              x: "2014",
-              y: 66,
-              
-            },
-            {
-              x: "2015",
-              y: 81,
-            },
-            {
-              x: "2016",
-              y: 67,
-            },
-          ],
+          x: "2012",
+          y: 44,
+          
         },
-      ])
-    }
-  },[data])
+        {
+          x: "2013",
+          y: 54,
+         
+        },
+        {
+          x: "2014",
+          y: 66,
+          
+        },
+        {
+          x: "2015",
+          y: 81,
+        },
+        {
+          x: "2016",
+          y: 67,
+        },
+      ],
+    },
+  ])
 
-  // let  series = 
-
-  let options= {
+  const [options, setOptions  ] = useState({
     chart: {
       height: 350,
       type: "bar",
@@ -85,7 +70,20 @@ const BarChart =({barColor, data})=>{
     //     fillColors: ["#00E396", "#775DD0"],
     //   },
     // },
-  }
+  })
+
+  useEffect(()=>{
+    if(data !== undefined && data.length > 0){
+      setSeries([
+        {
+          ...series,
+          data: data 
+        },
+      ])
+    }
+    
+  },[data])
+
 
   return (
     <div id="chart">
