@@ -1368,3 +1368,9 @@
 {"level":"error","message":"Error Occur in User Login : Login credentials are invalid ","service":"dataSaas-service","timestamp":"2022-05-24 20:37:55"}
 {"level":"error","message":"Error Occur in User Login : The password is incorrect ","service":"dataSaas-service","timestamp":"2022-05-24 20:38:03"}
 {"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-05-24 20:38:12"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-06-01 20:20:01"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-06-01 20:20:35"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-06-01 20:27:17"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-06-06 20:09:24"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-06-08 15:30:09"}
+{"level":"info","message":"Login has been successfully","service":"dataSaas-service","timestamp":"2022-06-09 15:42:28"}
