@@ -32,7 +32,7 @@ async function getCompany(data) {
 async function getNumberOfDirectorsCompanies(data) {
   return model.officer.count(data);
 }
-async function getNumberOfEmployeesCompanies(data) {}
+async function getNumberOfEmployeesCompanies(data) { }
 async function getOfficersForCompany(data) {
   return await model.officer.paginate(data);
 }
@@ -61,6 +61,14 @@ async function getFinacialsForCompany(data) {
   return await model.dbf_financials_main.findAll(data);
 }
 
+
+async function getCompanyLocation(data) {
+  return await model.company_location_gen.findAll({
+    ...data
+  })
+}
+
+
 module.exports = {
   getFinacialsForCompany,
   getCompanyOfficalByUuid,
@@ -74,5 +82,6 @@ module.exports = {
   getHmrcExport,
   getHmrcImport,
   getHmrcImportCodeDescription,
-  getHmrcExportCodeDescription
+  getHmrcExportCodeDescription,
+  getCompanyLocation
 };

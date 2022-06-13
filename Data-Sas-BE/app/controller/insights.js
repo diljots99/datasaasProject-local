@@ -13,52 +13,33 @@ const { Op, Sequelize } = require("sequelize");
 
 
 async function getInsights(req, res) {
-    const companiesByStatus = await dao.getCompanies({
-        attributes: ["status", [Sequelize.fn('COUNT', 'status'), 'statusCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "status"
-    })
+    const companiesByStatus = await dao.getCompaniesByStatus();
 
 
-    const companiesByAccountCategory = await dao.getCompanies({
-        attributes: ["company_account_category", [Sequelize.fn('COUNT', 'company_account_category'), 'accountCategoryCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "company_account_category"
-    })
-    const companiesByType = await dao.getCompanies({
-        attributes: ["type", [Sequelize.fn('COUNT', 'type'), 'typeCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "type"
-    })
+    const companiesByAccountCategory = await dao.getCompaniesByAccountCategory();
 
-    const companiesByExporter = await dao.getCompanies({
-        attributes: ["exporter", [Sequelize.fn('COUNT', 'exporter'), 'exporterCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "exporter"
-    })
-    const companiesByImporter = await dao.getCompanies({
-        attributes: ["importer", [Sequelize.fn('COUNT', 'importer'), 'importerCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "importer"
-    })
+    const companiesByType = await dao.getCompaniesByType()
+
+    const companiesByExporter = await dao.getCompaniesByExporter()
+    
+    const companiesByImporter = await dao.getCompaniesByImporter()
+
+    const companiesBySector = await dao.getCompaniesBySector()
+
+    const companiesBySICSection = await dao.getCompaniesBySICSection()
+
+    const companiesBySICDivision = await dao.getCompaniesBySICDivision()
 
 
-    const companiesBySector = await dao.getCompanies({
-        attributes: ["main_sector", [Sequelize.fn('COUNT', 'main_sector'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "main_sector"
-    })
-
-    const companiesBySICSection = await dao.getCompanies({
-        attributes: ["sic_section", [Sequelize.fn('COUNT', 'sic_section'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "sic_section"
-    })
-    const companiesBySICDivision = await dao.getCompanies({
-        attributes: ["sic_division", [Sequelize.fn('COUNT', 'sic_division'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "sic_division"
-    })
-    const companiesBySICCode = await dao.getCompanies({
-        attributes: ["sic_division", [Sequelize.fn('COUNT', 'sic_division'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "sic_division"
-    })
+    const companiesBySICCode = await dao.getCmpaniesBySICCode();
 
     const companiesByAgeOfBusiness = await dao.getCompaniesByAgeOfBusiness()
     const companiesByEmployeeSize = await dao.getCompaniesByEmployeeSize()
     const companiesByTurnover = await dao.getCompaniesByTurnover();
+
+    const companiesByEquity = await dao.getCompaniesByEquity()
+    const companiesByGrossProfit = await dao.getCompaniesByGrossProfit()
+    const companiesByProfitAndLoss = await dao.getCompaniesByProfitAndLoss()
 
 
     res.send({ 

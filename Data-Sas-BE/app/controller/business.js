@@ -1287,13 +1287,36 @@ async function businessOverviewAbout(req, res) {
       uuid: uuid,
     },
   });
-
+  
 if(company_offical)  {
   let company = await dao.getCompany({
     where: {
       chn: company_offical.dataValues.chn,
     },
   });
+  let exporter = "Not Confirmed"
+  let importer = "Not Confirmed"
+  let age_of_business = 0;
+  if(company){
+    if(company.dataValues.exporter == 'Dissolved'){
+      exporter = "No"
+    }
+
+    if(company.dataValues.exporter == 'Exporter'){
+      exporter = "Yes"
+    }
+    if(company.dataValues.importer == 'Dissolved'){
+      importer = "No"
+    }
+
+    if(company.dataValues.importer == 'Importer'){
+      importer = "Yes"
+    }
+    age_of_business = company.dataValues.age_of_business;
+
+
+  }
+
 
   let no_of_directors = await dao.getNumberOfDirectorsCompanies({
     where: {
@@ -1335,30 +1358,89 @@ if(company_offical)  {
   });
 
 
-  let turnover_raw = await dao.getFinacialsForCompany({
+  
+  let equity_raw = await dao.getFinacialsForCompany({
     attributes : ["value","value_name","correctdate2"],
       order: [ ["correctdate2","DESC"]],
     where: {
       chn: company_offical.dataValues.chn,
       value_name:  {
-        [Op.or] :[`Turnover`,`TurnoverRevenue`,`TurnoverRevenue:Consolidated`]
+        [Op.or] :[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`,`Equity:Consolidated`]
       },
       
     },
-  })
+  })  
 
-
-  let gross_profit = await dao.getFinacialsForCompany({
+  let operating_profit = await dao.getFinacialsForCompany({
     attributes : ["value","value_name","correctdate2"],
       order: [ ["correctdate2","DESC"]],
     where: {
       chn: company_offical.dataValues.chn,
       value_name:  {
-        [Op.or] :[`GrossProfitLoss`,`GrossProfitLoss:Consolidated`]
+        [Op.or] :[`OperatingProfitLoss`,`OperatingProfitLoss:Consolidated`]
       },
       
     },
-  })
+  }) 
+
+  let profit_and_loss_raw = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`ProfitLoss`,`ProfitLoss:Consolidated`]
+      },
+      
+    },
+  }) 
+
+  let cash_at_bank_raw = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`CashBank`,`CashBankInHand`,`CashBankOnHand`,`CashBankOnHand:Consolidated`]
+      },      
+    },
+  }) 
+
+
+  let AssetslessCurrentLiabilities_raw = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`TotalAssetsLessCurrentLiabilities:Consolidated`,`TotalAssetsLessCurrentLiabilities`]
+      },      
+    },
+  }) 
+
+  let trade_creditor = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`TradeCreditorsTradePayables  `,`TradeCreditorsTradePayables:Consolidated`]
+      },      
+    },
+  }) 
+
+  let trade_debitor = await dao.getFinacialsForCompany({
+    attributes : ["value","value_name","correctdate2"],
+      order: [ ["correctdate2","DESC"]],
+    where: {
+      chn: company_offical.dataValues.chn,
+      value_name:  {
+        [Op.or] :[`TradeDebtors`,`TradeDebtorsTradeReceivables`,`TradeDebtorsTradeReceivables:Consolidated`]
+      },      
+    },
+  }) 
+
+
   let EmployeesTotal = await dao.getFinacialsForCompany({
     attributes : ["value","value_name","correctdate2"],
       order: [ ["correctdate2","DESC"]],
@@ -1370,31 +1452,37 @@ if(company_offical)  {
       
     },
   })
-  
-  result = {
+
+  let locations = await dao.getCompanyLocation({
+    where: {  
+      chn: company_offical.dataValues.chn,
+      address_type: "Registered Address"
+    }
+  })
+
+
+
+  result = {  
     company_name : company?company.dataValues.business_name:company_offical.dataValues.company_name,
-    website:company?company.dataValues.website_url_1:"",
+    website:company?company.dataValues.website_url_1:"",  
     postcode:company?company.dataValues.postcode_trim:"",
     no_of_employee:company?company.dataValues.size_estimate:0,  
-    facebook_link:"",
-    linkedIn_link:"",
+    facebook_link:"", 
+    linkedIn_link:"", 
     twitter_link:"",
     graph:{
-      turnover:turnover_raw,
-      total_assest:[],
-      total_libilities:[],
-      net_worth:[],
-      profit_before_tax:gross_profit,
-      ebidta:[]
+      equity:equity_raw,
+      operating_profit:operating_profit,
+      profit_and_loss:profit_and_loss_raw,
+      cash_at_bank:cash_at_bank_raw,
+      assetless_current_liabilities:AssetslessCurrentLiabilities_raw
     },
-    turnover:{
-      turnover_estimate:company?company.dataValues.turnover_estimate:""
+    summary_trade_information:{  
+      importer:importer,
+      exporter:exporter,
+      time_in_business:age_of_business,
+      activity:company?company.dataValues.sic_class:""
     },
-    total_assest:{},
-    total_libilities:{},
-    net_worth:{},
-    profit_before_tax:{},
-    ebidta:{},
     director:{
       total:no_of_directors,
       activate:no_of_active_directors,
@@ -1403,19 +1491,19 @@ if(company_offical)  {
       resgin:no_of_resigned_directors
     },
     account_category:company?company.dataValues.company_account_category:"",
-    account:"",
-    confirmation_statement:"",
-    bank_name:"",
-    bank_sard_code:"",
-    auditor_and_accountant:"",
-    director:officers
+    last_accounts_filed:company?company.dataValues.last_accounts_date:"",
+    turnover_estimate:company?company.dataValues.turnover_estimate:"",
+    trade_creditor:trade_creditor,
+    trade_debitor:trade_debitor,
+    director:officers,    
+    locations:locations   
   }
   return res.send({
     status: true,
-    result: result
-  });
+    result: result  
+  });   
 
-}else{
+}else{  
   res.send({
     status:false,
     message:`Company with ${uuid} doesnot exist`  })

@@ -9,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+        company_location_gen  .belongsTo(models.compines_offical,{
+        foreignKey: "chn",
+      });
 
-
-    }
+    } 
   }
   company_location_gen.init(
     {
