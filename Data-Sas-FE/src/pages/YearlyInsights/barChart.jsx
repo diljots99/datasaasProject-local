@@ -1,7 +1,7 @@
 import React ,{ useState , useEffect } from "react";
 import Chart from "react-apexcharts";
 
-const BarChart =({barColor, data})=>{
+const BarChart =({barColor, data , horizontal})=>{
   console.log({barColor , data})
   const [ series , setSeries ] = useState([
     {
@@ -46,7 +46,7 @@ const BarChart =({barColor, data})=>{
     },
     plotOptions: {
       bar: {
-        horizontal: true,
+        horizontal: horizontal ? false : true,
       },
     },
     colors: [barColor ? barColor : "#00E396"],

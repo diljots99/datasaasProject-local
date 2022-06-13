@@ -14,6 +14,8 @@ export default function Activites() {
     const [byImport, setByImport] = useState([]);
     const [bySISSection, setBySISSection] = useState([]);
     const [bySector, setBySector] = useState([]);
+    const [bySICDivision, setBySICDivision] = useState([]);
+    const [byBySICCode, setBySICCode] = useState([]);
 
     useEffect(() => {
       if (Insights.companiesByExporter) {
@@ -27,6 +29,12 @@ export default function Activites() {
       }
       if (Insights.companiesBySector) {
         handleBySector(Insights.companiesBySector);
+      }
+      if (Insights.companiesBySICDivision) {
+        handleBySICDivision(Insights.companiesBySICDivision);
+      }
+      if (Insights.companiesBySICCode) {
+        handleBySICCode(Insights.companiesBySICCode);
       }
     },[Insights])
 
@@ -63,7 +71,8 @@ export default function Activites() {
     const  handleBySISSection = (value) =>{
       let data = [];
 
-      value.forEach((val) => {     
+      value.forEach((val) => {
+        if(val.sic_section !== null)      
         data.push({
           x: val.sic_section === null ? "null" : val.sic_section ,
           y: val.sectorCount,  
@@ -76,7 +85,8 @@ export default function Activites() {
     const  handleBySector = (value) =>{
       let data = [];
 
-      value.forEach((val) => {     
+      value.forEach((val) => { 
+        if(val.main_sector !== null)     
         data.push({
           x: val.main_sector === null ? "null" : val.main_sector ,
           y: val.sectorCount,  
@@ -84,6 +94,35 @@ export default function Activites() {
       });
       console.log("BySISSection", data);
       setBySector(data);
+    }
+
+    const handleBySICDivision  = (value) =>{
+      let data = [];
+
+      value.forEach((val) => { 
+        if(val.sic_division !== null)    
+        data.push({
+          x: val.sic_division === null ? "null" : val.sic_division ,
+          y: val.sectorCount ,  
+        });
+      });
+      console.log("BySISSection", data);
+      setBySICDivision(data);
+    }
+
+    
+    const handleBySICCode  = (value) =>{
+      let data = [];
+
+      value.forEach((val) => { 
+        if(val.sic_division !== null)    
+        data.push({
+          x: val.sic_division === null ? "null" : val.sic_division ,
+          y: val.sectorCount ,  
+        });
+      });
+      console.log("BySISSection", data);
+      setBySICCode(data);
     }
 
   return (
@@ -129,14 +168,14 @@ export default function Activites() {
             </Paper>
           </Grid>
 
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <Paper className={[classess.paper, classess.bar]}>
               <Typography variant="h5" className={classess.donutHeading}>
                 No. of Companies by SIC Division
               </Typography>
-              <BarChart barColor={'#601484'} />
+              <BarChart barColor={'#601484'}  data={bySICDivision} horizontal={true}/>
             </Paper>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6}>
             <Paper className={[classess.paper, classess.bar]}>
@@ -147,15 +186,24 @@ export default function Activites() {
             </Paper>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Paper className={[classess.paper, classess.bar]}>
               <Typography variant="h5" className={classess.donutHeading}>
                 No. of Companies by SIC Code
               </Typography>
-              <BarChart barColor={'#601484'} />
+              <BarChart barColor={'#601484'}  data={byBySICCode} horizontal={true} />
             </Paper>
           </Grid>
         </Grid>
+
+        <Grid item xs={12}>
+            <Paper className={[classess.paper, classess.bar]}>
+              <Typography variant="h5" className={classess.donutHeading}>
+                No. of Companies by SIC Division
+              </Typography>
+              <BarChart barColor={'#601484'}  data={bySICDivision} horizontal={true}/>
+            </Paper>
+          </Grid>
 
         <Grid container spacing={2} justifyContent="space-around" margin="10px 0">
           <Grid item xs={4}>

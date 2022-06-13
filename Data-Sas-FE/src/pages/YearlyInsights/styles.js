@@ -6,7 +6,8 @@ export const useStyles = makeStyles((theme)=> ({
     },
     paper:{
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginTop:"10px"
     },
     donutHeading:{ 
         margin:'15px !important',
