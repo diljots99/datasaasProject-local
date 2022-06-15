@@ -39,6 +39,7 @@
     "moment": "^2.29.1",
     "mysql2": "^2.3.2",
     "nocache": "^3.0.1",
+    "node-geocoder": "^4.0.0",
     "sequelize": "^6.8.0",
     "sequelize-auto-migrations-v2": "^1.2.1",
     "sequelize-paginate": "^1.1.6",

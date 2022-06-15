@@ -7,6 +7,7 @@ const messages = require("../../utils/messages");
 const { Op, Sequelize } = require("sequelize");
 const model = require("../../models");
 const { stringToDate } = require("../comman/dates")
+const {getGeocode} = require("../services/locations");
 
 async function businessSearch(req, res) {
   let { page, items_per_page, filterData } = req.body;
@@ -1453,14 +1454,22 @@ if(company_offical)  {
     },
   })
 
-  let locations = await dao.getCompanyLocation({
+  let locations_raw = await dao.getCompanyLocation({
     where: {  
       chn: company_offical.dataValues.chn,
       address_type: "Registered Address"
     }
   })
-
-
+  let locations = []
+  for(let loc of locations_raw){
+    let current_location = loc.toJSON()
+    let geoCode = await getGeocode(current_location.address_region)
+    current_location = {
+      geocode_suggestions:geoCode, 
+      ...current_location,
+    }
+    locations.push(current_location)
+  }
 
   result = {  
     company_name : company?company.dataValues.business_name:company_offical.dataValues.company_name,

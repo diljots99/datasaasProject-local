@@ -173,40 +173,49 @@ async function getCmpaniesBySICCode() {
 
 
 async function getCompaniesByEquity(data) {
-    let maximum = await model.companies.findOne({
+    let maximum = await model.dbf_financials_main.findOne({
         attributes: [
-            [Sequelize.literal('MAX(turnover_estimate)'), "maximum"]
+            [Sequelize.literal('MAX(value)'), "maximum"]
+
         ],
+        where:{
+            value_name:{[Op.or]:[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`]
+        }},
         ...data
     })
-    let minimum = await model.companies.findOne({
+    let minimum = await model.dbf_financials_main.findOne({
         attributes: [
-            [Sequelize.literal('MIN(turnover_estimate)'), "minimum"]
+            [Sequelize.literal('MIN(value)'), "minimum"]
         ],
+        where:{
+            value_name:{[Op.or]:[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`]
+        }},
         ...data
     })
-    maximum = maximum ? maximum.dataValues.maximum : 0
-    minimum = minimum ? minimum.dataValues.minimum : 0
+    maximum = maximum ? parseInt(maximum.dataValues.maximum) : 0
+    minimum = minimum ? parseInt(minimum.dataValues.minimum) : 0
 
     let diffrence = maximum - minimum
-    let interval = diffrence / 7
+    let interval = diffrence / 7    
 
     interval = floor(interval)
 
-    return await model.companies.findAll({
+    return await model.dbf_financials_main.findAll({
         attributes: [
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate = ${minimum} and turnover_estimate <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval} and turnover_estimate <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 2} and turnover_estimate <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 3} and turnover_estimate <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 4} and turnover_estimate <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 5} and turnover_estimate <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
-
-        ]
+            [Sequelize.literal(`COUNT(CASE WHEN value = ${minimum} and value <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
+            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval} and value <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
+            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 2} and value <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
+            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 3} and value <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
+            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 4}       and        value <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
+            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 5} and value <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
+            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
+        ],
+        where:{
+            value_name:{[Op.or]:[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`]
+        }},
 
     })
-}
+}   
 async function getCompaniesByGrossProfit(data) {
     let maximum = await model.companies.findOne({
         attributes: [
@@ -278,8 +287,20 @@ async function getCompaniesByProfitAndLoss(data) {
     })
 }
 
+async function getCompaniesByRegion(data){
+    return await model.company_location_gen.findAll({
+        group:["address_region"],
+        attributes:[
+            "address_region",
+            [Sequelize.fn("COUNT",Sequelize.col("address_region")),"number_of_companies"]
+        ],
+        where:{
+            address_type : "Registered Address"
+        }
+    });
+}
 
-
+    
 module.exports = {
     getCompanies,
     getCompaniesOfficial,
@@ -297,5 +318,6 @@ module.exports = {
     getCmpaniesBySICCode,
     getCompaniesByEquity,
     getCompaniesByGrossProfit,
-    getCompaniesByProfitAndLoss
+    getCompaniesByProfitAndLoss,
+    getCompaniesByRegion
 }
