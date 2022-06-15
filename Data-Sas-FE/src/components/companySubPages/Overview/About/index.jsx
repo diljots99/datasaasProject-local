@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef} from "react";
 import "./styles.css";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import Divider from '@material-ui/core/Divider'
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 // import {
 //   ResponsiveContainer,
@@ -24,9 +25,10 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import ShareIcon from "@mui/icons-material/Share";
 import DirectorCard from "../../../common/DirectorCard";
-import MapComponent from "../../../mapComponent";
+import MapComponent from "./mapComponent";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import TranslateOutlinedIcon from "@mui/icons-material/TranslateOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
@@ -35,6 +37,8 @@ import { lightBlue } from "@material-ui/core/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { keynotedetails } from "../../../../redux/actions/watchAction";
 import  { getAbout } from '../../../../redux/actions/companyActions'
+import Table from "./Table";
+
 const pdata = [
   {
     date: "2014",
@@ -126,31 +130,71 @@ export default function Index() {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [activeUsers, setActiveUsers] = useState([]);
-  console.log("++++++++++", About);
+
+  // const [tabledata, settableData] = useState([]);
+  //   const [loading, setLoading] = useState(false);
+  //   const [pageCount, setPageCount] = useState(0);
+  //   const compSumfetchIdRef = useRef(0);
+  const [summaryTradeInformatio , setSummaryTradeInformatio] = useState([])
+
+  console.log("About", About ,summaryTradeInformatio );
+
+  useEffect(() => {
+    console.log(" table data", About.summary_trade_information )
+    if(About.summary_trade_information){
+      setSummaryTradeInformatio([About.summary_trade_information])
+
+    }else{
+      setSummaryTradeInformatio([])
+
+    }   
+  },[About])
+
+//   const columns = React.useMemo(
+//     () => [
+//         {
+//             Header: "Importer",
+//             accessor: "importer",
+//         },
+//         {
+//             Header: "Exporter",
+//             accessor: "exporter",
+//         },
+//         {
+//             Header: "Time in business",
+//             accessor: "time_in_business",
+//         },
+//         {
+//             Header: "Activity",
+//             accessor: "activity",
+//         },
+//     ],
+//     []
+// );
 
 let  series = [
   {
-    name: 'Turn Over',
+    name: 'Equity',
     data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
   },
   {
-      name: 'Total Assest',
+      name: 'Gross Profit',
       data: [0, 5, 8, 12 ,18 , 19, 22, 5, 12, 10, 15, 5, 13, 9, 17, 2, 7, 30]
     },
     {
-      name: 'Total Liabiliteas',
+      name: 'Operating Profit',
       data: [2,10, 5, 10 ,15 , 12, 20, 5, 14, 10, 15, 5, 3, 9, 17, 1, 5, 40]
     },
     {
-      name: 'Net Worth',
+      name: 'Profit and loss',
       data: [0, 7, 8, 20 ,18 , 8, 22, 15, 20, 23, 18, 15, 6, 9, 27, 22, 27, 5]
     },
     {
-      name: 'Profit Before Tax',
+      name: 'Cash at Bank',
       data: [7, 15, 18, 22 ,18 , 19, 24, 25, 28, 29, 30, 28, 23, 25, 17, 2, 7, 12]
     },
     {
-      name: 'EBIDTA',
+      name: 'Assets less CurrLiabilities',
       data: [-5, 5, 8, 12 ,18 , 19, 22, 24, 26, 28, 30, 32, 33, 37, 25, 40, 38, 30]
     }
 
@@ -189,7 +233,7 @@ let  series = [
       },
     },
     yaxis: {
-      min: -10,
+      min: 0,
       max: 40
 
     }
@@ -293,6 +337,26 @@ let  series = [
       </Paper>
     );
   };
+
+//   const fetchData = React.useCallback(
+//     ({ pageSize, pageIndex }) => {
+//         const fetchId = ++compSumfetchIdRef.current;
+//         setLoading(true);
+// if(summaryTradeInformatio !== undefined  || summaryTradeInformatio.length > 0 ){
+// setTimeout(() => {
+//     if (fetchId === compSumfetchIdRef.current) {
+//         const startRow = pageSize * pageIndex;
+//         const endRow = startRow + pageSize;
+//         settableData(summaryTradeInformatio?.slice(startRow, endRow));
+//         setPageCount(Math.ceil(summaryTradeInformatio?.length / pageSize));
+//         setLoading(false);
+//     }
+// }, 1000);
+// }
+      
+//     },
+//     [summaryTradeInformatio]
+// );
 
   return (
     <Container>
@@ -540,7 +604,7 @@ let  series = [
         <Grid item lg={4}>
           <CardTwo
             color="mediumpurple"
-            title="Turnover"
+            title="Equity"
             value1="$3884949"
             value2="$3384949"
           />
@@ -548,7 +612,7 @@ let  series = [
         <Grid item lg={4}>
           <CardTwo
             color="yellow"
-            title="Total Assets"
+            title="Gross Profit"
             value1="$3884949"
             value2="$3384949"
           />
@@ -556,7 +620,7 @@ let  series = [
         <Grid item lg={4}>
           <CardTwo
             color="#67cdcd"
-            title="Total Liabilities"
+            title="Operating Profit"
             value1="$3884949"
             value2="$3384949"
           />
@@ -568,7 +632,7 @@ let  series = [
         <Grid item lg={4}>
           <CardTwo
             color="coral"
-            title="Net Worth"
+            title="Profit and loss"
             value1="$3884949"
             value2="$3384949"
           />
@@ -576,7 +640,7 @@ let  series = [
         <Grid item lg={4}>
           <CardTwo
             color="#eb3992"
-            title="Profit Before Tax"
+            title="Cash at Bank"
             value1="$3884949"
             value2="$3384949"
           />
@@ -584,16 +648,29 @@ let  series = [
         <Grid item lg={4}>
           <CardTwo
             color="#31c731"
-            title="EBITDA"
+            title="Assets less CurrLiabilities"
             value1="$3884949"
             value2="$3384949"
           />
         </Grid>
       </Grid>
 
+
+      {/* <Grid container spacing={1}>
+      <Typography variant="h4">Summary Trade Information</Typography>
+
+      <Table
+                        columns={columns}
+                        data={tabledata === undefined ? [] :tabledata}
+                        fetchData={fetchData}
+                        loading={loading}
+                        pageCount={pageCount}
+                    />
+      </Grid> */}
+
       {/* third 2 div */}
-      <Grid container spacing={2}>
-        {/* <Grid item lg={6}>
+      <Grid container spacing={1}>
+        <Grid item lg={6}>
           <Paper style={{ borderRadius: "10px" }}>
             <Grid>
               <Typography
@@ -606,45 +683,115 @@ let  series = [
                   borderRadius: "10px",
                 }}
               >
-                Cemmentry
+                Summary Trade Information
               </Typography>
             </Grid>
             <Box p={3}>
-              <Grid>
-                <ArrowForwardIcon
+              <Grid  style={{display: "flex", alignItems: "center", justifyContent: "space-around" , margin:'5px 0 '}} >
+              <ArrowDownwardIcon
                   style={{
-                    marginTop: "35px",
-                    marginLeft: "-10px",
                     color: "white",
-                    backgroundColor: " #f0f03a",
+                    backgroundColor: "green",
                     borderRadius: "50%",
                     fontSize: "2.5rem",
                   }}
                 />
                 <Typography
                   style={{
-                    color: "yellow",
-                    marginTop: "-63px",
-                    marginLeft: "30px",
+                    color: "green",
                     fontSize: "large",
-                    padding: "20px",
                   }}
                 >
-                  contrary popular belief lorea ipsom is simply contrary
-                  <br />
-                  popular belief, Loream ipsum is simple
+                 Importer :
                 </Typography>
                 <Typography
                   style={{
                     color: "gray",
-                    marginLeft: "49px",
                   }}
                 >
-                  Loged on 21/05/2021
+                   {About?.summary_trade_information?.importer?? "N/a"}
                 </Typography>
-                <Typography className="line"></Typography>
+                <Divider />
               </Grid>
-              <Grid>
+              <Grid  style={{display: "flex", alignItems: "center", justifyContent: "space-around" ,margin:'5px 0 '}} >
+              <ArrowUpwardIcon
+                  style={{
+                    color: "white",
+                    backgroundColor: "green",
+                    borderRadius: "50%",
+                    fontSize: "2.5rem",
+                  }}
+                />
+                <Typography
+                  style={{
+                    color: "green",
+                    fontSize: "large",
+                  }}
+                >
+                 Expoter :
+                </Typography>
+                <Typography
+                  style={{
+                    color: "gray",
+                  }}
+                >
+                   {About?.summary_trade_information?.exporter?? "N/a"}
+                </Typography>
+                <Divider />
+              </Grid>
+              <Grid  style={{display: "flex", alignItems: "center", justifyContent: "space-around",  margin:'5px 0 '}} >
+              <ArrowUpwardIcon
+                  style={{
+                    color: "white",
+                    backgroundColor: "green",
+                    borderRadius: "50%",
+                    fontSize: "2.5rem",
+                  }}
+                />
+                <Typography
+                  style={{
+                    color: "green",
+                    fontSize: "large",
+                  }}
+                >
+                 Time In Business :
+                </Typography>
+                <Typography
+                  style={{
+                    color: "gray",
+                  }}
+                >
+                   {About?.summary_trade_information?.time_in_business}
+                </Typography>
+                <Divider />
+              </Grid>
+              <Grid  style={{display: "flex", alignItems: "center", justifyContent: "space-around",  margin:'5px 0 '}} >
+              <ArrowUpwardIcon
+                  style={{
+                    color: "white",
+                    backgroundColor: "green",
+                    borderRadius: "50%",
+                    fontSize: "2.5rem",
+                  }}
+                />
+                <Typography
+                  style={{
+                    color: "green",
+                    fontSize: "large",
+                  }}
+                >
+                 Activity :
+                </Typography>
+                <Typography
+                  style={{
+                    color: "gray",
+                  }}
+                >
+                   {About?.summary_trade_information?.activity?? "N/a"}
+                </Typography>
+                <Divider />
+              </Grid>
+              {/* <Grid>
                 <ArrowUpwardIcon
                   style={{
                     marginTop: "35px",
@@ -710,14 +857,14 @@ let  series = [
                 >
                   Loged on 21/05/2021
                 </Typography>
-              </Grid>
+              </Grid> */}
             </Box>
           </Paper>
-        </Grid> */}
+        </Grid>
 
         {/* for map   */}
         <Grid item lg={6} className="mainCompany">
-          <MapComponent />
+          <MapComponent  location={About?.locations?.length> 0 ? About?.locations[0] : null}/>
         </Grid>
       </Grid>
       {/* five div */}
@@ -810,7 +957,7 @@ let  series = [
                   variant="h5"
                   style={{ color: "#8a8fa7", float: "left" }}
                 >
-                  Account
+                 Last Accounts Filed
                 </Typography>
               </Grid>
               <Grid>
@@ -835,7 +982,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                 <b> {About?.account ?About?.account: "N/A" }</b>
+                 <b> {About?.last_accounts_filed ?About?.last_accounts_filed: "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -845,7 +992,7 @@ let  series = [
                   variant="h5"
                   style={{ color: "#8a8fa7", float: "left" }}
                 >
-                  conformation statement
+                 Number of Employees
                 </Typography>
               </Grid>
               <Grid>
@@ -870,7 +1017,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>{About?.confirmation_statement ?About?.confirmation_statement: "N/A" }</b>
+                  <b>{About?.no_of_employee ?About?.no_of_employee: "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -880,7 +1027,7 @@ let  series = [
                   variant="h5"
                   style={{ color: "#8a8fa7", float: "left" }}
                 >
-                  Bank Name
+                 Turnover est.
                 </Typography>
               </Grid>
               <Grid>
@@ -902,7 +1049,7 @@ let  series = [
                   variant="h5"
                   style={{ marginLeft: "50px" }}
                 >
-                  <b>{About?.bank_name ?About?.bank_name : "N/A" }</b>
+                  <b>{About?.turnover_estimate?About?.turnover_estimate : "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -912,7 +1059,7 @@ let  series = [
                   variant="h5"
                   style={{ color: "#8a8fa7", float: "left" }}
                 >
-                  Bank source Code
+                  Trade Creditors
                 </Typography>
               </Grid>
               <Grid>
@@ -937,7 +1084,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>{About?.bank_sard_code ?About?.bank_sard_code : "N/A" }</b>
+                  <b>{About?.trade_creditor ?About?.trade_creditor.map(value => (<p>{value}</p>)): "N/A" }</b>
                 </Typography>
               </Grid>
               <br />
@@ -947,7 +1094,7 @@ let  series = [
                   variant="h5"
                   style={{ color: "#8a8fa7", float: "left" }}
                 >
-                  Audit & Accountant Detail
+                  Trade Debtors
                 </Typography>
               </Grid>
               <Grid>
@@ -972,7 +1119,7 @@ let  series = [
                     fontFamily: "serif",
                   }}
                 >
-                  <b>{About?.auditor_and_accountant ?About?.auditor_and_accountant: "N/A" }</b>
+                  <b>{About?.trade_debitor ?About?.trade_debitor.map(value => (<p>{value}</p>)): "N/A" }</b>
                 </Typography>
               </Grid>
             </Box>

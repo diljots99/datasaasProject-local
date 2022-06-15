@@ -41,7 +41,7 @@ export default function Activites() {
     const handleByExporter =(value)=>{
       let data = [];
       let total = value.reduce((total, val) => total + val.exporterCount, 0);
-      console.log("total,", total);
+      // console.log("total,", total);
       value.forEach((val) => {
         let per = (val.exporterCount / total) * 100;
         data.push({
@@ -56,7 +56,7 @@ export default function Activites() {
     const handleByImporters =(value)=>{
       let data = [];
       let total = value.reduce((total, val) => total + val.importerCount, 0);
-      console.log("total,", total);
+      // console.log("total,", total);
       value.forEach((val) => {
         let per = (val.importerCount / total) * 100;
         data.push({
@@ -64,7 +64,7 @@ export default function Activites() {
           y: per,
         });
       });
-      console.log("Importers", data);
+      // console.log("Importers", data);
       setByImport(data);
     }
 
@@ -78,7 +78,7 @@ export default function Activites() {
           y: val.sectorCount,  
         });
       });
-      console.log("BySISSection", data);
+      // console.log("BySISSection", data);
       setBySISSection(data);
     }
 
@@ -92,7 +92,7 @@ export default function Activites() {
           y: val.sectorCount,  
         });
       });
-      console.log("BySISSection", data);
+      // console.log("BySISSection", data);
       setBySector(data);
     }
 
@@ -106,7 +106,7 @@ export default function Activites() {
           y: val.sectorCount ,  
         });
       });
-      console.log("BySISSection", data);
+      // console.log("BySISSection", data);
       setBySICDivision(data);
     }
 
@@ -121,7 +121,7 @@ export default function Activites() {
           y: val.sectorCount ,  
         });
       });
-      console.log("BySISSection", data);
+      // console.log("BySISSection", data);
       setBySICCode(data);
     }
 
