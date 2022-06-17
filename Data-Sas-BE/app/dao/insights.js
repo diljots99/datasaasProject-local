@@ -6,40 +6,94 @@ async function getCompanies(data) {
     return await model.companies.findAll(data)
 }
 
-async function getCompaniesOfficial(data) {
-    return await model.compines_offical.findAll(data)
+async function getCompaniesOfficial(data) {         
+    return await model.compines_offical.findAll(data)   
 
 }
 
 async function getCompaniesByEmployeeSize(data) {
-    let max_size_estimate = await model.companies.findOne({
-        attributes: [
+    // let max_size_estimate = await model.companies.findOne({
+    //     attributes: [
 
-            [Sequelize.literal('MAX(size_estimate)'), "max_size_estimate"]
-        ],
-        ...data
-    })
-    max_size_estimate = max_size_estimate ? max_size_estimate.dataValues.max_size_estimate : 0
+    //         [Sequelize.literal('MAX(size_estimate)'), "max_size_estimate"]
+    //     ],
+    //     ...data
+    // })
+    // max_size_estimate = max_size_estimate ? max_size_estimate.dataValues.max_size_estimate : 0
 
-    let interval = max_size_estimate / 6
+    // let interval = max_size_estimate / 6
 
-    interval = floor(interval)
+    // interval = floor(interval)
+
+    // return await model.companies.findAll({
+    //     attributes: [
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate = 0 THEN 1 END)`), "0"],
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate > 0 and size_estimate <=${interval} THEN 1 END)`), `0 - ${interval}`],
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval} and size_estimate <=${interval * 2} THEN 1 END)`), `${interval} - ${interval * 2}`],
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 2} and size_estimate <= ${interval * 3} THEN 1 END)`), `${interval * 2} - ${interval * 3}`],
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 3} and size_estimate <= ${interval * 4} THEN 1 END)`), `${interval * 3} - ${interval * 4}`],
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 4} and size_estimate <= ${interval * 5} THEN 1 END)`), `${interval * 4} - ${interval * 5}`],
+    //         [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 5} THEN 1 END)`), `> ${interval * 5}`]
+
+    //     ]
+
+    // })
+
 
     return await model.companies.findAll({
-        attributes: [
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate = 0 THEN 1 END)`), "0"],
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate > 0 and size_estimate <=${interval} THEN 1 END)`), `0 - ${interval}`],
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval} and size_estimate <=${interval * 2} THEN 1 END)`), `${interval} - ${interval * 2}`],
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 2} and size_estimate <= ${interval * 3} THEN 1 END)`), `${interval * 2} - ${interval * 3}`],
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 3} and size_estimate <= ${interval * 4} THEN 1 END)`), `${interval * 3} - ${interval * 4}`],
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 4} and size_estimate <= ${interval * 5} THEN 1 END)`), `${interval * 4} - ${interval * 5}`],
-            [Sequelize.literal(`COUNT(CASE WHEN size_estimate > ${interval * 5} THEN 1 END)`), `> ${interval * 5}`]
-
-        ]
-
+        attributes:[
+            'size_class_estimate',
+            [Sequelize.fn('COUNT',Sequelize.col('size_class_estimate')),"number_of_companies"]
+            
+        ],
+        group:['size_class_estimate']
     })
 }
+async function getCompaniesByTurnover(data) {
+    // let maximum = await model.companies.findOne({
+    //     attributes: [
+    //         [Sequelize.literal('MAX(turnover_estimate)'), "maximum"]
+    //     ],
+    //     ...data
+    // })
+    // let minimum = await model.companies.findOne({
+    //     attributes: [
+    //         [Sequelize.literal('MIN(turnover_estimate)'), "minimum"]
+    //     ],
+    //     ...data
+    // })
+    // maximum = maximum ? maximum.dataValues.maximum : 0
+    // minimum = minimum ? minimum.dataValues.minimum : 0
 
+    // let diffrence = maximum - minimum
+    // let interval = diffrence / 7
+
+    // interval = floor(interval)
+
+    // return await model.companies.findAll({
+    //     attributes: [
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate = ${minimum} and turnover_estimate <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval} and turnover_estimate <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 2} and turnover_estimate <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 3} and turnover_estimate <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 4} and turnover_estimate <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 5} and turnover_estimate <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
+    //         [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
+
+    //     ]
+
+    // })
+
+    return await model.companies.findAll({
+        attributes:[
+            'turnover_class_estimate',
+            [Sequelize.fn('COUNT',Sequelize.col('turnover_class_estimate')),"number_of_companies"]
+            
+        ],
+        group:['turnover_class_estimate']
+    })
+    
+}
 async function getCompaniesByAgeOfBusiness(data) {
     let max_size_estimate = await model.companies.findOne({
         attributes: [
@@ -69,41 +123,7 @@ async function getCompaniesByAgeOfBusiness(data) {
     })
 }
 
-async function getCompaniesByTurnover(data) {
-    let maximum = await model.companies.findOne({
-        attributes: [
-            [Sequelize.literal('MAX(turnover_estimate)'), "maximum"]
-        ],
-        ...data
-    })
-    let minimum = await model.companies.findOne({
-        attributes: [
-            [Sequelize.literal('MIN(turnover_estimate)'), "minimum"]
-        ],
-        ...data
-    })
-    maximum = maximum ? maximum.dataValues.maximum : 0
-    minimum = minimum ? minimum.dataValues.minimum : 0
 
-    let diffrence = maximum - minimum
-    let interval = diffrence / 7
-
-    interval = floor(interval)
-
-    return await model.companies.findAll({
-        attributes: [
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate = ${minimum} and turnover_estimate <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval} and turnover_estimate <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 2} and turnover_estimate <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 3} and turnover_estimate <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 4} and turnover_estimate <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 5} and turnover_estimate <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
-
-        ]
-
-    })
-}
 
 async function getCompaniesByStatus(data) {
     return await getCompanies({
@@ -173,116 +193,96 @@ async function getCmpaniesBySICCode() {
 
 
 async function getCompaniesByEquity(data) {
-    let maximum = await model.dbf_financials_main.findOne({
+      
+    return await model.dbf_financials_main.findOne({
         attributes: [
-            [Sequelize.literal('MAX(value)'), "maximum"]
-
+            [Sequelize.literal(`COUNT( distinct (case when ( ( value < -500000)   ) then chn  end))`), `Less than -500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -500000 and value <= -100000)   ) then chn  end))`),`-500k to -100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -100000 and value <= -10000)   ) then chn  end))`),`-100k to -10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -10000 and value <= 0 )  ) then chn  end))`),`-10k to 0`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value = null)   ) then chn  end))`),`null`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 0 and value <= 10000)   ) then chn  end))`),`0 to 10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 10000 and value <= 100000)  ) then chn  end))`), `10k to 100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 100000 and value <= 500000)   ) then chn  end)) `), `100k to 500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 500000)   ) then chn  end))`), `Greator Than 500k`],
         ],
         where:{
-            value_name:{[Op.or]:[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`]
-        }},
-        ...data
-    })
-    let minimum = await model.dbf_financials_main.findOne({
-        attributes: [
-            [Sequelize.literal('MIN(value)'), "minimum"]
-        ],
-        where:{
-            value_name:{[Op.or]:[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`]
-        }},
-        ...data
-    })
-    maximum = maximum ? parseInt(maximum.dataValues.maximum) : 0
-    minimum = minimum ? parseInt(minimum.dataValues.minimum) : 0
+            value_name:{
+                [Op.or]:[`NetAssetsLiabilities`,'ShareholderFunds',`Equity`]
+            }
+        }
 
-    let diffrence = maximum - minimum
-    let interval = diffrence / 7    
-
-    interval = floor(interval)
-
-    return await model.dbf_financials_main.findAll({
-        attributes: [
-            [Sequelize.literal(`COUNT(CASE WHEN value = ${minimum} and value <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
-            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval} and value <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
-            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 2} and value <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
-            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 3} and value <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
-            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 4}       and        value <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
-            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 5} and value <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
-            [Sequelize.literal(`COUNT(CASE WHEN value > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
-        ],
-        where:{
-            value_name:{[Op.or]:[`NetAssetsLiabilities`,`ShareholderFunds`,`Equity`]
-        }},
 
     })
 }   
 async function getCompaniesByGrossProfit(data) {
-    let maximum = await model.companies.findOne({
+    
+
+    return await model.dbf_financials_main.findOne({
         attributes: [
-            [Sequelize.literal('MAX(turnover_estimate)'), "maximum"]
+            [Sequelize.literal(`COUNT( distinct (case when ( ( value < -500000)   ) then chn  end))`), `Less than -500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -500000 and value <= -100000)   ) then chn  end))`),`-500k to -100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -100000 and value <= -10000)   ) then chn  end))`),`-100k to -10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -10000 and value <= 0 )  ) then chn  end))`),`-10k to 0`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value = null)   ) then chn  end))`),`null`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 0 and value <= 10000)   ) then chn  end))`),`0 to 10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 10000 and value <= 100000)  ) then chn  end))`), `10k to 100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 100000 and value <= 500000)   ) then chn  end)) `), `100k to 500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 500000)   ) then chn  end))`), `Greator Than 500k`],
         ],
-        ...data
-    })
-    let minimum = await model.companies.findOne({
-        attributes: [
-            [Sequelize.literal('MIN(turnover_estimate)'), "minimum"]
-        ],
-        ...data
-    })
-    maximum = maximum ? maximum.dataValues.maximum : 0
-    minimum = minimum ? minimum.dataValues.minimum : 0
+        where:{
+            value_name:{
+                [Op.or]:[`GrossProfitLoss:Consolidated`,'GrossProfitLoss']
+            }
+        }
 
-    let diffrence = maximum - minimum
-    let interval = diffrence / 7
-
-    interval = floor(interval)
-
-    return await model.companies.findAll({
-        attributes: [
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate = ${minimum} and turnover_estimate <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval} and turnover_estimate <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 2} and turnover_estimate <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 3} and turnover_estimate <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 4} and turnover_estimate <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 5} and turnover_estimate <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
-
-        ]
 
     })
 }
 async function getCompaniesByProfitAndLoss(data) {
-    let maximum = await model.companies.findOne({
+  
+    return await model.dbf_financials_main.findOne({
         attributes: [
-            [Sequelize.literal('MAX(turnover_estimate)'), "maximum"]
+            [Sequelize.literal(`COUNT( distinct (case when ( ( value < -500000)   ) then chn  end))`), `Less than -500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -500000 and value <= -100000)   ) then chn  end))`),`-500k to -100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -100000 and value <= -10000)   ) then chn  end))`),`-100k to -10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -10000 and value <= 0 )  ) then chn  end))`),`-10k to 0`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value = null)   ) then chn  end))`),`null`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 0 and value <= 10000)   ) then chn  end))`),`0 to 10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 10000 and value <= 100000)  ) then chn  end))`), `10k to 100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 100000 and value <= 500000)   ) then chn  end)) `), `100k to 500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 500000)   ) then chn  end))`), `Greator Than 500k`],
         ],
-        ...data
+        where:{
+            value_name:{
+                [Op.or]:[`ProfitLoss`,'ProfitLoss:Consolidated']
+            }
+        }
+
+
     })
-    let minimum = await model.companies.findOne({
+}
+
+async function getCompaniesByTurnoverFinacial(data) {
+  
+    return await model.dbf_financials_main.findOne({
         attributes: [
-            [Sequelize.literal('MIN(turnover_estimate)'), "minimum"]
+            [Sequelize.literal(`COUNT( distinct (case when ( ( value < -500000)   ) then chn  end))`), `Less than -500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -500000 and value <= -100000)   ) then chn  end))`),`-500k to -100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -100000 and value <= -10000)   ) then chn  end))`),`-100k to -10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > -10000 and value <= 0 )  ) then chn  end))`),`-10k to 0`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value = null)   ) then chn  end))`),`null`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 0 and value <= 10000)   ) then chn  end))`),`0 to 10k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 10000 and value <= 100000)  ) then chn  end))`), `10k to 100k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 100000 and value <= 500000)   ) then chn  end)) `), `100k to 500k`],
+            [Sequelize.literal(`COUNT( distinct (case when ( (value > 500000)   ) then chn  end))`), `Greator Than 500k`],
         ],
-        ...data
-    })
-    maximum = maximum ? maximum.dataValues.maximum : 0
-    minimum = minimum ? minimum.dataValues.minimum : 0
+        where:{
+            value_name:{
+                [Op.or]:[`TotalAssetsLessCurrentLiabilities`,'TotalAssetsLessCurrentLiabilities:Consolidated']
+            }
+        }
 
-    let diffrence = maximum - minimum
-    let interval = diffrence / 7
-
-    interval = floor(interval)
-
-    return await model.companies.findAll({
-        attributes: [
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate = ${minimum} and turnover_estimate <= ${minimum + interval} THEN 1 END)`), `${minimum} - ${minimum + interval} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval} and turnover_estimate <=${minimum + interval} THEN 1 END)`), `${minimum + interval} - ${minimum + interval * 2} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 2} and turnover_estimate <=${minimum + interval * 2} THEN 1 END)`), `${minimum + interval * 2} - ${minimum + interval * 3} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 3} and turnover_estimate <= ${minimum + interval * 3} THEN 1 END)`), `${minimum + interval * 3} - ${minimum + interval * 4} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 4} and turnover_estimate <= ${minimum + interval * 4} THEN 1 END)`), `${minimum + interval * 4} - ${minimum + interval * 5} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 5} and turnover_estimate <= ${minimum + interval * 5} THEN 1 END)`), `${minimum + interval * 5} - ${minimum + interval * 6} `],
-            [Sequelize.literal(`COUNT(CASE WHEN turnover_estimate > ${minimum + interval * 6} THEN 1 END)`), `> ${minimum + interval * 6}`]
-
-        ]
 
     })
 }
@@ -319,5 +319,6 @@ module.exports = {
     getCompaniesByEquity,
     getCompaniesByGrossProfit,
     getCompaniesByProfitAndLoss,
-    getCompaniesByRegion
+    getCompaniesByRegion,
+    getCompaniesByTurnoverFinacial
 }

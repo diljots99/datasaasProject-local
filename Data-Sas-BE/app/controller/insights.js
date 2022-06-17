@@ -8,22 +8,7 @@ const {getGeocode} = require("../services/locations");
 
 async function getInsights(req, res) {
     
-    const companiesByStatus = await dao.getCompaniesByStatus();
-    const companiesByAccountCategory = await dao.getCompaniesByAccountCategory();
-    const companiesByType = await dao.getCompaniesByType()
-    const companiesByExporter = await dao.getCompaniesByExporter()
-    const companiesByImporter = await dao.getCompaniesByImporter()
-    const companiesBySector = await dao.getCompaniesBySector()
-    const companiesBySICSection = await dao.getCompaniesBySICSection()
-    const companiesBySICDivision = await dao.getCompaniesBySICDivision()
-    const companiesBySICCode = await dao.getCmpaniesBySICCode();
-    const companiesByAgeOfBusiness = await dao.getCompaniesByAgeOfBusiness()
-    const companiesByEmployeeSize = await dao.getCompaniesByEmployeeSize()
-    const companiesByTurnover = await dao.getCompaniesByTurnover();
-    
-    const companiesByEquity = await dao.getCompaniesByEquity()
-    const companiesByGrossProfit = await dao.getCompaniesByGrossProfit()
-    const companiesByProfitAndLoss = await dao.getCompaniesByProfitAndLoss()
+
     const companiesByRegion_raw= await dao.getCompaniesByRegion();
     let companiesByRegion = []
     for(let loc of companiesByRegion_raw) {
@@ -43,19 +28,23 @@ async function getInsights(req, res) {
 
     res.send({ 
         status: true, 
-        "companiesByStatus": companiesByStatus, 
-        "companiesByAccountCategory": companiesByAccountCategory, 
-        "companiesByType": companiesByType, 
-        "companiesByExporter": companiesByExporter,
-        "companiesByImporter": companiesByImporter,
-        "companiesBySector": companiesBySector,
-        "companiesBySICSection": companiesBySICSection,
-        "companiesByAgeOfBusiness":companiesByAgeOfBusiness,
-        "companiesByEmployeeSize":companiesByEmployeeSize,
-        "companiesBySICDivision":companiesBySICDivision,
-        "companiesBySICCode":companiesBySICCode,
-        "companiesByTurnover":companiesByTurnover,
-        "companiesByRegion":companiesByRegion
+        "companiesByStatus": await dao.getCompaniesByStatus(), 
+        "companiesByAccountCategory": await dao.getCompaniesByAccountCategory(), 
+        "companiesByType": await dao.getCompaniesByType(), 
+        "companiesByExporter": await dao.getCompaniesByExporter(),
+        "companiesByImporter": await dao.getCompaniesByImporter(),
+        "companiesBySector": await dao.getCompaniesBySector(),
+        "companiesBySICSection": await dao.getCompaniesBySICSection(),
+        "companiesByAgeOfBusiness":await dao.getCompaniesByAgeOfBusiness(),
+        "companiesByEmployeeSize":await dao.getCompaniesByEmployeeSize(),
+        "companiesBySICDivision": await dao.getCompaniesBySICDivision(),
+        "companiesBySICCode":await dao.getCmpaniesBySICCode(),
+        "companiesByTurnover":await dao.getCompaniesByTurnover(),
+        "companiesByRegion":companiesByRegion,
+        "companiesByGrossProfit":await dao.getCompaniesByGrossProfit(),
+        "companiesByProfitAndLoss": await dao.getCompaniesByProfitAndLoss(),
+        "companiesByEquity":await dao.getCompaniesByEquity(),
+        "companiesByTurnoverFinacial":await dao.getCompaniesByTurnoverFinacial()
     })
 }
 
