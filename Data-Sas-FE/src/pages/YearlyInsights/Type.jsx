@@ -30,10 +30,10 @@ export default function Type() {
       handleByBusinessAge(Insights.companiesByAgeOfBusiness[0])
     }
     if(Insights.companiesByEmployeeSize){
-      handleByEmployeSize(Insights.companiesByEmployeeSize[0])
+      handleByEmployeSize(Insights.companiesByEmployeeSize)
     }
     if(Insights.companiesByTurnover){
-      handleByTurnover(Insights.companiesByTurnover[0])
+      handleByTurnover(Insights.companiesByTurnover)
     }
   
   }, [Insights]);
@@ -99,12 +99,13 @@ export default function Type() {
   const  handleByEmployeSize = (value) =>{
     let data = [];
 
-    Object.keys(value).map(key=>{
+    value.forEach((val) => {
+      if(val.size_class_estimate !== null)      
       data.unshift({
-            x: key ,
-            y: value[key],  
-          });
-    })
+        x: val.size_class_estimate === null ? "null" : val.size_class_estimate,
+        y: val.number_of_companies,  
+      });
+    });
     setByEmployeeSize(data);
   }
 
@@ -112,12 +113,13 @@ export default function Type() {
   const  handleByTurnover = (value) =>{
     let data = [];
 
-    Object.keys(value).map(key=>{
+    value.forEach((val) => {
+      if(val.turnover_class_estimate !== null)      
       data.unshift({
-            x: key ,
-            y: value[key],  
-          });
-    })
+        x: val.turnover_class_estimate === null ? "null" : val.turnover_class_estimate,
+        y: val.number_of_companies,  
+      });
+    });
     setByTurnover(data);
   }
 
@@ -186,7 +188,7 @@ export default function Type() {
                 series={byTypes.series}
                 // lables={["one", "two", "three"]}
               /> */}
-              <DonutChart data={byTypes} title="DonCompanies by Type" />
+              <DonutChart data={byTypes} title="Companies by Type" />
             </Paper>
           </Grid>
         </Grid>
