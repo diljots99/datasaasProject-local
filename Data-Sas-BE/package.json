@@ -27,6 +27,7 @@
     "@adminjs/express": "^4.1.0",
     "@adminjs/sequelize": "^2.1.5",
     "adminjs": "^5.10.0",
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "d3": "^7.4.4",

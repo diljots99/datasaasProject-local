@@ -3,7 +3,7 @@ const errorlog = require("../../utils/logger").errorlog;
 const successlog = require("../../utils/logger").successlog;
 const messages = require("../../utils/messages");
 const { Op, Sequelize } = require("sequelize");
-const {getGeocode} = require("../services/locations");
+const {getGeocode,getPolygonsCoordinates} = require("../services/locations");
 
 
 async function getInsights(req, res) {
@@ -16,18 +16,26 @@ async function getInsights(req, res) {
         let current_location = loc.toJSON()
         let geoCode = []    
         if (current_location.address_region){
-            geoCode = await getGeocode(current_location.address_region)
+            // geoCode = await getGeocode(current_location.address_region)
+            geoCode = await getPolygonsCoordinates(current_location.address_region)
+
         }
 
         current_location = {
-        geocode_suggestions:geoCode, 
-        ...current_location,
-        }
+        properties: current_location,
+        ...geoCode, 
+        
+        }   
         companiesByRegion.push(current_location)
-    }
-
-    res.send({ 
+        }
+    
+        companiesByRegion = {
+            type:"FeatureCollection",
+            features :companiesByRegion
+        } 
+    res.send({  
         status: true, 
+        "companiesByRegion":companiesByRegion,
         "companiesByStatus": await dao.getCompaniesByStatus(), 
         "companiesByAccountCategory": await dao.getCompaniesByAccountCategory(), 
         "companiesByType": await dao.getCompaniesByType(), 
@@ -40,7 +48,6 @@ async function getInsights(req, res) {
         "companiesBySICDivision": await dao.getCompaniesBySICDivision(),
         "companiesBySICCode":await dao.getCmpaniesBySICCode(),
         "companiesByTurnover":await dao.getCompaniesByTurnover(),
-        "companiesByRegion":companiesByRegion,
         "companiesByGrossProfit":await dao.getCompaniesByGrossProfit(),
         "companiesByProfitAndLoss": await dao.getCompaniesByProfitAndLoss(),
         "companiesByEquity":await dao.getCompaniesByEquity(),
