@@ -2,7 +2,7 @@
   "development": {
     "username": "admin",
     "password": "Mechlin_123",
-    "database": "test",
+    "database": "ds_prod_v4",
     "host": "datasaas.czhsevbrdq35.ap-south-1.rds.amazonaws.com",
     "dialect": "mysql",
     "dialectOptions": {

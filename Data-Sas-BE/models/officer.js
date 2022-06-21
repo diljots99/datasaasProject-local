@@ -65,9 +65,9 @@ module.exports = (sequelize, DataTypes) => {
       region: DataTypes.STRING,
       locality: DataTypes.STRING,
       occupation: DataTypes.STRING,
-      resigned_on: DataTypes.STRING,
+      resigned_on: DataTypes.DATE,
       nationality: DataTypes.STRING,
-      appointed_on: DataTypes.STRING,
+      appointed_on: DataTypes.DATE,
     },
     {
       sequelize,

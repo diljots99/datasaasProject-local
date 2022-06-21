@@ -19,7 +19,7 @@ app.use(
 // simple test route
 app.get("/", (req, res) => {
   res.send("Welcome to data-saas application.");
-});
+}); 
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 
@@ -74,7 +74,7 @@ app.use("/api", require("./app/routes")).use((request, response, next) => {
 });
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8084;
 
 
 AdminJS.registerAdapter(AdminJSSequelize)

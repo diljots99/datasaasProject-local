@@ -90,13 +90,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       resigned_on: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       nationality: {
         type: Sequelize.STRING
       },
       appointed_on: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

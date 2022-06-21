@@ -230,6 +230,7 @@ async function listAllFilters(req, res) {
         ...options,
       };
     }
+    
     if (
       element.name == "NACE" 
     ) {
@@ -248,7 +249,167 @@ async function listAllFilters(req, res) {
       };
     }
     
-    working_filters =new Set( ["Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets"])
+    if (
+      element.name == "Director Role" 
+    ) {
+      const distinct = await dao.getDistinctOfficer_Role();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.officer_role) {
+          listOfSuggestion.push(category.officer_role);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    if (
+      element.name == "Director Occupation" 
+    ) {
+      const distinct = await dao.getDistinctOfficerOccupation();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.occupation) {
+          listOfSuggestion.push(category.occupation);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    if (
+      element.name == "Director Nationality" 
+    ) {
+      const distinct = await dao.getDistinctOfficerNationality();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.nationality) {
+          listOfSuggestion.push(category.nationality);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    if (
+      element.name == "Director Country of Residence" 
+    ) {
+      const distinct = await dao.getDistinctOfficerCountryOfResidence();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.country_of_residence) {
+          listOfSuggestion.push(category.country_of_residence);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "Ownership Kind" 
+    ) {
+      const distinct = await dao.getDistinctPSCKIND();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.kind) {
+          listOfSuggestion.push(category.kind);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    if (
+      element.name == "Ownership Nationality" 
+    ) {
+      const distinct = await dao.getDistinctPSCNationality();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.nationality) {
+          listOfSuggestion.push(category.nationality);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    if (
+      element.name == "Ownership Country of Residence" 
+    ) {
+      const distinct = await dao.getDistinctPSCCountryOfResidence();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.country_of_residence) {
+          listOfSuggestion.push(category.country_of_residence);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    if (
+      element.name == "Importer Status" 
+    ) {
+      const distinct = await dao.getDistinctImporter();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.importer) {
+          listOfSuggestion.push(category.importer);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    if (
+      element.name == "Exporter Status" 
+    ) {
+      const distinct = await dao.getDistinctExporter();
+      listOfSuggestion = [];
+      for (let category of distinct) {
+        category = category.toJSON();
+        if (category.exporter) {
+          listOfSuggestion.push(category.exporter);
+        }
+
+      }
+      options = {
+        suggestions: listOfSuggestion,
+        ...options,
+      };
+    }
+    
+    working_filters =new Set( ["Exporter Status","Importer Status","Gross Profit","Trade Debtors","Trade Creditors","Gross Profit","Number of Employees","Turnover","Equity","Fixed Assets","Ownership Country of Residence","Ownership Nationality","Ownership Kind","Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets", "Director Name" , "Director Role" , "Director Occupation" , "Director Nationality" , "Director Country of Residence" , "Director Resign Date" , "Director Appointment Date" ])
     
     listFinal.push({
       featureEnabled: working_filters.has( element.name),

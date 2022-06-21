@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      dbp_psc_gen.belongsTo(models.compines_offical, {    
+        foreignKey: "chn",
+      });
+      models.compines_offical.hasMany(dbp_psc_gen, {    
+        foreignKey: "chn",
+      });
+
     }
   }
   dbp_psc_gen.init(
@@ -28,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       postal_code: DataTypes.STRING,
       region: DataTypes.STRING,
       po_box: DataTypes.STRING,
-      ceased_on: DataTypes.STRING,
+      ceased: DataTypes.STRING,
       country_of_residence: DataTypes.STRING,
       month_of_birth: DataTypes.STRING,
       year_of_birth: DataTypes.STRING,
@@ -48,8 +55,8 @@ module.exports = (sequelize, DataTypes) => {
       surname: DataTypes.STRING,
       nationality: DataTypes.STRING,
       nature_of_control: DataTypes.STRING,
-      notified_on: DataTypes.STRING,
-      ceased: DataTypes.STRING,
+      notified_on: DataTypes.DATE,
+      ceased_on: DataTypes.DATE,
       restrictions_notice_withdrawal_reason: DataTypes.STRING,
       linked_psc_name: DataTypes.STRING,
       statement: DataTypes.STRING,
