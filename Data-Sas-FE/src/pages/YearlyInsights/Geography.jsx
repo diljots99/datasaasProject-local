@@ -1,13 +1,43 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useStyles } from "./styles";
-import MapComponent from "../../components/mapComponent";
+import MapComponent from "./mapComponent";
+import { useSelector } from "react-redux";
 
 export default function Geography() {
-    const classess = useStyles();
+  const classess = useStyles();
+  const { Insights } = useSelector((state) => state.company);
+  console.log("insights .", Insights);
+  const [byRegion, setByReagion] = useState([]);
+
+  useEffect(() => {
+    if (Insights.companiesByRegion) {
+      handleByRegion(Insights.companiesByRegion);
+    }
+  }, [Insights]);
+
+  const handleByRegion = (value) => {
+    const clusterArray = value.map((val) => {
+      const locationOBJ = val.geocode_suggestions[0];
+      console.log("lo ,", locationOBJ);
+      return {
+        type: "Feature",
+        address_region: val.address_region,
+        number_of_companies: val.number_of_companies,
+        geometry: {
+          type: "Point",
+          coordinates: [locationOBJ?.longitude, locationOBJ?.latitude],
+        },
+      };
+    });
+
+    console.log("by region ,", clusterArray);
+    setByReagion(clusterArray);
+  };
+
   return (
     <>
-    <Grid
+      <Grid
         container
         justifyContent="space-between"
         alignItems="center"
@@ -62,7 +92,7 @@ export default function Geography() {
             <Grid item xs={6} className={classess.mapItem}>
               <div className={classess.mapContainer}>
                 <Typography variant="h5" className={classess.donutHeading}>
-                  Business By Country
+                  Business By County
                 </Typography>
                 <MapComponent />
               </div>
@@ -72,13 +102,13 @@ export default function Geography() {
                 <Typography variant="h5" className={classess.donutHeading}>
                   Business By Region
                 </Typography>
-                <MapComponent />
+                <MapComponent data={byRegion} />
               </div>
             </Grid>
           </Grid>
 
-          <Grid container justifyContent="space-around">
-            <Grid item xs={6} className={classess.mapItem}>
+          {/* <Grid container justifyContent="space-around">
+             <Grid item xs={6} className={classess.mapItem}>
               <div className={classess.mapContainer}>
                 <Typography variant="h5" className={classess.donutHeading}>
                   Business By Country
@@ -94,9 +124,9 @@ export default function Geography() {
                 <MapComponent />
               </div>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     </>
-  )
+  );
 }

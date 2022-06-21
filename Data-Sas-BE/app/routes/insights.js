@@ -26,5 +26,24 @@ const JWT = require("../utils/auth");
  router.post("/",JWT.authenticate,savedSearchController.getInsights)
 
 
+/**
+ * @swagger
+ *
+ * /api/insights/companiesByCounty:
+ *   post:  
+ *     summary: 
+ *     tags: [Insights]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     security:
+ *       - jwt: []  
+ *     responses:
+ *          '200':  
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.post("/companiesByCounty",JWT.authenticate,savedSearchController.getInsightsCompaniesByCounty)
 
 module.exports = router

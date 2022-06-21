@@ -1,28 +1,47 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts'
 
-class Donut extends Component {
+const Donut = ({series , lables})=> {
+  const [Series , setSeries] = useState([])
+  const [Lables , setLables]= useState([])
+  const [Options, setOptions] = useState({ 
+})
 
-  constructor(props) {
-    super(props);
+  useEffect(()=>{
+    setSeries(series ? series : [])
+    setLables(lables ? lables : [])
+    setOptions({ series: series ? series : [],
+      // chartOptions: {
+      //   labels: lables ? lables : []
+      // },
+      lables: lables ? lables : [],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    })
+  },[series , lables])
 
-    this.state = {
-      options: {
-       
-      },
-      series: [6, 33, 16, 48],
-      labels: ['Null', 'Unknown', 'Dissolved', 'Active']
-    }
-  }
 
-  render() {
-
+    // console.log("Donut , ser, lables", Series , Lables, Options )
     return (
       <div className="donut">
-        <Chart options={this.state.options} series={this.state.series} labels={this.state.lables} type="donut" width="380" />
+        <Chart options={Options}
+         series={Series}
+          // labels={Lables} 
+         type="donut" width="100%" />
       </div>
     );
-  }
+  
 }
+
+
 
 export default Donut;

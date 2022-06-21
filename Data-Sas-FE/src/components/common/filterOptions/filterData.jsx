@@ -2,7 +2,6 @@ import React from "react";
 import * as FaIcons from "react-icons/fa";
 import SearchBar from "./subFilterOptions/searchBar";
 import SearchBarData from "./subFilterOptions/data.json";
-import MinMax from "./subFilterOptions/minMax";
 import DropdownSearch from "./subFilterOptions/dropdownSearch";
 import DatePicker from "./subFilterOptions/datePicker";
 
@@ -60,7 +59,12 @@ import LastAccountFiled from "./filterOptionsPage/LastAccountFiled";
 import CurrentAssets from "./filterOptionsPage/CurrentAssets";
 import FixedAssets from "./filterOptionsPage/FixedAssets";
 import CompanyAccountCategory  from './filterOptionsPage/CompanyAccountCategory'
-
+import TotalAssets from "./filterOptionsPage/TotalAssets";
+import NetAssets from "./filterOptionsPage/NetAssets";
+import MinMax from "./filterOptionsPage/MinMax";
+import MinMaxDate from "./filterOptionsPage/MinMaxDate";
+import TextSearch from "./filterOptionsPage/TextSearch";
+ 
 const optionSearchBar = () => {
     return <SearchBar placeholder={"Search"} data={SearchBarData} />;
 };
@@ -147,20 +151,20 @@ export const filtersData = [
         Sub: [
             { filter: "Account Category", option: <AccountCategory /> },
             { filter: "Last Account Filed", option: <LastAccountFiled /> },
-            { filter: "Current Assets", option: <CurrentAssets /> },
+            { filter: "Current Assets", option: <MinMax name="Current Assets" category="Financials" /> },
             { filter: "Fixed Assets", option: <FixedAssets /> },
-            { filter: "Total Assets", option: <Ratios /> },
-            { filter: "Net Assets", option: <Ratios /> },
-            { filter: "Current Liabilities", option: <Ratios /> },
-            { filter: "Long Term Liabilities", option: <Ratios /> },
-            { filter: "Total Liabilities", option: <Ratios /> },
-            { filter: "Turnover", option: <Ratios /> },
-            { filter: "Number of Employees", option: <Ratios /> },
-            { filter: "EBITDA", option: <Ratios /> },
-            { filter: "Equity", option: <Ratios /> },
-            { filter: "Gross Profit", option: <Ratios /> },
-            { filter: "Trade Creditors", option: <Ratios /> },
-            { filter: "Trade Debtors", option: <Ratios /> },            
+            { filter: "Total Assets", option: <TotalAssets /> },
+            { filter: "Net Assets", option: <MinMax name="Net Assets" category="Financials"  />},
+            { filter: "Current Liabilities", option: <MinMax name="Current Liabilities" category="Financials"  /> },
+            { filter: "Long Term Liabilities", option: <MinMax name="Long Term Liabilities" category="Financials"  />},
+            { filter: "Total Liabilities", option: <MinMax name="Total Liabilities" category="Financials"  />},
+            { filter: "Turnover", option: <MinMax name="Turnover" category="Financials"  />},
+            { filter: "Number of Employees", option: <MinMax name="Number of Employees" category="Financials"  /> },
+            { filter: "EBITDA", option: <MinMax name="EBITDA" category="Financials"  /> },
+            { filter: "Equity", option: <MinMax name="Equity" category="Financials"  /> },
+            { filter: "Gross Profit", option: <MinMax name="Gross Profit" category="Financials"  />},
+            { filter: "Trade Creditors", option: <MinMax name="Trade Creditors" category="Financials"  /> },
+            { filter: "Trade Debtors", option: <MinMax name="Trade Debtors" category="Financials"  /> },            
         ],
     },
     {
@@ -188,14 +192,14 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Name", option: <DirectorsName />},
+            { filter: "Name", option: <TextSearch name="Director Name" category="Directors" />},
             { filter: "Role", option: <DirectorRole />},
             { filter: "Occupation", option: <DirectorOccupation /> },
             { filter: "Nationality", option: <DirectorNationality />},
             { filter: "Country of Residence", option: <DirectorCountryofResidence /> },
             { filter: "Status", option: <DirectorStatus /> },
-            { filter: "Appointment Date", option: <DirectorAppointmentDate /> },
-            { filter: "Resign Date", option: <DirectorResignDate /> },
+            { filter: "Director Appointment Date", option: <MinMaxDate  name="Director Appointment Date" category="Directors" />},
+            { filter: "Director Resign Date", option: <MinMaxDate  name="Director Resign Date" category="Directors" /> },
         ],
     },
     {
@@ -203,13 +207,13 @@ export const filtersData = [
         iconClosed: <FaIcons.FaAngleRight />,
         iconOpened: <FaIcons.FaAngleDown />,
         Sub: [
-            { filter: "Name", option: <OwnershipName /> },
+            { filter: "Name", option:  <TextSearch name="Ownership Name" category="Ownership" /> },
             { filter: "Kind", option: <OwnershipKind />},
             { filter: "Nationality", option: <OwnershipNationality /> },
             { filter: "Country of Residence", option: <OwnershipCountryofResidence /> },
             { filter: "Status", option: <OwnershipStatus /> },
-            { filter: "Appointment Date", option: <OwnershipAppointmentDate />},
-            { filter: "Resign Date", option: <OwnershipResignDate /> },
+            { filter: "Appointment Date", option: <MinMaxDate  name="Ownership Appointment Date" category="Ownership" />},
+            { filter: "Resign Date", option: <MinMaxDate  name="Ownership Resign Date" category="Ownership" /> },
         ],
     },
     {

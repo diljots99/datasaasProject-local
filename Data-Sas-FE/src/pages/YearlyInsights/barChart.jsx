@@ -1,13 +1,12 @@
-import React from "react";
+import React ,{ useState , useEffect } from "react";
 import Chart from "react-apexcharts";
 
-const BarChart =({barColor})=>{
-  console.log({barColor })
-
-  let  series= [
+const BarChart =({barColor, data , horizontal})=>{
+  console.log({barColor , data})
+  const [ series , setSeries ] = useState([
     {
       name: "Actual",
-      data: [
+      data:[
         {
           x: "2011",
           y: 12,
@@ -38,16 +37,16 @@ const BarChart =({barColor})=>{
         },
       ],
     },
-  ]
+  ])
 
-  let options= {
+  const [options, setOptions  ] = useState({
     chart: {
       height: 350,
       type: "bar",
     },
     plotOptions: {
       bar: {
-        horizontal: true,
+        horizontal: horizontal ? false : true,
       },
     },
     colors: [barColor ? barColor : "#00E396"],
@@ -71,7 +70,20 @@ const BarChart =({barColor})=>{
     //     fillColors: ["#00E396", "#775DD0"],
     //   },
     // },
-  }
+  })
+
+  useEffect(()=>{
+    if(data !== undefined && data.length > 0){
+      setSeries([
+        {
+          ...series,
+          data: data 
+        },
+      ])
+    }
+    
+  },[data])
+
 
   return (
     <div id="chart">

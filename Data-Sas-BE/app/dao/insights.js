@@ -287,6 +287,17 @@ async function getCompaniesByTurnoverFinacial(data) {
     })
 }
 
+async function getCompaniesByCounty(data){
+    return await model.companies.findAll({
+        group:["county"],
+        attributes:[
+            "county",
+            "country",
+            [Sequelize.fn("COUNT",Sequelize.col("county")),"number_of_companies"]
+        ]
+    });
+}
+
 async function getCompaniesByRegion(data){
     return await model.company_location_gen.findAll({
         group:["address_region"],
@@ -320,5 +331,6 @@ module.exports = {
     getCompaniesByGrossProfit,
     getCompaniesByProfitAndLoss,
     getCompaniesByRegion,
-    getCompaniesByTurnoverFinacial
+    getCompaniesByTurnoverFinacial,
+    getCompaniesByCounty
 }
