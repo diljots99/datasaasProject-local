@@ -32,8 +32,8 @@ async function getPolygonsCoordinates(search_query) {
             return result;
         }
 
-        let         // let some = await searchOpenstreetmap({county:"Kent",country:"United Kingdom"})
-        = await searchOpenstreetmapSimple(search_query);
+             // let some = await searchOpenstreetmap({county:"Kent",country:"United Kingdom"})
+        let results = await searchOpenstreetmapSimple(search_query);
         // let some = await searchOpenstreetmap({county:"Kent",country:"United Kingdom"})
         try {
             let polygonCoordinate = await osmIdToPolygonCoordinates(results[0].osm_id)
@@ -62,7 +62,7 @@ async function getPolygonsCoordinates(search_query) {
         let { street, county, state, country, postalcode } = search_query
         let rawdata = fs.readFileSync('locations.json');
         locationsFile = JSON.parse(rawdata);
-        let result = locationsFile[`${country}+${state}+${postalcode}+${county}+${street}`]
+        let result = locationsFile[`${country}+${county}+${state}+${postalcode}+${street}`]
         if (result) {
             return result;
         }
@@ -78,7 +78,7 @@ async function getPolygonsCoordinates(search_query) {
                 other: results[0],
 
             }
-            locationsFile[`${country}+${state}+${postalcode}+${county}+${street}`] = polygonCoordinate
+            locationsFile[`${country}+${county}+${postalcode}+${state}+${street}`] = polygonCoordinate
 
             let data = JSON.stringify(locationsFile);
             fs.writeFileSync('locations.json', data);
