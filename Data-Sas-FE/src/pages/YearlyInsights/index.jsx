@@ -19,7 +19,7 @@ export default function YearlyInsights() {
        <Suspense
     fallback={
       <div>
-        <h1>LOADING Insights .... </h1>
+        <h1>LOADING Types .... </h1>
       </div>
     }
   > 
@@ -30,7 +30,7 @@ export default function YearlyInsights() {
       <Suspense
     fallback={
       <div>
-        <h1>LOADING Insights .... </h1>
+        <h1>LOADING Maps .... </h1>
       </div>
     }
   > 
@@ -41,7 +41,7 @@ export default function YearlyInsights() {
       <Suspense
     fallback={
       <div>
-        <h1>LOADING Insights .... </h1>
+        <h1>LOADING Activites.... </h1>
       </div>
     }
   > 
@@ -52,7 +52,7 @@ export default function YearlyInsights() {
       <Suspense
     fallback={
       <div>
-        <h1>LOADING Insights .... </h1>
+        <h1>LOADING Financials .... </h1>
       </div>
     }
   > 

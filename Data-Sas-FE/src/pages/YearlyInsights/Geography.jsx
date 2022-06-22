@@ -6,15 +6,23 @@ import { useSelector } from "react-redux";
 
 export default function Geography() {
   const classess = useStyles();
-  const { Insights } = useSelector((state) => state.company);
-  console.log("insights .", Insights);
+  const { InsightsByRegion, InsightsByCounty } = useSelector((state) => state.company);
+  console.log("InsightsByRegion .",InsightsByRegion );
   const [byRegion, setByReagion] = useState([]);
+  const [byCounty, setByCounty]= useState([]);
 
   useEffect(() => {
-    if (Insights.companiesByRegion) {
-      handleByRegion(Insights.companiesByRegion);
+    if (InsightsByRegion ) {
+      console.log("by region ,", InsightsByRegion);
+      // handleByRegion(Insights.companiesByRegion);
+      setByReagion(InsightsByRegion )
     }
-  }, [Insights]);
+    if(InsightsByCounty){
+      console.log("by InsightsByCounty ,", InsightsByCounty);
+      // handleByRegion(Insights.companiesByRegion);
+      setByCounty(InsightsByCounty)
+    }
+  }, [InsightsByRegion, InsightsByCounty]);
 
   const handleByRegion = (value) => {
     const clusterArray = value.map((val) => {
@@ -94,7 +102,7 @@ export default function Geography() {
                 <Typography variant="h5" className={classess.donutHeading}>
                   Business By County
                 </Typography>
-                <MapComponent />
+                <MapComponent data={byCounty} />
               </div>
             </Grid>
             <Grid item xs={6} className={classess.mapItem}>

@@ -10,7 +10,8 @@ export const SET_TRADING_ADDRESS = 'SET_TRADING_ADDRESS'
 export const SET_TRADE = "SET_TRADE"
 export const SET_INSIGHTS = "SET_INSIGHTS"
 export const SET_ABOUT = "SET_ABOUT"
-
+export const SET_INSIGHTS_BY_REGION = "SET_INSIGHTS_BY_REGION"
+export const SET_INSIGHTS_BY_COUNTY = "SET_INSIGHTS_BY_COUNTY"
 
 export const getProple=(uuid)=>{
     return (dispatch)=>{
@@ -81,6 +82,30 @@ export const getInsights =()=>{
            
             if(res.data.status === true)
             dispatch({type: SET_INSIGHTS , payload: res.data})
+        }).catch(err=>console.log(err))
+    }
+}
+
+export const getInsightsByRegions =()=>{
+    return (dispatch)=>{
+        axios.post(`${BASE_URL}/api/insights/companiesByRegion`, {},header() )
+        .then(res =>{
+             console.log("get INDSIGHTS by companiesByRegion", res )
+           
+            if(res.data.status === true)
+            dispatch({type: SET_INSIGHTS_BY_REGION , payload: res.data.result.companiesByRegion})
+        }).catch(err=>console.log(err))
+    }
+}
+
+export const getInsightsByCounty =()=>{
+    return (dispatch)=>{
+        axios.post(`${BASE_URL}/api/insights/companiesByCounty`, {},header() )
+        .then(res =>{
+             console.log("get INDSIGHTS by ByCounty ", res )
+           
+            if(res.data.status === true)
+            dispatch({type: SET_INSIGHTS_BY_COUNTY , payload: res.data.result.companiesByCounty})
         }).catch(err=>console.log(err))
     }
 }

@@ -46,7 +46,7 @@ import Footer from "./Footer";
 import ChangePassword from "../components/common/changePassword";
 import { getDirectorList,getCompanyList, getDirectorMonitorList, getCompanyMonitorList} from "../redux/actions/watchAction";
 import  { getAllFilterTypes , getSavedFilterList  } from "../redux/actions/filterAction"
-import {getInsights } from '../redux/actions/companyActions'
+import {getInsights, getInsightsByRegions , getInsightsByCounty} from '../redux/actions/companyActions'
 
 export default function MiniDrawer() {
   const classes = useStyles();
@@ -70,6 +70,8 @@ export default function MiniDrawer() {
     dispatch(getDirectorMonitorList(userData.id));
     dispatch(getCompanyMonitorList(userData.id));
      dispatch(getInsights());
+     dispatch(getInsightsByRegions());
+     dispatch(getInsightsByCounty()); 
     // dispatch(getDirectorMonitorList());
     // dispatch(getCompanyMonitorList());
   }, [])
