@@ -20,8 +20,8 @@ module.exports = {
       },
       chn: {
         type: Sequelize.STRING,
-        // foreignKey:true,
-        // references: { model: 'compines_offical', key: 'chn' }
+          foreignKey:true,
+          references: { model: 'compines_officals', key: 'chn' }
       },
       dbe_id: {
         type: Sequelize.INTEGER,
@@ -62,7 +62,7 @@ module.exports = {
       po_box: {
         type: Sequelize.STRING
       },
-      ceased_on: {
+      ceased: {
         type: Sequelize.STRING
       },
       country_of_residence: {
@@ -123,10 +123,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       notified_on: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
-      ceased: {
-        type: Sequelize.STRING
+      ceased_on: {
+        type: Sequelize.DATE
       },
       restrictions_notice_withdrawal_reason: {
         type: Sequelize.STRING
