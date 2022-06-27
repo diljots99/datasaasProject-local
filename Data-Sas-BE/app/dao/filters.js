@@ -7,6 +7,13 @@ async function getAllBusinessSearchFilters(data) {
   });
 }
 
+async function getAllInsightsSearchFilters(data) {
+  return await model.available_insights_filters.findAll({
+    attributes: ["uuid", "name", "category", "type"],
+    ...data,
+  });
+}
+
 async function getFilterById(filterId) {
   return await model.available_business_filters.findOne({
     where: {
@@ -211,5 +218,6 @@ module.exports = {
   getDistinctPSCNationality,
   getDistinctPSCCountryOfResidence,
   getDistinctExporter,
-  getDistinctImporter
+  getDistinctImporter,
+  getAllInsightsSearchFilters
 };

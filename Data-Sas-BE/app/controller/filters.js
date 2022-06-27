@@ -443,7 +443,29 @@ async function filterSuggestions(req, res) {
   return res.send({ status: false });
 }
 
+
+
+async function listAllInsightFilters(req, res) {
+  const list = await dao.getAllInsightsSearchFilters();
+  const listFinal = [];
+  for (let element of list) {
+    let options = {};
+    element = element.toJSON();
+    
+    working_filters =new Set( ["Exporter Status","Importer Status","Gross Profit","Trade Debtors","Trade Creditors","Gross Profit","Number of Employees","Turnover","Equity","Fixed Assets","Ownership Country of Residence","Ownership Nationality","Ownership Kind","Company Name" , "Company Number" , "Website" , "Telephone" , "Mail" , "Company Account Category" , "Post Code", "City" , "County" , "Region" , "Country" , "Status","Incorporation date","Dissolution Date","Company Category","Last Accounts Date","UK SIC Section","SubSector","Sector","NAICS","UK SIC","NACE","Current Assets", "Director Name" , "Director Role" , "Director Occupation" , "Director Nationality" , "Director Country of Residence" , "Director Resign Date" , "Director Appointment Date" ])
+    
+    listFinal.push({
+      featureEnabled: working_filters.has(element.name),
+      ...element,
+      ...options,
+    });
+  }
+  res.send({ status: "true", result: listFinal });
+}
+
+
 module.exports = {
   listAllFilters,
   filterSuggestions,
+  listAllInsightFilters
 };
