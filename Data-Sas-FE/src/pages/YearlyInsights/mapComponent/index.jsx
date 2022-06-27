@@ -5,6 +5,8 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 import Map, { Marker, Popup, Source, Layer } from "react-map-gl";
 import { useStyles } from "./styles";
 import {
@@ -141,8 +143,7 @@ export default function MapComponent({ data }) {
 
   return (
     <div className={classess.main}>
-      {}
-      <Map
+      {geodata ?  <Map
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         // mapStyle="mapbox://styles/leighhalliday/cjufmjn1r2kic1fl9wxg7u1l4"
@@ -218,7 +219,8 @@ export default function MapComponent({ data }) {
             </div>
           </Popup>
         ) : null} */}
-      </Map>
+      </Map> : <Stack> <Skeleton variant="rectangular" width='100%' height='370px' /> </Stack>}
+     
     </div>
   );
 }

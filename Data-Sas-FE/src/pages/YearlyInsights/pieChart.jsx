@@ -25,7 +25,14 @@ const Donut = ({series , lables})=> {
             position: 'bottom'
           }
         }
-      }]
+      }],
+      chart: {
+        events: {
+          dataPointSelection: (event, chartContext, config) => {
+            console.log("from donut event",config.w.config.labels[config.dataPointIndex]);
+          }
+        }
+      }
     })
   },[series , lables])
 

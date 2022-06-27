@@ -1,10 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Paper, Typography, Button } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  InputAdornment,
+  TextField,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+  Select,
+  InputLabel,
+  FormControl,
+  Box
+} from "@mui/material";
+import './styles.css'
 import { useStyles } from "./styles";
 import Donut from "./pieChart";
 import BarChart from "./barChart";
 import { useSelector } from "react-redux";
 import DonutChart from "./Donut";
+
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
 
 export default function Type() {
   const classess = useStyles();
@@ -16,6 +41,25 @@ export default function Type() {
   const [byEmployeeSize, setByEmployeeSize] = useState([]);
   const [byTurnover, setByTurnover] = useState([]);
 
+  const [filterByStatus, setFilterByStatus] = useState('');
+  const [ byStatusFilterValue  , setBystatusFilterValue] = useState(null)
+  const [filterBySize, setFilterBySize] = useState('');
+  const [ bySizeFilterValue  , setBysizeFilterValue] = useState(null)
+  const [filterByTurnover, setFilterByTurnover] = useState('');
+  const [ byTurnoverFilterValue  , setByTurnoverFilterValue] = useState(null)
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
+
   useEffect(() => {
     if (Insights.companiesByStatus) {
       handleByStatus(Insights.companiesByStatus);
@@ -26,20 +70,20 @@ export default function Type() {
     if (Insights.companiesByType) {
       handleByType(Insights.companiesByType);
     }
-    if(Insights.companiesByAgeOfBusiness){
-      handleByBusinessAge(Insights.companiesByAgeOfBusiness[0])
+    if (Insights.companiesByAgeOfBusiness) {
+      handleByBusinessAge(Insights.companiesByAgeOfBusiness[0]);
     }
-    if(Insights.companiesByEmployeeSize){
-      handleByEmployeSize(Insights.companiesByEmployeeSize)
+    if (Insights.companiesByEmployeeSize) {
+      handleByEmployeSize(Insights.companiesByEmployeeSize);
     }
-    if(Insights.companiesByTurnover){
-      handleByTurnover(Insights.companiesByTurnover)
+    if (Insights.companiesByTurnover) {
+      handleByTurnover(Insights.companiesByTurnover);
     }
-  
   }, [Insights]);
 
   const handleByStatus = (value) => {
     let data = [];
+    let filterValue = []
     let total = value.reduce((total, val) => total + val.statusCount, 0);
     value.forEach((val) => {
       let per = (val.statusCount / total) * 100;
@@ -47,8 +91,11 @@ export default function Type() {
         name: val.status,
         y: per,
       });
+      filterValue.push(val.status)
     });
     setByStatus(data);
+    console.log("bla",filterValue);
+    setBystatusFilterValue(filterValue)
   };
 
   const handleByAccountCategory = (value) => {
@@ -84,44 +131,73 @@ export default function Type() {
     setByTypes(data);
   };
 
-  const  handleByBusinessAge = (value) =>{
+  const handleByBusinessAge = (value) => {
     let data = [];
 
-    Object.keys(value).map(key=>{
+    Object.keys(value).map((key) => {
       data.unshift({
-            x: key ,
-            y: value[key],  
-          });
-    })
-    setByBusinessAge(data);
-  }
-
-  const  handleByEmployeSize = (value) =>{
-    let data = [];
-
-    value.forEach((val) => {
-      if(val.size_class_estimate !== null)      
-      data.unshift({
-        x: val.size_class_estimate === null ? "null" : val.size_class_estimate,
-        y: val.number_of_companies,  
+        x: key,
+        y: value[key],
       });
+    });
+    setByBusinessAge(data);
+  };
+
+  const handleByEmployeSize = (value) => {
+    let data = [];
+    let filterValue = []
+    value.forEach((val) => {
+      if (val.size_class_estimate !== null){
+        data.unshift({
+          x: val.size_class_estimate === null ? "null" : val.size_class_estimate,
+          y: val.number_of_companies,
+        });
+        filterValue.push(val.size_class_estimate)
+      } 
     });
     setByEmployeeSize(data);
-  }
+    setBysizeFilterValue(filterValue)
+  };
 
-  
-  const  handleByTurnover = (value) =>{
+  const handleByTurnover = (value) => {
     let data = [];
-
+    let filterValue = []
     value.forEach((val) => {
-      if(val.turnover_class_estimate !== null)      
-      data.unshift({
-        x: val.turnover_class_estimate === null ? "null" : val.turnover_class_estimate,
-        y: val.number_of_companies,  
-      });
+      if (val.turnover_class_estimate !== null){
+        data.unshift({
+          x:
+            val.turnover_class_estimate === null
+              ? "null"
+              : val.turnover_class_estimate,
+          y: val.number_of_companies,
+        });
+        filterValue.push(val.turnover_class_estimate)
+      }
+      
     });
     setByTurnover(data);
-  }
+    setByTurnoverFilterValue(filterValue)
+  };
+console.log("byStatusFilterValue",byStatusFilterValue)
+
+const FilterDropdown = ({title ,  value , onChange , filterValue}) =>{
+  return ( <Box sx={{ minWidth: 120 , width:"100%" }}>
+  <Typography variant="h6" >{title}</Typography>
+  <FormControl fullWidth>
+<Select
+size="small"
+labelId="demo-simple-select-label"
+id="demo-simple-select"
+value={value}
+label={title}
+onChange={e=>  onChange(e.target.value)}
+>
+{filterValue && filterValue.map(value=> <MenuItem value={value}>{value}</MenuItem> )}
+</Select>
+</FormControl>
+</Box>
+)
+}
 
   return (
     <>
@@ -138,6 +214,10 @@ export default function Type() {
         </Grid>
         <Grid item>
           <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
             className={classess.filterButton}
             variant="contained"
             size="small"
@@ -148,15 +228,43 @@ export default function Type() {
                 width="30px"
               />
             }
-            onClick={() => {}}
+            onClick={handleClick}
           >
             Filter
           </Button>
+          <Menu
+          components='div'
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <div className={classess.menu}>
+              <MenuItem>
+              <DialogTitle className={classess.filtertitle}>Type</DialogTitle>
+              </MenuItem>
+            
+              <MenuItem>
+              <FilterDropdown title="By Status"  value={filterByStatus} onChange={setFilterByStatus} filterValue={byStatusFilterValue} />
+              </MenuItem>
+
+              <MenuItem>
+              <FilterDropdown title="By Size"  value={filterBySize} onChange={setFilterBySize} filterValue={bySizeFilterValue} />
+              </MenuItem>
+
+              <MenuItem>
+              <FilterDropdown title="By TurnOver"  value={filterByTurnover} onChange={setFilterByTurnover} filterValue={byTurnoverFilterValue} />
+              </MenuItem>
+            
+            </div>
+          </Menu>
         </Grid>
       </Grid>
 
       {/*  Donut charts */}
-
       <div className={classess.segmentWrapper}>
         <Grid container spacing={2} justifyContent="space-around">
           <Grid item xs={4}>
@@ -206,7 +314,7 @@ export default function Type() {
               <Typography variant="h5" className={classess.donutHeading}>
                 No. of Companies by Age of Business
               </Typography>
-              <BarChart barColor={"#2d99ff"}  data={byBusinessAge}/>
+              <BarChart barColor={"#2d99ff"} data={byBusinessAge} />
             </Paper>
           </Grid>
 

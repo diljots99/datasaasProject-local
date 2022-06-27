@@ -1,8 +1,11 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy  } from "react";
 import { useStyles } from "./styles";
-import MapComponent from "./mapComponent";
+// import MapComponent from "./mapComponent";
 import { useSelector } from "react-redux";
+// import countyData from './mapComponent/County.json'
+
+const MapComponent = lazy(() => import("./mapComponent"));
 
 export default function Geography() {
   const classess = useStyles();
@@ -42,6 +45,8 @@ export default function Geography() {
     console.log("by region ,", clusterArray);
     setByReagion(clusterArray);
   };
+
+  // console.log({byCounty , countyData })
 
   return (
     <>
@@ -102,7 +107,15 @@ export default function Geography() {
                 <Typography variant="h5" className={classess.donutHeading}>
                   Business By County
                 </Typography>
+                <Suspense
+    fallback={
+      <div>
+        <h1>LOADING Map .... </h1>
+      </div>
+    }
+  > 
                 <MapComponent data={byCounty} />
+                </Suspense>
               </div>
             </Grid>
             <Grid item xs={6} className={classess.mapItem}>
@@ -110,7 +123,16 @@ export default function Geography() {
                 <Typography variant="h5" className={classess.donutHeading}>
                   Business By Region
                 </Typography>
+
+                <Suspense
+    fallback={
+      <div>
+        <h1>LOADING Map .... </h1>
+      </div>
+    }
+  > 
                 <MapComponent data={byRegion} />
+                </Suspense>
               </div>
             </Grid>
           </Grid>
