@@ -10,35 +10,37 @@ async function getInsights(req, res) {
 
 
     const companiesByRegion_raw = await dao.getCompaniesByRegion();
-    let companiesByRegion = []
-    for (let loc of companiesByRegion_raw) {
-        let current_location = loc.toJSON()
-        let geoCode = []
-        if (current_location.address_region) {
-            // geoCode = await getGeocode(current_location.address_region)
-            geoCode = await getPolygonsCoordinates(current_location.address_region)
-        }
-        current_location = {
-            properties: current_location,
-            ...geoCode,
+    let companiesByRegion = companiesByRegion_raw
+    // for (let loc of companiesByRegion_raw) {
+    //     let current_location = loc.toJSON()
+    //     let geoCode = []
+    //     if (current_location.address_region) {
+    //         // geoCode = await getGeocode(current_location.address_region)
+    //         geoCode = await getPolygonsCoordinates(current_location.address_region)
+    //     }
+    //     current_location = {
+    //         properties: current_location,
+    //         ...geoCode,
 
-        }
-        companiesByRegion.push(current_location)     
-    }
-    companiesByRegion = {
-        type: "FeatureCollection",
-        features: companiesByRegion
-    }
+    //     }
+    //     companiesByRegion.push(current_location)     
+    // }
+    // companiesByRegion = {
+    //     type: "FeatureCollection",
+    //     features: companiesByRegion
+    // }
 
-    // const companiesByCounty_raw = await dao.getCompaniesByCounty()
-    // let companiesByCounty = []
+    const companiesByCounty_raw = await dao.getCompaniesByCounty()
+    let companiesByCounty = companiesByCounty_raw
+
+
     // for (let loc of companiesByCounty_raw) {
     //     let current_location = loc.toJSON();        
     //     let geoCode = await getPolygonsCoordinates({county: current_location.county ,country : current_location.country})
     //     current_location = {
     //         properties: current_location,
     //         ...geoCode,
-
+    
     //     }
     //     companiesByCounty.push(current_location)     
     // }
@@ -48,6 +50,7 @@ async function getInsights(req, res) {
     res.send({  
         status: true,   
         "companiesByRegion": companiesByRegion,
+        "companiesByCounty":companiesByCounty,
         "companiesByStatus": await dao.getCompaniesByStatus(),
         "companiesByAccountCategory": await dao.getCompaniesByAccountCategory(),
         "companiesByType": await dao.getCompaniesByType(),
@@ -80,6 +83,10 @@ async function getInsightsCompaniesByCounty(req,res){
         }
         companiesByCounty.push(current_location)     
     }
+    companiesByCounty = {
+        type: "FeatureCollection",
+        features: companiesByCounty
+    }
     res.send({
         status: true,
         result:{
@@ -89,7 +96,38 @@ async function getInsightsCompaniesByCounty(req,res){
     
 }
 
+async function getInsightsCompaniesByRegion(req,res){
+    const companiesByRegion_raw = await dao.getCompaniesByRegion();
+    let companiesByRegion = []
+    for (let loc of companiesByRegion_raw) {
+        let current_location = loc.toJSON()
+        let geoCode = []
+        if (current_location.address_region) {
+            // geoCode = await getGeocode(current_location.address_region)
+            geoCode = await getPolygonsCoordinates(current_location.address_region)
+        }
+        current_location = {
+            properties: current_location,
+            ...geoCode,
+
+        }
+        companiesByRegion.push(current_location)     
+    }
+    companiesByRegion = {
+        type: "FeatureCollection",
+        features: companiesByRegion
+    }
+    res.send({
+        status: true,
+        result:{
+            "companiesByRegion":companiesByRegion
+        }
+    })
+    
+}
+
 module.exports = {
     getInsights,
-    getInsightsCompaniesByCounty
+    getInsightsCompaniesByCounty,
+    getInsightsCompaniesByRegion
 }

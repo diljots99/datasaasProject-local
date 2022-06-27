@@ -48,4 +48,23 @@ router.get("/business-search/listAll",filterController.listAllFilters)
  */
 router.post("/business-search/suggestions/:uuid",filterController.filterSuggestions)
 
+
+/**
+ * @swagger
+ *
+ * /api/filters/insights-search/listAll:
+ *   get:
+ *     summary: list Filters
+ *     tags: [Filters]
+ *     description: 
+ *     produces:
+ *       - application/json
+ *     responses:
+ *          '200':
+ *              description: A Successfull response
+ *          '422':
+ *              description:  Validation error
+ */
+ router.get("/insights-search/listAll",filterController.listAllInsightFilters)
+
 module.exports = router;
