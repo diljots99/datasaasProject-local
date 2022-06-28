@@ -214,7 +214,7 @@ async function getCompaniesByEquity(data) {
 
 
     })
-}   
+}
 async function getCompaniesByGrossProfit(data) {
     
 
@@ -294,7 +294,8 @@ async function getCompaniesByCounty(data){
             "county",
             "country",
             [Sequelize.fn("COUNT",Sequelize.col("county")),"number_of_companies"]
-        ]
+        ],
+        ...data
     });
 }
 

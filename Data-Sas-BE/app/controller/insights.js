@@ -8,7 +8,56 @@ const { getGeocode, getPolygonsCoordinates } = require("../services/locations");
 
 async function getInsights(req, res) {
 
+    let body = req.body
 
+    if (body.filterData){
+        let response = {
+            "companiesByRegion": null,
+            "companiesByCounty":null,
+            "companiesByStatus": null,
+            "companiesByAccountCategory": null,
+            "companiesByType": null,
+            "companiesByExporter": null,
+            "companiesByImporter": null,
+            "companiesBySector": null,
+            "companiesBySICSection": null,
+            "companiesByAgeOfBusiness": null,
+            "companiesByEmployeeSize": null,
+            "companiesBySICDivision": null,
+            "companiesBySICCode": null,
+            "companiesByTurnover": null,
+            "companiesByGrossProfit": null,
+            "companiesByProfitAndLoss": null,
+            "companiesByEquity": null,
+            "companiesByTurnoverFinacial": null
+        }
+        let data = {}
+        let where = {}
+        for (let filter of body.filterData){
+            console.log(filter)
+            where[filter.chip_group] = filter.chip_values[0].chip_value
+            if(filter.chip_group == 'type'){
+                response['companiesByType'] = await dao.getCompaniesByType({
+                    where:{
+                        type:filter.chip_values[0].chip_value
+                    }
+                })
+            }
+            if(filter.chip_group == 'status'){
+                response['companiesByStatus'] = await dao.getCompaniesByStatus({
+                    where:{
+                        status:filter.chip_values[0].chip_value
+                    }
+                })
+            }
+
+        }
+        data = {
+            where : where
+        }
+
+        return res.send(response)
+    }
     const companiesByRegion_raw = await dao.getCompaniesByRegion();
     let companiesByRegion = companiesByRegion_raw
     // for (let loc of companiesByRegion_raw) {
