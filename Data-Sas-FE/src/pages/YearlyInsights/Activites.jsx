@@ -1,14 +1,17 @@
-import { Grid, Paper, Typography, Button } from "@mui/material";
+import { Grid, Paper, Typography, Button,  Menu,
+  MenuItem,  DialogTitle } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useStyles } from "./styles";
 import Donut from "./pieChart";
 import BarChart from "./barChart";
 import { useSelector } from "react-redux";
 import DonutChart from "./Donut";
+import FilterDropdown from './Filters/FilterDropdown'
+
 
 export default function Activites() {
     const classess = useStyles();
-    const { Insights } = useSelector((state) => state.company);
+    const { Insights , InsightsFilterList} = useSelector((state) => state.company);
 
     const [byExport, setByExport] = useState([]);
     const [byImport, setByImport] = useState([]);
@@ -16,6 +19,30 @@ export default function Activites() {
     const [bySector, setBySector] = useState([]);
     const [bySICDivision, setBySICDivision] = useState([]);
     const [byBySICCode, setBySICCode] = useState([]);
+
+    const [filterBySisSection, setFilterBySisSection] = useState('');
+    const [ bySisSectionFilterValue  , setBySisSectionFilterValue] = useState(null)
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+  
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    useEffect(() =>{
+      if(InsightsFilterList){
+        const bySisSection = InsightsFilterList.filter(({name})=> name === "sic section")[0].suggestions
+        // const byType = InsightsFilterList.filter(({name})=> name === "type")[0].suggestions
+        // const byTurnover = InsightsFilterList.filter(({name})=> name === "turnover")[0].suggestions
+     
+        setBySisSectionFilterValue(bySisSection)
+      
+      }
+    },[InsightsFilterList])
 
     useEffect(() => {
       if (Insights.companiesByExporter) {
@@ -140,6 +167,10 @@ export default function Activites() {
         </Grid>
         <Grid item>
           <Button
+             id="basic-button"
+             aria-controls={open ? "basic-menu" : undefined}
+             aria-haspopup="true"
+             aria-expanded={open ? "true" : undefined}
             className={classess.filterButton}
             variant="contained"
             size="small"
@@ -150,10 +181,30 @@ export default function Activites() {
                 width="30px"
               />
             }
-            onClick={() => {}}
+            onClick={handleClick}
           >
             Filter
           </Button>
+          <Menu
+          components='div'
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <div className={classess.menu}>
+              <MenuItem>
+              <DialogTitle className={classess.filtertitle}>Type</DialogTitle>
+              </MenuItem>
+            
+              <MenuItem>
+              <FilterDropdown title="By SisSection"  value={filterBySisSection} onChange={setFilterBySisSection} filterValue={bySisSectionFilterValue} />
+              </MenuItem>                    
+            </div>
+          </Menu>
         </Grid>
       </Grid>
 

@@ -97,6 +97,21 @@ filterButton:{
        },
        menu:{
         padding:"4px",
-        width:'430px'
+        width:'330px'
+       },
+       select:{
+        height:'30px',
+        borderRadius: "5px"
+       },
+       inputMinMax:{
+        height:"30px",
+        borderRadius: "5px",
+        borderWidth: "1px",
+        width:'120px'
+       },
+       containerMinMax:{
+        display:"flex",
+        justifyContent:'space-around',
+
        }
 }))

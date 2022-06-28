@@ -19,21 +19,26 @@ import {
   Select,
   InputLabel,
   FormControl,
-  Box
+  Box,
+  OutlinedInput,
+  Checkbox,
+  ListItemText
 } from "@mui/material";
-import './styles.css'
 import { useStyles } from "./styles";
 import Donut from "./pieChart";
 import BarChart from "./barChart";
 import { useSelector } from "react-redux";
 import DonutChart from "./Donut";
 
+import FilterDropdown from './Filters/FilterDropdown'
+import FilterMinMax from './Filters/FilterMinMax'
+
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
 
 export default function Type() {
   const classess = useStyles();
-  const { Insights } = useSelector((state) => state.company);
+  const { Insights, InsightsFilterList } = useSelector((state) => state.company);
   const [byStatus, setByStatus] = useState({});
   const [byAccountCategory, setByAccountCategory] = useState({});
   const [byTypes, setByTypes] = useState({});
@@ -47,7 +52,11 @@ export default function Type() {
   const [ bySizeFilterValue  , setBysizeFilterValue] = useState(null)
   const [filterByTurnover, setFilterByTurnover] = useState('');
   const [ byTurnoverFilterValue  , setByTurnoverFilterValue] = useState(null)
-
+  const [filterByType, setFilterByType] = useState('');
+  const [ byTypeFilterValue  , setByTypeFilterValue] = useState(null)
+  const [filterByAgeofBusiness, setFilterByAgeofBusiness] = useState({
+    min:0, max:1
+  })
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -58,7 +67,18 @@ export default function Type() {
     setAnchorEl(null);
   };
 
+console.log("InsightsFilterList",InsightsFilterList)
 
+useEffect(() =>{
+  if(InsightsFilterList){
+    const bySize = InsightsFilterList.filter(({name})=> name === "size")[0].suggestions
+    const byType = InsightsFilterList.filter(({name})=> name === "type")[0].suggestions
+    const byTurnover = InsightsFilterList.filter(({name})=> name === "turnover")[0].suggestions
+    setByTypeFilterValue(byType)
+    setBysizeFilterValue(bySize)
+    setByTurnoverFilterValue(byTurnover)
+  }
+},[InsightsFilterList])
 
   useEffect(() => {
     if (Insights.companiesByStatus) {
@@ -94,7 +114,6 @@ export default function Type() {
       filterValue.push(val.status)
     });
     setByStatus(data);
-    console.log("bla",filterValue);
     setBystatusFilterValue(filterValue)
   };
 
@@ -129,6 +148,7 @@ export default function Type() {
       lables.push(val.type);
     });
     setByTypes(data);
+   
   };
 
   const handleByBusinessAge = (value) => {
@@ -145,23 +165,21 @@ export default function Type() {
 
   const handleByEmployeSize = (value) => {
     let data = [];
-    let filterValue = []
+
     value.forEach((val) => {
       if (val.size_class_estimate !== null){
         data.unshift({
           x: val.size_class_estimate === null ? "null" : val.size_class_estimate,
           y: val.number_of_companies,
         });
-        filterValue.push(val.size_class_estimate)
+
       } 
     });
     setByEmployeeSize(data);
-    setBysizeFilterValue(filterValue)
   };
 
   const handleByTurnover = (value) => {
     let data = [];
-    let filterValue = []
     value.forEach((val) => {
       if (val.turnover_class_estimate !== null){
         data.unshift({
@@ -171,32 +189,19 @@ export default function Type() {
               : val.turnover_class_estimate,
           y: val.number_of_companies,
         });
-        filterValue.push(val.turnover_class_estimate)
+      
       }
       
     });
     setByTurnover(data);
-    setByTurnoverFilterValue(filterValue)
-  };
-console.log("byStatusFilterValue",byStatusFilterValue)
 
-const FilterDropdown = ({title ,  value , onChange , filterValue}) =>{
-  return ( <Box sx={{ minWidth: 120 , width:"100%" }}>
-  <Typography variant="h6" >{title}</Typography>
-  <FormControl fullWidth>
-<Select
-size="small"
-labelId="demo-simple-select-label"
-id="demo-simple-select"
-value={value}
-label={title}
-onChange={e=>  onChange(e.target.value)}
->
-{filterValue && filterValue.map(value=> <MenuItem value={value}>{value}</MenuItem> )}
-</Select>
-</FormControl>
-</Box>
-)
+  };
+// console.log("byStatusFilterValue",byStatusFilterValue)
+
+
+const updateAgeOfBusiness = (e)=>{
+  const {name, value : val} = e.target
+  setFilterByAgeofBusiness({...filterByAgeofBusiness, [name]:val})
 }
 
   return (
@@ -258,7 +263,15 @@ onChange={e=>  onChange(e.target.value)}
               <MenuItem>
               <FilterDropdown title="By TurnOver"  value={filterByTurnover} onChange={setFilterByTurnover} filterValue={byTurnoverFilterValue} />
               </MenuItem>
-            
+
+              <MenuItem>
+              <FilterDropdown title="By Type"  value={filterByType} onChange={setFilterByType} filterValue={byTypeFilterValue} />
+              </MenuItem>
+
+              <MenuItem>
+              <FilterMinMax  value={filterByAgeofBusiness} setValues={updateAgeOfBusiness} title="By Age of Business"/>
+              </MenuItem>
+                    
             </div>
           </Menu>
         </Grid>

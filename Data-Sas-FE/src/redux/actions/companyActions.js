@@ -12,6 +12,7 @@ export const SET_INSIGHTS = "SET_INSIGHTS"
 export const SET_ABOUT = "SET_ABOUT"
 export const SET_INSIGHTS_BY_REGION = "SET_INSIGHTS_BY_REGION"
 export const SET_INSIGHTS_BY_COUNTY = "SET_INSIGHTS_BY_COUNTY"
+export const SET_INSIGHTS_FILTER_LIST = "SET_INSIGHTS_FILTER_LIST"
 
 export const getProple=(uuid)=>{
     return (dispatch)=>{
@@ -106,6 +107,18 @@ export const getInsightsByCounty =()=>{
            
             if(res.data.status === true)
             dispatch({type: SET_INSIGHTS_BY_COUNTY , payload: res.data.result.companiesByCounty})
+        }).catch(err=>console.log(err))
+    }
+}
+
+export const getInsightsFilterList =()=>{
+    return (dispatch)=>{
+        axios.get(`${BASE_URL}/api/filters/insights-search/listAll`, header() )
+        .then(res =>{
+             console.log("get SET_INSIGHTS_FILTER_LIST ", res )
+           
+            if(res.data.status === "true")
+            dispatch({type: SET_INSIGHTS_FILTER_LIST , payload: res.data.result})
         }).catch(err=>console.log(err))
     }
 }

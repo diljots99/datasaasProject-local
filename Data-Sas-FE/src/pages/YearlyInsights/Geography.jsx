@@ -1,18 +1,49 @@
-import { Grid, Paper, Typography, Button } from "@mui/material";
+import { Grid, Paper, Typography, Button,  Menu,
+  MenuItem,  DialogTitle } from "@mui/material";
 import React, { useEffect, useState, Suspense, lazy  } from "react";
 import { useStyles } from "./styles";
 // import MapComponent from "./mapComponent";
 import { useSelector } from "react-redux";
 // import countyData from './mapComponent/County.json'
 
+import FilterDropdown from './Filters/FilterDropdown'
+
 const MapComponent = lazy(() => import("./mapComponent"));
 
 export default function Geography() {
   const classess = useStyles();
-  const { InsightsByRegion, InsightsByCounty } = useSelector((state) => state.company);
+  const { InsightsByRegion, InsightsByCounty ,InsightsFilterList  } = useSelector((state) => state.company);
   console.log("InsightsByRegion .",InsightsByRegion );
   const [byRegion, setByReagion] = useState([]);
   const [byCounty, setByCounty]= useState([]);
+  const [filterByCounty, setFilterByCounty] = useState('');
+  const [ byCountyFilterValue  , setByCountyFilterValue] = useState(null)
+
+  const [filterByRegion, setFilterByRegion] = useState('');
+  const [ byRegionFilterValue  , setByRegionFilterValue] = useState(null)
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  useEffect(() =>{
+    if(InsightsFilterList){
+      const byCounty = InsightsFilterList.filter(({name})=> name === "county")[0].suggestions
+       const byRegion = InsightsFilterList.filter(({name})=> name ===  "region")[0].suggestions
+      // const byTurnover = InsightsFilterList.filter(({name})=> name === "turnover")[0].suggestions
+      
+      setByCountyFilterValue(byCounty)
+       setByRegionFilterValue(byRegion)
+      // setByTurnoverFilterValue(byTurnover)
+    }
+  },[InsightsFilterList])
+
 
   useEffect(() => {
     if (InsightsByRegion ) {
@@ -26,25 +57,6 @@ export default function Geography() {
       setByCounty(InsightsByCounty)
     }
   }, [InsightsByRegion, InsightsByCounty]);
-
-  const handleByRegion = (value) => {
-    const clusterArray = value.map((val) => {
-      const locationOBJ = val.geocode_suggestions[0];
-      console.log("lo ,", locationOBJ);
-      return {
-        type: "Feature",
-        address_region: val.address_region,
-        number_of_companies: val.number_of_companies,
-        geometry: {
-          type: "Point",
-          coordinates: [locationOBJ?.longitude, locationOBJ?.latitude],
-        },
-      };
-    });
-
-    console.log("by region ,", clusterArray);
-    setByReagion(clusterArray);
-  };
 
   // console.log({byCounty , countyData })
 
@@ -63,6 +75,10 @@ export default function Geography() {
         </Grid>
         <Grid item>
           <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
             className={classess.filterButton}
             variant="contained"
             size="small"
@@ -73,10 +89,34 @@ export default function Geography() {
                 width="30px"
               />
             }
-            onClick={() => {}}
+            onClick={handleClick}
           >
             Filter
           </Button>
+          <Menu
+          components='div'
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <div className={classess.menu}>
+              <MenuItem>
+              <DialogTitle className={classess.filtertitle}>Geography</DialogTitle>
+              </MenuItem>
+            
+              <MenuItem>
+              <FilterDropdown title="By County"  value={filterByCounty} onChange={setFilterByCounty} filterValue={byCountyFilterValue} />
+              </MenuItem>
+
+              <MenuItem>
+              <FilterDropdown title="By Region"  value={filterByRegion} onChange={setFilterByRegion} filterValue={byRegionFilterValue} />
+              </MenuItem>                    
+            </div>
+          </Menu>
         </Grid>
       </Grid>
 
