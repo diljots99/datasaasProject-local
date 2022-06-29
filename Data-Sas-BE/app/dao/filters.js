@@ -227,6 +227,12 @@ async function getDistinctImporter() {
     group: ["importer"],
   });
 }
+async function getDistinctSicSection() {
+  return await model.companies.findAll({
+    attributes: ["sic_section"],
+    group: ["sic_section"],
+  });
+}
 
 
 
@@ -263,5 +269,6 @@ module.exports = {
   getDistinctCompanyByAge,
   getDistinctInsightsCompanyByCounty,
   getDistinctInsightsCompanyByRegion,
-  getDistinctCompanyType
+  getDistinctCompanyType,
+  getDistinctSicSection
 };

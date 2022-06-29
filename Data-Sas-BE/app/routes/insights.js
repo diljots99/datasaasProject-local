@@ -12,7 +12,7 @@ const JWT = require("../utils/auth");
  *   post:  
  *     summary: 
  *     tags: [Insights]
- *     description: 
+ *     description:  type | status |size | turnover | county | region | exporter | importer | sic section
  *     produces:
  *       - application/json
  *     security:

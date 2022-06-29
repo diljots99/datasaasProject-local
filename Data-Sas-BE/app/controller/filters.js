@@ -590,12 +590,12 @@ async function listAllInsightFilters(req, res) {
     if (
       element.name == "sic section"
     ) {
-      const distinctAccountCategory = await dao.getDistinctCompanyUKSIC();
+      const distinctAccountCategory = await dao.getDistinctSicSection();
       listOfSuggestion = [];
       for (let category of distinctAccountCategory) {
         category = category.toJSON();
-        if (category.uk_sic_2007_code) {
-          listOfSuggestion.push(category.uk_sic_2007_code);
+        if (category.sic_section) {
+          listOfSuggestion.push(category.sic_section);
         }
       }
       options = {
