@@ -1,7 +1,6 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useStyles } from "./styles";
-import Donut from "./pieChart";
 import BarChart from "./barChart";
 import { useSelector } from "react-redux";
 
@@ -76,8 +75,7 @@ export default function Financials() {
     setByGrossProfit(data);
   };
 
-  console.log("Insights  financials", Insights);
-  console.log("turnover", byTurnover);
+
   return (
     <>
       <Grid

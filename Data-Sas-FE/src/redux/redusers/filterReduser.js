@@ -17,7 +17,6 @@ const filterReduser = (state = initialState, action) => {
         }
         case SET_FILTER_VALUES: {
             const val = action.payload
-            console.log({state , val})
             return {
                 ...state, selectedFilterValues: {...state.selectedFilterValues , [val.filterName]: val.values }
             }

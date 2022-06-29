@@ -1,26 +1,33 @@
-import { Grid, Paper, Typography, Button,  Menu,
-  MenuItem,  DialogTitle } from "@mui/material";
-import React, { useEffect, useState, Suspense, lazy  } from "react";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  DialogTitle,
+} from "@mui/material";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { useStyles } from "./styles";
 // import MapComponent from "./mapComponent";
 import { useSelector } from "react-redux";
 // import countyData from './mapComponent/County.json'
 
-import FilterDropdown from './Filters/FilterDropdown'
+import FilterDropdown from "./Filters/FilterDropdown";
 
 const MapComponent = lazy(() => import("./mapComponent"));
 
 export default function Geography() {
   const classess = useStyles();
-  const { InsightsByRegion, InsightsByCounty ,InsightsFilterList  } = useSelector((state) => state.company);
-  console.log("InsightsByRegion .",InsightsByRegion );
+  const { InsightsByRegion, InsightsByCounty, InsightsFilterList } =
+    useSelector((state) => state.company);
   const [byRegion, setByReagion] = useState([]);
-  const [byCounty, setByCounty]= useState([]);
-  const [filterByCounty, setFilterByCounty] = useState('');
-  const [ byCountyFilterValue  , setByCountyFilterValue] = useState(null)
+  const [byCounty, setByCounty] = useState([]);
+  const [filterByCounty, setFilterByCounty] = useState("");
+  const [byCountyFilterValue, setByCountyFilterValue] = useState(null);
 
-  const [filterByRegion, setFilterByRegion] = useState('');
-  const [ byRegionFilterValue  , setByRegionFilterValue] = useState(null)
+  const [filterByRegion, setFilterByRegion] = useState("");
+  const [byRegionFilterValue, setByRegionFilterValue] = useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -32,33 +39,28 @@ export default function Geography() {
     setAnchorEl(null);
   };
 
-  useEffect(() =>{
-    if(InsightsFilterList){
-      const byCounty = InsightsFilterList.filter(({name})=> name === "county")[0].suggestions
-       const byRegion = InsightsFilterList.filter(({name})=> name ===  "region")[0].suggestions
-      // const byTurnover = InsightsFilterList.filter(({name})=> name === "turnover")[0].suggestions
-      
-      setByCountyFilterValue(byCounty)
-       setByRegionFilterValue(byRegion)
-      // setByTurnoverFilterValue(byTurnover)
-    }
-  },[InsightsFilterList])
+  useEffect(() => {
+    if (InsightsFilterList) {
+      const byCounty = InsightsFilterList.filter(
+        ({ name }) => name === "county"
+      )[0]?.suggestions;
+      const byRegion = InsightsFilterList.filter(
+        ({ name }) => name === "region"
+      )[0]?.suggestions;
 
+      setByCountyFilterValue(byCounty);
+      setByRegionFilterValue(byRegion);
+    }
+  }, [InsightsFilterList]);
 
   useEffect(() => {
-    if (InsightsByRegion ) {
-      console.log("by region ,", InsightsByRegion);
-      // handleByRegion(Insights.companiesByRegion);
-      setByReagion(InsightsByRegion )
+    if (InsightsByRegion) {
+      setByReagion(InsightsByRegion);
     }
-    if(InsightsByCounty){
-      console.log("by InsightsByCounty ,", InsightsByCounty);
-      // handleByRegion(Insights.companiesByRegion);
-      setByCounty(InsightsByCounty)
+    if (InsightsByCounty) {
+      setByCounty(InsightsByCounty);
     }
   }, [InsightsByRegion, InsightsByCounty]);
-
-  // console.log({byCounty , countyData })
 
   return (
     <>
@@ -94,7 +96,7 @@ export default function Geography() {
             Filter
           </Button>
           <Menu
-          components='div'
+            components="div"
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
@@ -105,16 +107,30 @@ export default function Geography() {
           >
             <div className={classess.menu}>
               <MenuItem>
-              <DialogTitle className={classess.filtertitle}>Geography</DialogTitle>
-              </MenuItem>
-            
-              <MenuItem>
-              <FilterDropdown title="By County"  value={filterByCounty} onChange={setFilterByCounty} filterValue={byCountyFilterValue} />
+                <DialogTitle className={classess.filtertitle}>
+                  Geography
+                </DialogTitle>
               </MenuItem>
 
               <MenuItem>
-              <FilterDropdown title="By Region"  value={filterByRegion} onChange={setFilterByRegion} filterValue={byRegionFilterValue} />
-              </MenuItem>                    
+                <FilterDropdown
+                  title="By County"
+                  multiple={true}
+                  value={filterByCounty}
+                  onChange={setFilterByCounty}
+                  filterValue={byCountyFilterValue}
+                />
+              </MenuItem>
+
+              <MenuItem>
+                <FilterDropdown
+                  title="By Region"
+                  multiple={true}
+                  value={filterByRegion}
+                  onChange={setFilterByRegion}
+                  filterValue={byRegionFilterValue}
+                />
+              </MenuItem>
             </div>
           </Menu>
         </Grid>
@@ -148,13 +164,13 @@ export default function Geography() {
                   Business By County
                 </Typography>
                 <Suspense
-    fallback={
-      <div>
-        <h1>LOADING Map .... </h1>
-      </div>
-    }
-  > 
-                <MapComponent data={byCounty} />
+                  fallback={
+                    <div>
+                      <h1>LOADING Map .... </h1>
+                    </div>
+                  }
+                >
+                  <MapComponent data={byCounty} />
                 </Suspense>
               </div>
             </Grid>
@@ -165,13 +181,13 @@ export default function Geography() {
                 </Typography>
 
                 <Suspense
-    fallback={
-      <div>
-        <h1>LOADING Map .... </h1>
-      </div>
-    }
-  > 
-                <MapComponent data={byRegion} />
+                  fallback={
+                    <div>
+                      <h1>LOADING Map .... </h1>
+                    </div>
+                  }
+                >
+                  <MapComponent data={byRegion} />
                 </Suspense>
               </div>
             </Grid>

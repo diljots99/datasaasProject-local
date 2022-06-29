@@ -51,16 +51,8 @@ export const logout = () => {
 
 export const updateUser = (req, prevData) => {
   return async (dispatch) => {
-    let dataToken = JSON.parse(sessionStorage.getItem("userData"))
-    console.log("😎😋😊😋😊",dataToken.token)
     await axios
-      .put(`${BASE_URL}/api/user//user`, req, 
-      // {
-      //   headers: {
-      //       'Authorization': `Bearer ${dataToken.token}`
-      //   }
-      // }
-      )
+      .put(`${BASE_URL}/api/user//user`, req )
       .then((res) => {
         const response = res.data;
 
@@ -86,16 +78,8 @@ export const updateUser = (req, prevData) => {
 
 export const changePassword = (req, prevData) => {
   return async (dispatch) => {
-    let dataToken = JSON.parse(sessionStorage.getItem("userData"))
-    console.log("😎😋😊😋😊",dataToken.token)
     await axios
-      .post(`${BASE_URL}/api/user//user-change-password`, req, 
-      //  {
-      //   headers: {
-      //       'Authorization': `Bearer ${dataToken.token}`
-      //   }
-      // }
-      )
+      .post(`${BASE_URL}/api/user//user-change-password`, req)
       .then((res) => {
         const response = res.data;
 

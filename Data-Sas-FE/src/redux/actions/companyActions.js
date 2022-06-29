@@ -18,7 +18,6 @@ export const getProple=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/people`, header() )
         .then(res =>{
-            console.log("people response ", res)
             if(res.data.status === true)
             dispatch({type: SET_PEOPLE , payload: res.data})
         }).catch(err=>console.log(err))
@@ -30,7 +29,6 @@ export const getDirectors =(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/directors`, header() )
         .then(res =>{
-            console.log("Directors response ", res)
             if(res.data.status === true)
             dispatch({type: SET_DIRECTORS , payload: res.data})
         }).catch(err=>console.log(err))
@@ -42,7 +40,6 @@ export const getTradingAddress=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/tradingAddress`, header() )
         .then(res =>{
-            console.log("get Trading Address ", res.data)
             if(res.data.status === true)
             dispatch({type: SET_TRADING_ADDRESS , payload: res.data.result})
         }).catch(err=>console.log(err))
@@ -52,9 +49,7 @@ export const getTradingAddress=(uuid)=>{
 export const getTrade=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/trade`, header() )
-        .then(res =>{
-            // console.log("get Trade", res , res.data.result)
-           
+        .then(res =>{          
             if(res.data.status === true)
             dispatch({type: SET_TRADE , payload: res.data.result.trade})
         }).catch(err=>console.log(err))
@@ -65,8 +60,6 @@ export const getAbout=(uuid)=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/business/${uuid}/overview/about`, header() )
         .then(res =>{
-            // console.log("get about", res , res.data.result)
-           
             if(res.data.status === true)
             dispatch({type: SET_ABOUT , payload: res.data.result})
         }).catch(err=>console.log(err))
@@ -78,9 +71,7 @@ export const getAbout=(uuid)=>{
 export const getInsights =()=>{
     return (dispatch)=>{
         axios.post(`${BASE_URL}/api/insights`, {},header() )
-        .then(res =>{
-             console.log("get INDSIGHTS", res )
-           
+        .then(res =>{  
             if(res.data.status === true)
             dispatch({type: SET_INSIGHTS , payload: res.data})
         }).catch(err=>console.log(err))
@@ -90,9 +81,7 @@ export const getInsights =()=>{
 export const getInsightsByRegions =()=>{
     return (dispatch)=>{
         axios.post(`${BASE_URL}/api/insights/companiesByRegion`, {},header() )
-        .then(res =>{
-             console.log("get INDSIGHTS by companiesByRegion", res )
-           
+        .then(res =>{        
             if(res.data.status === true)
             dispatch({type: SET_INSIGHTS_BY_REGION , payload: res.data.result.companiesByRegion})
         }).catch(err=>console.log(err))
@@ -102,9 +91,7 @@ export const getInsightsByRegions =()=>{
 export const getInsightsByCounty =()=>{
     return (dispatch)=>{
         axios.post(`${BASE_URL}/api/insights/companiesByCounty`, {},header() )
-        .then(res =>{
-             console.log("get INDSIGHTS by ByCounty ", res )
-           
+        .then(res =>{           
             if(res.data.status === true)
             dispatch({type: SET_INSIGHTS_BY_COUNTY , payload: res.data.result.companiesByCounty})
         }).catch(err=>console.log(err))
@@ -115,8 +102,6 @@ export const getInsightsFilterList =()=>{
     return (dispatch)=>{
         axios.get(`${BASE_URL}/api/filters/insights-search/listAll`, header() )
         .then(res =>{
-             console.log("get SET_INSIGHTS_FILTER_LIST ", res )
-           
             if(res.data.status === "true")
             dispatch({type: SET_INSIGHTS_FILTER_LIST , payload: res.data.result})
         }).catch(err=>console.log(err))

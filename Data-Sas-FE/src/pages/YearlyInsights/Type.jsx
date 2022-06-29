@@ -6,39 +6,21 @@ import {
   Button,
   Menu,
   MenuItem,
-  InputAdornment,
-  TextField,
-  IconButton,
-  Dialog,
   DialogTitle,
-  DialogActions,
-  DialogContent,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  Select,
-  InputLabel,
-  FormControl,
-  Box,
-  OutlinedInput,
-  Checkbox,
-  ListItemText
 } from "@mui/material";
 import { useStyles } from "./styles";
-import Donut from "./pieChart";
 import BarChart from "./barChart";
 import { useSelector } from "react-redux";
 import DonutChart from "./Donut";
 
-import FilterDropdown from './Filters/FilterDropdown'
-import FilterMinMax from './Filters/FilterMinMax'
-
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
+import FilterDropdown from "./Filters/FilterDropdown";
+import FilterMinMax from "./Filters/FilterMinMax";
 
 export default function Type() {
   const classess = useStyles();
-  const { Insights, InsightsFilterList } = useSelector((state) => state.company);
+  const { Insights, InsightsFilterList } = useSelector(
+    (state) => state.company
+  );
   const [byStatus, setByStatus] = useState({});
   const [byAccountCategory, setByAccountCategory] = useState({});
   const [byTypes, setByTypes] = useState({});
@@ -46,17 +28,18 @@ export default function Type() {
   const [byEmployeeSize, setByEmployeeSize] = useState([]);
   const [byTurnover, setByTurnover] = useState([]);
 
-  const [filterByStatus, setFilterByStatus] = useState('');
-  const [ byStatusFilterValue  , setBystatusFilterValue] = useState(null)
-  const [filterBySize, setFilterBySize] = useState('');
-  const [ bySizeFilterValue  , setBysizeFilterValue] = useState(null)
-  const [filterByTurnover, setFilterByTurnover] = useState('');
-  const [ byTurnoverFilterValue  , setByTurnoverFilterValue] = useState(null)
-  const [filterByType, setFilterByType] = useState('');
-  const [ byTypeFilterValue  , setByTypeFilterValue] = useState(null)
+  const [filterByStatus, setFilterByStatus] = useState("");
+  const [byStatusFilterValue, setBystatusFilterValue] = useState(null);
+  const [filterBySize, setFilterBySize] = useState("");
+  const [bySizeFilterValue, setBysizeFilterValue] = useState(null);
+  const [filterByTurnover, setFilterByTurnover] = useState("");
+  const [byTurnoverFilterValue, setByTurnoverFilterValue] = useState(null);
+  const [filterByType, setFilterByType] = useState("");
+  const [byTypeFilterValue, setByTypeFilterValue] = useState(null);
   const [filterByAgeofBusiness, setFilterByAgeofBusiness] = useState({
-    min:0, max:1
-  })
+    min: 0,
+    max: 1,
+  });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -67,18 +50,28 @@ export default function Type() {
     setAnchorEl(null);
   };
 
-console.log("InsightsFilterList",InsightsFilterList)
+  useEffect(() => {
+    if (InsightsFilterList) {
+      const bySize = InsightsFilterList.filter(({ name }) => name === "size")[0]
+        ?.suggestions;
+      const byType = InsightsFilterList.filter(({ name }) => name === "type")[0]
+        ?.suggestions;
+      const byTurnover = InsightsFilterList.filter(
+        ({ name }) => name === "turnover"
+      )[0]?.suggestions;
 
-useEffect(() =>{
-  if(InsightsFilterList){
-    const bySize = InsightsFilterList.filter(({name})=> name === "size")[0].suggestions
-    const byType = InsightsFilterList.filter(({name})=> name === "type")[0].suggestions
-    const byTurnover = InsightsFilterList.filter(({name})=> name === "turnover")[0].suggestions
-    setByTypeFilterValue(byType)
-    setBysizeFilterValue(bySize)
-    setByTurnoverFilterValue(byTurnover)
-  }
-},[InsightsFilterList])
+      const byStatus = InsightsFilterList.filter(
+        ({ name }) => name === "status"
+      )[0]?.suggestions;
+
+      setByTypeFilterValue(byType);
+      setBysizeFilterValue(bySize);
+      setByTurnoverFilterValue(byTurnover);
+      setBystatusFilterValue(byStatus);
+    }
+  }, [InsightsFilterList]);
+
+  console.log("InsightsFilterList",InsightsFilterList)
 
   useEffect(() => {
     if (Insights.companiesByStatus) {
@@ -103,7 +96,6 @@ useEffect(() =>{
 
   const handleByStatus = (value) => {
     let data = [];
-    let filterValue = []
     let total = value.reduce((total, val) => total + val.statusCount, 0);
     value.forEach((val) => {
       let per = (val.statusCount / total) * 100;
@@ -111,10 +103,8 @@ useEffect(() =>{
         name: val.status,
         y: per,
       });
-      filterValue.push(val.status)
     });
     setByStatus(data);
-    setBystatusFilterValue(filterValue)
   };
 
   const handleByAccountCategory = (value) => {
@@ -148,7 +138,6 @@ useEffect(() =>{
       lables.push(val.type);
     });
     setByTypes(data);
-   
   };
 
   const handleByBusinessAge = (value) => {
@@ -167,13 +156,13 @@ useEffect(() =>{
     let data = [];
 
     value.forEach((val) => {
-      if (val.size_class_estimate !== null){
+      if (val.size_class_estimate !== null) {
         data.unshift({
-          x: val.size_class_estimate === null ? "null" : val.size_class_estimate,
+          x:
+            val.size_class_estimate === null ? "null" : val.size_class_estimate,
           y: val.number_of_companies,
         });
-
-      } 
+      }
     });
     setByEmployeeSize(data);
   };
@@ -181,7 +170,7 @@ useEffect(() =>{
   const handleByTurnover = (value) => {
     let data = [];
     value.forEach((val) => {
-      if (val.turnover_class_estimate !== null){
+      if (val.turnover_class_estimate !== null) {
         data.unshift({
           x:
             val.turnover_class_estimate === null
@@ -189,20 +178,20 @@ useEffect(() =>{
               : val.turnover_class_estimate,
           y: val.number_of_companies,
         });
-      
       }
-      
     });
     setByTurnover(data);
-
   };
-// console.log("byStatusFilterValue",byStatusFilterValue)
 
+  const updateAgeOfBusiness = (e) => {
+    const { name, value: val } = e.target;
+    setFilterByAgeofBusiness({ ...filterByAgeofBusiness, [name]: val });
+  };
 
-const updateAgeOfBusiness = (e)=>{
-  const {name, value : val} = e.target
-  setFilterByAgeofBusiness({...filterByAgeofBusiness, [name]:val})
-}
+  const ApplyFilter =()=>{
+console.log({filterByStatus, filterBySize, filterByType,filterByAgeofBusiness})
+
+  }
 
   return (
     <>
@@ -238,7 +227,7 @@ const updateAgeOfBusiness = (e)=>{
             Filter
           </Button>
           <Menu
-          components='div'
+            components="div"
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
@@ -249,29 +238,88 @@ const updateAgeOfBusiness = (e)=>{
           >
             <div className={classess.menu}>
               <MenuItem>
-              <DialogTitle className={classess.filtertitle}>Type</DialogTitle>
-              </MenuItem>
-            
-              <MenuItem>
-              <FilterDropdown title="By Status"  value={filterByStatus} onChange={setFilterByStatus} filterValue={byStatusFilterValue} />
+                <DialogTitle className={classess.filtertitle}>Type</DialogTitle>
               </MenuItem>
 
               <MenuItem>
-              <FilterDropdown title="By Size"  value={filterBySize} onChange={setFilterBySize} filterValue={bySizeFilterValue} />
+                <FilterDropdown
+                  title="By Status"
+                  multiple={true}
+                  value={filterByStatus}
+                  onChange={setFilterByStatus}
+                  filterValue={byStatusFilterValue}
+                />
               </MenuItem>
 
               <MenuItem>
-              <FilterDropdown title="By TurnOver"  value={filterByTurnover} onChange={setFilterByTurnover} filterValue={byTurnoverFilterValue} />
+                <FilterDropdown
+                  title="By Size"
+                  multiple={true}
+                  value={filterBySize}
+                  onChange={setFilterBySize}
+                  filterValue={bySizeFilterValue}
+                />
               </MenuItem>
 
               <MenuItem>
-              <FilterDropdown title="By Type"  value={filterByType} onChange={setFilterByType} filterValue={byTypeFilterValue} />
+                <FilterDropdown
+                  title="By TurnOver"
+                  multiple={true}
+                  value={filterBySize}
+                  onChange={setFilterByTurnover}
+                  filterValue={byTurnoverFilterValue}
+                />
               </MenuItem>
 
               <MenuItem>
-              <FilterMinMax  value={filterByAgeofBusiness} setValues={updateAgeOfBusiness} title="By Age of Business"/>
+                <FilterDropdown
+                  title="By Type"
+                  multiple={true}
+                  value={filterByType}
+                  onChange={setFilterByType}
+                  filterValue={byTypeFilterValue}
+                />
               </MenuItem>
-                    
+
+              <MenuItem>
+                <FilterMinMax
+                  value={filterByAgeofBusiness}
+                  setValues={updateAgeOfBusiness}
+                  title="By Age of Business"
+                />
+              </MenuItem>
+
+              <MenuItem>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#40ACFB",
+                    color: "#fff!important",
+                    fontFamily: "Poppins",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "44px",
+                  }}
+                  onClick={ApplyFilter}
+                >
+                  Apply
+                </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#FFFFFF",
+                    color: "gray",
+                    fontFamily: "Poppins",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "44px",
+                    margin:'0 5px'
+                  }}
+                  onClick={handleClose}
+                >
+                  Reset
+                </Button>
+              </MenuItem>
             </div>
           </Menu>
         </Grid>

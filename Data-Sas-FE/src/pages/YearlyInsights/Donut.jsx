@@ -13,13 +13,13 @@ class Donut extends Component {
 			title: {
 				text: this.props.title
 			},
-			chart: {
-				events: {
-				  dataPointSelection: (event, chartContext, config) => {
-					console.log("Donut chare onClick",config.w.config.labels[config.dataPointIndex]);
-				  }
-				}
-			  },
+			// chart: {
+			// 	events: {
+			// 	  dataPointSelection: (event, chartContext, config) => {
+			// 		console.log("Donut chare onClick",config.w.config.labels[config.dataPointIndex]);
+			// 	  }
+			// 	}
+			//   },
 			// subtitles: [{
 			// 	text: "71% Positive",
 			// 	verticalAlign: "center",
