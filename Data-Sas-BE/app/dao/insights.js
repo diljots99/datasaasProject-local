@@ -46,7 +46,8 @@ async function getCompaniesByEmployeeSize(data) {
             [Sequelize.fn('COUNT',Sequelize.col('size_class_estimate')),"number_of_companies"]
             
         ],
-        group:['size_class_estimate']
+        group:['size_class_estimate'],
+        ...data
     })
 }
 async function getCompaniesByTurnover(data) {
@@ -90,7 +91,8 @@ async function getCompaniesByTurnover(data) {
             [Sequelize.fn('COUNT',Sequelize.col('turnover_class_estimate')),"number_of_companies"]
             
         ],
-        group:['turnover_class_estimate']
+        group:['turnover_class_estimate'],
+        ...data
     })
     
 }
@@ -152,35 +154,40 @@ async function getCompaniesByType(data) {
 async function getCompaniesByExporter(data) {
     return await getCompanies({
         attributes: ["exporter", [Sequelize.fn('COUNT', 'exporter'), 'exporterCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "exporter"
+        group: "exporter",
+        ...data
     })
 }
 
 async function getCompaniesByImporter(data) {
     return await getCompanies({
         attributes: ["importer", [Sequelize.fn('COUNT', 'importer'), 'importerCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "importer"
+        group: "importer",
+        ...data
     })
 }
 
 async function getCompaniesBySector(data) {
     return await getCompanies({
         attributes: ["main_sector", [Sequelize.fn('COUNT', 'main_sector'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "main_sector"
+        group: "main_sector",
+        ...data
     })
 }
 
-async function getCompaniesBySICSection() {
+async function getCompaniesBySICSection(data) {
     return await getCompanies({
         attributes: ["sic_section", [Sequelize.fn('COUNT', 'sic_section'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "sic_section"
+        group: "sic_section",
+        ...data
     })
 }
 
-async function getCompaniesBySICDivision() {
+async function getCompaniesBySICDivision(data) {
     return await getCompanies({
         attributes: ["sic_division", [Sequelize.fn('COUNT', 'sic_division'), 'sectorCount'], [Sequelize.literal('(count(*)  * 100.0 / SUM(COUNT(*))  OVER() )'), "percentage"]],
-        group: "sic_division"
+        group: "sic_division",
+        ...data
     })
 }
 
@@ -214,7 +221,7 @@ async function getCompaniesByEquity(data) {
 
 
     })
-}   
+}
 async function getCompaniesByGrossProfit(data) {
     
 
@@ -294,20 +301,20 @@ async function getCompaniesByCounty(data){
             "county",
             "country",
             [Sequelize.fn("COUNT",Sequelize.col("county")),"number_of_companies"]
-        ]
+        ],
+        ...data
     });
 }
 
 async function getCompaniesByRegion(data){
-    return await model.company_location_gen.findAll({
-        group:["address_region"],
+    return await model.companies.findAll({
+        group:["region"],
         attributes:[
-            "address_region",
-            [Sequelize.fn("COUNT",Sequelize.col("address_region")),"number_of_companies"]
+            "region",
+            "country",
+            [Sequelize.fn("COUNT",Sequelize.col("region")),"number_of_companies"]
         ],
-        where:{
-            address_type : "Registered Address"
-        }
+        ...data
     });
 }
 

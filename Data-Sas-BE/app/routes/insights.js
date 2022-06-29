@@ -12,11 +12,41 @@ const JWT = require("../utils/auth");
  *   post:  
  *     summary: 
  *     tags: [Insights]
- *     description: 
+ *     description:  type | status |size | turnover | county | region | exporter | importer | sic section
  *     produces:
  *       - application/json
  *     security:
- *       - jwt: []  
+ *       - jwt: [] 
+ *     requestBody:
+ *        description:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                page:
+ *                  type: integer
+ *                  default: 1
+ *                items_per_page:
+ *                  type: integer
+ *                  default: 25
+ *                query:
+ *                  type: string
+ *                filterData:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          chip_group:
+ *                             type: string
+ *                          chip_values:
+ *                             type: array
+ *                             items:
+ *                                  type: object
+ *                                  properties:
+ *                                      chip_value:
+ *                                          type: string
  *     responses:
  *          '200':  
  *              description: A Successfull response
