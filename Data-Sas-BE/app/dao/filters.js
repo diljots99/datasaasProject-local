@@ -80,6 +80,44 @@ async function getDistinctCompanyStatus() {
     group: ["company_status"],
   });
 }
+async function getDistinctCompanyType() {
+  return await model.companies.findAll({
+    attributes: ["type"],
+    group: ["type"],
+  });
+}
+
+async function getDistinctCompanySizeClassEstimate() {
+  return await model.companies.findAll({
+    attributes: ["size_class_estimate"],
+    group: ["size_class_estimate"],
+  });
+}
+async function getDistinctCompanyByAge() {
+  return await model.companies.findAll({
+    attributes: ["age_of_business"],
+    group: ["age_of_business"],
+  });
+}
+async function getDistinctInsightsCompanyByCounty() {
+  return await model.companies.findAll({
+    attributes: ["county"],
+    group: ["county"],
+  });
+}
+async function getDistinctInsightsCompanyByRegion() {
+  return await model.companies.findAll({
+    attributes: ["region"],
+    group: ["region"],
+  });
+}
+
+async function getDistinctCompanyTurnoverClassEstimate() {
+  return await model.companies.findAll({
+    attributes: ["turnover_class_estimate"],
+    group: ["turnover_class_estimate"],
+  });
+}
 
 async function getDistinctCompanyCategory() {
   return await model.compines_offical.findAll({
@@ -189,6 +227,12 @@ async function getDistinctImporter() {
     group: ["importer"],
   });
 }
+async function getDistinctSicSection() {
+  return await model.companies.findAll({
+    attributes: ["sic_section"],
+    group: ["sic_section"],
+  });
+}
 
 
 
@@ -219,5 +263,12 @@ module.exports = {
   getDistinctPSCCountryOfResidence,
   getDistinctExporter,
   getDistinctImporter,
-  getAllInsightsSearchFilters
+  getAllInsightsSearchFilters,
+  getDistinctCompanySizeClassEstimate,
+  getDistinctCompanyTurnoverClassEstimate,
+  getDistinctCompanyByAge,
+  getDistinctInsightsCompanyByCounty,
+  getDistinctInsightsCompanyByRegion,
+  getDistinctCompanyType,
+  getDistinctSicSection
 };
