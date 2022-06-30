@@ -10,12 +10,14 @@ import {
 import React, { useState, useEffect } from "react";
 import { useStyles } from "./styles";
 import BarChart from "./barChart";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
 import DonutChart from "./Donut";
 import FilterDropdown from "./Filters/FilterDropdown";
+import {getInsights} from '../../redux/actions/companyActions'
 
 export default function Activites() {
   const classess = useStyles();
+  const dispatch = useDispatch()
   const { Insights, InsightsFilterList } = useSelector(
     (state) => state.company
   );
@@ -165,6 +167,41 @@ export default function Activites() {
     setBySICCode(data);
   };
 
+  const ApplyFilter =()=>{
+    console.log({})
+     const req = {
+      "filterData":  [{
+        chip_group: "sic section",
+        chip_values: filterBySisSection ? filterBySisSection.map(({value})=> ( {
+          "chip_value": value
+        }) ) : [],
+      },
+    {   chip_group: "importer",
+    chip_values: filterByImporters ? [{
+      "chip_value": filterByImporters
+    }] : [],
+    },
+    {  chip_group: "exporter",
+    chip_values: filterByExpoters ?  [{
+      "chip_value": filterByExpoters
+    }] : [],
+    }
+     ]
+    }
+    
+    console.log("insights type filter req",req)
+    dispatch(getInsights(req))
+    handleClose()
+    }
+    
+    const ApplyReset =()=>{
+      dispatch(getInsights())
+      setFilterByExpoters('')
+      setFilterByImporters('')
+      setFilterBySisSection('')
+      handleClose()
+    }
+
   return (
     <>
       <Grid
@@ -210,7 +247,7 @@ export default function Activites() {
           >
             <div className={classess.menu}>
               <MenuItem>
-                <DialogTitle className={classess.filtertitle}>Type</DialogTitle>
+                <DialogTitle className={classess.filtertitle}>Activitys</DialogTitle>
               </MenuItem>
 
               <MenuItem>
@@ -239,6 +276,38 @@ export default function Activites() {
                   onChange={setFilterByExpoters}
                   filterValue={byExpotersFilterValue}
                 />
+              </MenuItem>
+
+              <MenuItem>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#40ACFB",
+                    color: "#fff!important",
+                    fontFamily: "Poppins",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "44px",
+                  }}
+                  onClick={ApplyFilter}
+                >
+                  Apply
+                </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#FFFFFF",
+                    color: "gray",
+                    fontFamily: "Poppins",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "44px",
+                    margin:'0 5px'
+                  }}
+                  onClick={ApplyReset}
+                >
+                  Reset
+                </Button>
               </MenuItem>
             </div>
           </Menu>

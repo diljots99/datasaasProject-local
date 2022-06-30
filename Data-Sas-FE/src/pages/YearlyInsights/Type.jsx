@@ -10,14 +10,15 @@ import {
 } from "@mui/material";
 import { useStyles } from "./styles";
 import BarChart from "./barChart";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import DonutChart from "./Donut";
-
+import {getInsights} from '../../redux/actions/companyActions'
 import FilterDropdown from "./Filters/FilterDropdown";
 import FilterMinMax from "./Filters/FilterMinMax";
 
 export default function Type() {
   const classess = useStyles();
+  const dispatch = useDispatch()
   const { Insights, InsightsFilterList } = useSelector(
     (state) => state.company
   );
@@ -190,8 +191,51 @@ export default function Type() {
 
   const ApplyFilter =()=>{
 console.log({filterByStatus, filterBySize, filterByType,filterByAgeofBusiness})
+ const req = {
+  "filterData":  [{
+    chip_group: "size",
+    chip_values: filterBySize ? filterBySize.map(({value})=> ( {
+      "chip_value": value
+    }) ) : [],
+  },
+{   chip_group: "type",
+chip_values: filterByType ? filterByType.map(({value})=> ( {
+  "chip_value": value
+})) : [],
+},
+{  chip_group: "turnover",
+chip_values: filterByTurnover ? filterByTurnover.map(({value})=> ( {
+  "chip_value": value
+})) : [],
+},
+{ chip_group: "status", 
+chip_values: filterByStatus ? filterByTurnover.map(({value})=> ( {
+  "chip_value": value
+})) : [],
+},
+{ chip_group: "age_of_business", 
+chip_values: filterByAgeofBusiness ? [{  "chip_value": filterByAgeofBusiness.min },{  "chip_value": filterByAgeofBusiness.max }] : []
+}
+ ]
+}
 
-  }
+console.log("insights type filter req",req)
+dispatch(getInsights(req))
+handleClose()
+}
+
+const ApplyReset =()=>{
+  dispatch(getInsights())
+  setFilterByAgeofBusiness({
+    min: 0,
+    max: 1,
+  })
+  setFilterByType('')
+  setFilterByTurnover('')
+  setFilterBySize('')
+  setFilterByStatus('')
+  handleClose()
+}
 
   return (
     <>
@@ -265,7 +309,7 @@ console.log({filterByStatus, filterBySize, filterByType,filterByAgeofBusiness})
                 <FilterDropdown
                   title="By TurnOver"
                   multiple={true}
-                  value={filterBySize}
+                  value={filterByTurnover}
                   onChange={setFilterByTurnover}
                   filterValue={byTurnoverFilterValue}
                 />
@@ -315,7 +359,7 @@ console.log({filterByStatus, filterBySize, filterByType,filterByAgeofBusiness})
                     lineHeight: "44px",
                     margin:'0 5px'
                   }}
-                  onClick={handleClose}
+                  onClick={ApplyReset}
                 >
                   Reset
                 </Button>

@@ -68,9 +68,9 @@ export const getAbout=(uuid)=>{
 
 
 // for Insights 
-export const getInsights =()=>{
+export const getInsights =(req)=>{
     return (dispatch)=>{
-        axios.post(`${BASE_URL}/api/insights`, {},header() )
+        axios.post(`${BASE_URL}/api/insights`, req ? req : {},header() )
         .then(res =>{  
             if(res.data.status === true)
             dispatch({type: SET_INSIGHTS , payload: res.data})
@@ -107,3 +107,4 @@ export const getInsightsFilterList =()=>{
         }).catch(err=>console.log(err))
     }
 }
+

@@ -131,6 +131,38 @@ export default function Geography() {
                   filterValue={byRegionFilterValue}
                 />
               </MenuItem>
+
+              <MenuItem>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#40ACFB",
+                    color: "#fff!important",
+                    fontFamily: "Poppins",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "44px",
+                  }}
+                  onClick={()=>handleClose()}
+                >
+                  Apply
+                </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    background: "#FFFFFF",
+                    color: "gray",
+                    fontFamily: "Poppins",
+                    fontWeight: "500",
+                    fontSize: "18px",
+                    lineHeight: "44px",
+                    margin:'0 5px'
+                  }}
+                  onClick={()=>handleClose()}
+                >
+                  Reset
+                </Button>
+              </MenuItem>
             </div>
           </Menu>
         </Grid>
